@@ -1,0 +1,13 @@
+dist
+data
+node_modules
+.env
+.DS_Store
+.vscode
+cache
+lib/           
+out/             
+cache/           
+broadcast/       
+*.tsol         
+*.swp       
