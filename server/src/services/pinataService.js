@@ -1,4 +1,5 @@
 const { env, ensurePinataConfig } = require("../config/env");
+const metrics = require("../utils/metrics");
 
 const PIN_JSON_ENDPOINT = "https://api.pinata.cloud/pinning/pinJSONToIPFS";
 
@@ -25,6 +26,7 @@ function buildGatewayUrl(cid) {
 async function pinJSON(content, { name } = {}) {
   ensurePinataConfig();
 
+  const start = Date.now();
   const response = await fetch(PIN_JSON_ENDPOINT, {
     method: "POST",
     headers: {
@@ -38,6 +40,8 @@ async function pinJSON(content, { name } = {}) {
       },
     }),
   });
+  const elapsed = Date.now() - start;
+  metrics.recordMetric("pinata_upload_ms", elapsed);
 
   if (!response.ok) {
     const errorBody = await response.text();

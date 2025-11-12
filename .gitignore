@@ -11,3 +11,4 @@ cache/
 broadcast/       
 *.tsol         
 *.swp       
+/server/metrics/data.json

@@ -32,6 +32,14 @@ cp .env.example .env    # fill VITE_* values matching backend
 npm run dev             # http://localhost:5173
 ```
 
+## Collecting Metrics
+- Runtime metrics (draft creation time, finalization latency, gas usage, Pinata upload time, API latency) are logged automatically to `server/metrics/data.json`.
+- Generate a summary table anytime with:
+  ```bash
+  node scripts/metrics-report.js
+  ```
+  (Ensure you’ve exercised the flows so metrics exist.)
+
 ## Workflow
 1. **Doctor (allow-listed)**
    - Connect wallet → Draft prescription (`submitDraft` + Pinata pin)

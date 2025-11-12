@@ -15,6 +15,7 @@ import {
   fetchPatientPrescriptions,
   fetchRequests,
 } from "./services/prescriptionApi";
+import { logMetric } from "./services/metricsApi";
 import { appConfig } from "./config";
 import { PRESCRIPTION_REGISTRY_ABI } from "./lib/abi";
 
@@ -164,6 +165,7 @@ function App() {
 
   const waitForReceiptAndDecode = async (hash, eventName) => {
     const receipt = await publicClient.waitForTransactionReceipt({ hash });
+    let eventArgs = null;
     for (const log of receipt.logs) {
       if (log.address.toLowerCase() !== CONTRACT_ADDRESS?.toLowerCase()) continue;
       try {
@@ -173,13 +175,14 @@ function App() {
           topics: log.topics,
         });
         if (decoded.eventName === eventName) {
-          return decoded.args;
+          eventArgs = decoded.args;
+          break;
         }
       } catch {
         // ignore logs we cannot decode
       }
     }
-    return null;
+    return { eventArgs, receipt };
   };
 
   const handleCreatePrescription = async (event) => {
@@ -193,6 +196,7 @@ function App() {
 
     try {
       setPrescriptionSubmitting(true);
+      const draftStart = performance.now();
       const txHash = await writeContractAsync({
         address: CONTRACT_ADDRESS,
         abi: PRESCRIPTION_REGISTRY_ABI,
@@ -200,7 +204,7 @@ function App() {
         args: [prescriptionForm.patientAddress],
       });
 
-      const eventArgs = await waitForReceiptAndDecode(txHash, "DraftCreated");
+      const { eventArgs } = await waitForReceiptAndDecode(txHash, "DraftCreated");
       if (!eventArgs) {
         throw new Error("Unable to read draft event");
       }
@@ -219,6 +223,7 @@ function App() {
         sender: address,
       });
       await loadRequests("drafts");
+      logMetric("draft_creation_ms", performance.now() - draftStart);
 
       setFeedback({
         type: "success",
@@ -258,13 +263,14 @@ function App() {
     if (!requireWallet()) return;
     try {
       setApprovalLoading(true);
+      const finalizeStart = performance.now();
       const txHash = await writeContractAsync({
         address: CONTRACT_ADDRESS,
         abi: PRESCRIPTION_REGISTRY_ABI,
         functionName: "finalizeDraft",
         args: [BigInt(request.draftId), request.metadataURI],
       });
-      const eventArgs = await waitForReceiptAndDecode(txHash, "DraftFinalized");
+      const { eventArgs, receipt } = await waitForReceiptAndDecode(txHash, "DraftFinalized");
       if (!eventArgs) {
         throw new Error("Unable to decode DraftFinalized event");
       }
@@ -279,6 +285,10 @@ function App() {
         },
       });
       await loadRequests("published");
+      logMetric("finalization_ms", performance.now() - finalizeStart);
+      if (receipt?.gasUsed) {
+        logMetric("gas_finalize", Number(receipt.gasUsed));
+      }
       setFeedback({
         type: "success",
         message: `Prescription #${prescriptionId} recorded on-chain.`,
@@ -294,13 +304,14 @@ function App() {
     if (!requireWallet()) return;
     try {
       setApprovalLoading(true);
+      const delegateStart = performance.now();
       const txHash = await writeContractAsync({
         address: CONTRACT_ADDRESS,
         abi: PRESCRIPTION_REGISTRY_ABI,
         functionName: "setDelegate",
         args: [request.doctorAddress, true],
       });
-      await publicClient.waitForTransactionReceipt({ hash: txHash });
+      const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
 
       await completeRequest({
         requestId: request.id,
@@ -308,6 +319,10 @@ function App() {
         payload: { transactionHash: txHash },
       });
       await loadRequests("grants");
+      logMetric("delegate_ms", performance.now() - delegateStart);
+      if (receipt?.gasUsed) {
+        logMetric("gas_delegate", Number(receipt.gasUsed));
+      }
 
       setFeedback({ type: "success", message: "Doctor granted full access." });
     } catch (error) {
