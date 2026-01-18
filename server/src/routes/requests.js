@@ -67,12 +67,22 @@ router.post("/", async (req, res, next) => {
 
     if (body.kind === "prescription") {
       assertPayloadFields(body.payload);
-      if (typeof body.draftId !== "number" || body.draftId <= 0) {
-        const err = new Error("draftId must be a positive number");
-        err.status = 400;
-        throw err;
+      // New: Validate doctor signature fields
+      if (typeof body.doctorSignature !== "string" || !body.doctorSignature.startsWith("0x")) {
+         const err = new Error("Missing or invalid doctorSignature");
+         err.status = 400;
+         throw err;
       }
-      assertTxHash(body.draftTxHash, "draftTxHash");
+      if (typeof body.nonce !== "string" && typeof body.nonce !== "number") {
+         const err = new Error("Missing nonce");
+         err.status = 400;
+         throw err;
+      }
+       if (typeof body.validUntil !== "string" && typeof body.validUntil !== "number") {
+         const err = new Error("Missing validUntil");
+         err.status = 400;
+         throw err;
+      }
     } else if (typeof body.reason !== "string" || !body.reason.trim()) {
       const err = new Error("Reason is required for access requests");
       err.status = 400;
@@ -85,8 +95,9 @@ router.post("/", async (req, res, next) => {
       kind: body.kind,
       payload: body.kind === "prescription" ? body.payload : undefined,
       reason: body.kind === "access" ? body.reason : undefined,
-      draftId: body.kind === "prescription" ? body.draftId : undefined,
-      draftTxHash: body.kind === "prescription" ? body.draftTxHash : undefined,
+      doctorSignature: body.kind === "prescription" ? body.doctorSignature : undefined,
+      nonce: body.kind === "prescription" ? body.nonce : undefined,
+      validUntil: body.kind === "prescription" ? body.validUntil : undefined,
     });
     res.status(201).json(request);
   } catch (error) {

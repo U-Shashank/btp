@@ -7,8 +7,9 @@ async function createDoctorRequest({
   kind,
   payload,
   reason,
-  draftId,
-  draftTxHash,
+  doctorSignature, // New: EIP-712 Signature from Doctor
+  nonce,           // New: Nonce used for signature
+  validUntil       // New: Expiry used for signature
 }) {
   let metadataURI;
   let ipfsHash;
@@ -20,11 +21,8 @@ async function createDoctorRequest({
       err.status = 400;
       throw err;
     }
-    if (!draftId || typeof draftId !== "number") {
-      const err = new Error("Missing on-chain draft id");
-      err.status = 400;
-      throw err;
-    }
+    // Note: draftId is no longer required on input as it's not on-chain yet
+    
     const pinPayload = {
       doctor: doctorAddress,
       patient: patientAddress,
@@ -48,11 +46,13 @@ async function createDoctorRequest({
     doctorAddress,
     patientAddress,
     kind,
-    draftId,
-    draftTxHash,
+    // Removed draftId/draftTxHash
     ipfsHash,
     metadataURI,
     payload: storedPayload,
+    doctorSignature,
+    nonce,
+    validUntil
   });
 
   return record;

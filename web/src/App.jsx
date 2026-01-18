@@ -6,6 +6,7 @@ import {
   useReadContract,
   useWriteContract,
   usePublicClient,
+  useSignTypedData,
 } from "wagmi";
 import { decodeEventLog } from "viem";
 import {
@@ -40,6 +41,7 @@ function App() {
   const { connect, connectors, status: connectStatus } = useConnect();
   const { disconnect } = useDisconnect();
   const { writeContractAsync } = useWriteContract();
+  const { signTypedDataAsync } = useSignTypedData();
   const publicClient = usePublicClient();
 
   const [prescriptionForm, setPrescriptionForm] = useState({
@@ -83,6 +85,16 @@ function App() {
 
   const isDoctor = role === "doctor";
   const isPatient = role === "patient";
+
+  const { data: doctorNonce } = useReadContract({
+    address: CONTRACT_ADDRESS,
+    abi: PRESCRIPTION_REGISTRY_ABI,
+    functionName: "nonces",
+    args: address ? [address] : undefined,
+    query: {
+      enabled: Boolean(address && isDoctor),
+    },
+  });
 
   const requireWallet = () => {
     if (!isConnected || !address) {
@@ -193,23 +205,56 @@ function App() {
       setFeedback({ type: "error", message: "Only allow-listed doctors can submit drafts." });
       return;
     }
+    if (prescriptionForm.patientAddress.toLowerCase() === CONTRACT_ADDRESS.toLowerCase()) {
+      setFeedback({
+        type: "error",
+        message: "Invalid Patient Address: You entered the contract address. Please enter the patient's wallet address.",
+      });
+      return;
+    }
 
     try {
       setPrescriptionSubmitting(true);
       const draftStart = performance.now();
-      const txHash = await writeContractAsync({
-        address: CONTRACT_ADDRESS,
-        abi: PRESCRIPTION_REGISTRY_ABI,
-        functionName: "submitDraft",
-        args: [prescriptionForm.patientAddress],
+
+      // New: Doctor signs off-chain via EIP-712
+      const medicationDetails = cleanMedications
+        .map((m) => `${m.name} (${m.dosage}, ${m.schedule})`)
+        .join("; ");
+
+      if (doctorNonce === undefined) {
+        throw new Error("Unable to fetch doctor nonce. Try again.");
+      }
+      const nonce = doctorNonce; // Current nonce from contract
+      const validUntil = Math.floor(Date.now() / 1000) + 3600 * 24; // 24 hours
+
+      const doctorSignature = await signTypedDataAsync({
+        domain: {
+          name: "PrescriptionRegistry",
+          version: "1",
+          chainId: appConfig.chainId,
+          verifyingContract: CONTRACT_ADDRESS,
+        },
+        types: {
+          Prescription: [
+            { name: "doctor", type: "address" },
+            { name: "patient", type: "address" },
+            { name: "medicationDetails", type: "string" },
+            { name: "nonce", type: "uint256" },
+            { name: "validUntil", type: "uint256" },
+          ],
+        },
+        primaryType: "Prescription",
+        message: {
+          doctor: address,
+          patient: prescriptionForm.patientAddress,
+          medicationDetails,
+          nonce: BigInt(nonce),
+          validUntil: BigInt(validUntil),
+        },
       });
 
-      const { eventArgs } = await waitForReceiptAndDecode(txHash, "DraftCreated");
-      if (!eventArgs) {
-        throw new Error("Unable to read draft event");
-      }
-      const draftId = Number(eventArgs.draftId);
-
+      // Send signed payload to API (Off-chain storage)
       await createPrescriptionRequest({
         patientAddress: prescriptionForm.patientAddress,
         payload: {
@@ -218,8 +263,9 @@ function App() {
           notes: prescriptionForm.notes,
           medications: cleanMedications,
         },
-        draftId,
-        draftTxHash: txHash,
+        doctorSignature,
+        nonce: Number(nonce),
+        validUntil,
         sender: address,
       });
       await loadRequests("drafts");
@@ -227,7 +273,7 @@ function App() {
 
       setFeedback({
         type: "success",
-        message: `Draft #${draftId} saved. Awaiting patient signature.`,
+        message: `Draft created off-chain. Awaiting patient signature.`,
       });
       setPrescriptionForm({ patientAddress: "", title: "", summary: "", notes: "" });
       setMedications([blankMedication()]);
@@ -264,15 +310,59 @@ function App() {
     try {
       setApprovalLoading(true);
       const finalizeStart = performance.now();
+
+      // 1. Patient Co-Signs (EIP-712)
+      // The patient must sign the EXACT same data the doctor signed
+      const medicationDetails =
+        request.payload?.medications
+          ?.map((m) => `${m.name} (${m.dosage}, ${m.schedule})`)
+          .join("; ") || "No medications listed";
+
+      const patientSignature = await signTypedDataAsync({
+        domain: {
+          name: "PrescriptionRegistry",
+          version: "1",
+          chainId: appConfig.chainId,
+          verifyingContract: CONTRACT_ADDRESS,
+        },
+        types: {
+          Prescription: [
+            { name: "doctor", type: "address" },
+            { name: "patient", type: "address" },
+            { name: "medicationDetails", type: "string" },
+            { name: "nonce", type: "uint256" },
+            { name: "validUntil", type: "uint256" },
+          ],
+        },
+        primaryType: "Prescription",
+        message: {
+          doctor: request.doctorAddress,
+          patient: request.patientAddress,
+          medicationDetails,
+          nonce: BigInt(request.nonce),
+          validUntil: BigInt(request.validUntil),
+        },
+      });
+
+      // 2. Submit Dual-Signed Transaction
+      // This is the "Settlement" transaction. Patient pays gas (Option 1).
       const txHash = await writeContractAsync({
         address: CONTRACT_ADDRESS,
         abi: PRESCRIPTION_REGISTRY_ABI,
-        functionName: "finalizeDraft",
-        args: [BigInt(request.draftId), request.metadataURI],
+        functionName: "registerPrescription",
+        args: [
+          request.doctorAddress,
+          request.patientAddress,
+          medicationDetails,
+          BigInt(request.validUntil),
+          request.metadataURI,
+          request.doctorSignature,
+          patientSignature,
+        ],
       });
-      const { eventArgs, receipt } = await waitForReceiptAndDecode(txHash, "DraftFinalized");
+      const { eventArgs, receipt } = await waitForReceiptAndDecode(txHash, "PrescriptionIssued");
       if (!eventArgs) {
-        throw new Error("Unable to decode DraftFinalized event");
+        throw new Error("Unable to decode PrescriptionIssued event");
       }
       const prescriptionId = Number(eventArgs.prescriptionId);
 
@@ -622,7 +712,7 @@ function App() {
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <div>
                           <p className="text-sm font-semibold text-slate-900">
-                            Draft #{req.draftId} · {req.payload?.title ?? "Untitled rx"}
+                            Draft · {req.payload?.title ?? "Untitled rx"}
                           </p>
                           <p className="text-xs text-slate-500">
                             Doctor {shorten(req.doctorAddress)} ·{" "}

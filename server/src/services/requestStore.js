@@ -41,7 +41,7 @@ async function createRequest(data) {
   const now = new Date().toISOString();
   const entry = {
     id: randomUUID(),
-    status: "pending",
+    status: "pending", // All new off-chain drafts start as pending
     createdAt: now,
     updatedAt: now,
     ...data,
@@ -73,4 +73,3 @@ module.exports = {
   createRequest,
   updateRequest,
 };
-

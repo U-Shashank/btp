@@ -28,8 +28,9 @@ async function request(path, options = {}) {
 export async function createPrescriptionRequest({
   patientAddress,
   payload,
-  draftId,
-  draftTxHash,
+  doctorSignature, // New
+  nonce,           // New
+  validUntil,      // New
   sender,
 }) {
   return request("/requests", {
@@ -42,8 +43,9 @@ export async function createPrescriptionRequest({
       kind: "prescription",
       patientAddress,
       payload,
-      draftId,
-      draftTxHash,
+      doctorSignature,
+      nonce: nonce.toString(),
+      validUntil: validUntil.toString(),
     }),
   });
 }

@@ -11,33 +11,31 @@ contract PrescriptionRegistry {
         uint256 createdAt;
     }
 
-    struct Draft {
-        address doctor;
-        address patient;
-        bool active;
-    }
+    // Removed Draft struct as it's handled off-chain
 
     mapping(uint256 => Prescription) private prescriptions;
-    mapping(uint256 => Draft) private drafts;
+    // Removed drafts mapping
     mapping(address => mapping(address => bool)) private patientDelegates;
     mapping(address => bool) private allowedDoctors;
 
     uint256 private nextPrescriptionId = 1;
-    uint256 private nextDraftId = 1;
+    // Removed nextDraftId
 
-    event DraftCreated(uint256 indexed draftId, address indexed doctor, address indexed patient);
-    event DraftFinalized(uint256 indexed draftId, uint256 indexed prescriptionId, string metadataURI);
+    // Removed DraftCreated, DraftFinalized events
     event PrescriptionIssued(uint256 indexed prescriptionId, address indexed doctor, address indexed patient, string metadataURI);
     event PatientDelegationUpdated(address indexed patient, address indexed viewer, bool allowed);
 
     error NotPatient(uint256 prescriptionId, address caller);
     error UnauthorizedViewer(uint256 prescriptionId, address caller);
-    error DraftNotActive(uint256 draftId);
+    // Removed DraftNotActive error
 
     // Hard-coded sample doctors for prototyping.
     address private constant DOCTOR_ONE = address(0x70997970C51812dc3A010C7d01b50e0d17dc79C8);
     address private constant DOCTOR_TWO = address(0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC);
     address private constant DOCTOR_THREE = address(0x90F79bf6EB2c4f870365E785982E1f101E93b906);
+
+    bytes32 private constant DOMAIN_TYPE_HASH = keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
+    bytes32 private constant PRESCRIPTION_TYPE_HASH = keccak256("Prescription(address doctor,address patient,string medicationDetails,uint256 nonce,uint256 validUntil)");
 
     constructor() {
         allowedDoctors[DOCTOR_ONE] = true;
@@ -45,38 +43,82 @@ contract PrescriptionRegistry {
         allowedDoctors[DOCTOR_THREE] = true;
     }
 
-    /// @notice Allows an allow-listed doctor to register a draft for a patient.
-    function submitDraft(address patient) external returns (uint256 draftId) {
-        require(allowedDoctors[msg.sender], "doctor not authorized");
-        require(patient != address(0), "invalid patient");
-
-        draftId = nextDraftId++;
-        drafts[draftId] = Draft({doctor: msg.sender, patient: patient, active: true});
-
-        emit DraftCreated(draftId, msg.sender, patient);
+    function _domainSeparatorV4() internal view returns (bytes32) {
+        return keccak256(abi.encode(
+            DOMAIN_TYPE_HASH,
+            keccak256(bytes("PrescriptionRegistry")),
+            keccak256(bytes("1")),
+            block.chainid,
+            address(this)
+        ));
     }
 
-    /// @notice Patient finalizes a draft by providing the metadata URI, minting the immutable record.
-    function finalizeDraft(uint256 draftId, string calldata metadataURI) external returns (uint256 prescriptionId) {
-        Draft storage draft = drafts[draftId];
-        if (!draft.active) {
-            revert DraftNotActive(draftId);
+    function _hashTypedDataV4(bytes32 structHash) internal view returns (bytes32) {
+        return keccak256(abi.encodePacked("\x19\x01", _domainSeparatorV4(), structHash));
+    }
+
+    function recover(bytes32 hash, bytes memory signature) internal pure returns (address) {
+        if (signature.length != 65) {
+            return address(0);
         }
-        require(draft.patient == msg.sender, "not draft patient");
+        bytes32 r;
+        bytes32 s;
+        uint8 v;
+        assembly {
+            r := mload(add(signature, 0x20))
+            s := mload(add(signature, 0x40))
+            v := byte(0, mload(add(signature, 0x60)))
+        }
+        if (uint256(s) > 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0) {
+            return address(0);
+        }
+        if (v != 27 && v != 28) {
+            return address(0);
+        }
+        return ecrecover(hash, v, r, s);
+    }
+
+    mapping(address => uint256) public nonces;
+
+    function registerPrescription(
+        address doctor,
+        address patient,
+        string calldata medicationDetails,
+        uint256 validUntil,
+        string calldata metadataURI,
+        bytes calldata doctorSignature,
+        bytes calldata patientSignature
+    ) external returns (uint256 prescriptionId) {
+        require(allowedDoctors[doctor], "doctor not authorized");
+        require(patient != address(0), "invalid patient");
+        require(block.timestamp <= validUntil, "signature expired");
         require(bytes(metadataURI).length > 0, "empty metadata");
 
-        draft.active = false;
+        uint256 nonce = nonces[doctor]++;
+        {
+            bytes32 structHash = keccak256(abi.encode(
+                PRESCRIPTION_TYPE_HASH,
+                doctor,
+                patient,
+                keccak256(bytes(medicationDetails)),
+                nonce,
+                validUntil
+            ));
+            bytes32 digest = _hashTypedDataV4(structHash);
+
+            require(recover(digest, doctorSignature) == doctor, "invalid doctor signature");
+            require(recover(digest, patientSignature) == patient, "invalid patient signature");
+        }
 
         prescriptionId = nextPrescriptionId++;
         prescriptions[prescriptionId] = Prescription({
-            doctor: draft.doctor,
-            patient: draft.patient,
+            doctor: doctor,
+            patient: patient,
             metadataURI: metadataURI,
             createdAt: block.timestamp
         });
 
-        emit DraftFinalized(draftId, prescriptionId, metadataURI);
-        emit PrescriptionIssued(prescriptionId, draft.doctor, draft.patient, metadataURI);
+        emit PrescriptionIssued(prescriptionId, doctor, patient, metadataURI);
     }
 
     /// @notice Patients can delegate blanket access to a doctor/viewer.
@@ -109,10 +151,8 @@ contract PrescriptionRegistry {
     function isDoctor(address account) external view returns (bool) {
         return allowedDoctors[account];
     }
-
-    function getDraft(uint256 draftId) external view returns (Draft memory) {
-        return drafts[draftId];
-    }
+    
+    // Removed getDraft function
 
     function _canView(uint256 prescriptionId, address viewer) internal view returns (bool) {
         Prescription memory prescription = prescriptions[prescriptionId];
