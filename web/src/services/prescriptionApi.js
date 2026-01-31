@@ -95,21 +95,62 @@ export async function fetchPatientPrescriptions({ patientAddress, viewerAddress 
 }
 
 /**
- * Fetches an encrypted bundle from IPFS gateway
+ * Fetches an encrypted bundle from IPFS gateway with retry logic
  * @param {string} metadataURI - IPFS gateway URL (e.g., https://gateway.pinata.cloud/ipfs/QmXXX)
+ * @param {number} maxRetries - Maximum number of retry attempts (default: 3)
+ * @param {number} retryDelay - Delay between retries in ms (default: 1000)
  * @returns {Promise<Object>} Encrypted bundle object
  */
-export async function fetchIPFSBundle(metadataURI) {
-  try {
-    const response = await fetch(metadataURI);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch IPFS bundle: ${response.status} ${response.statusText}`);
+export async function fetchIPFSBundle(metadataURI, maxRetries = 3, retryDelay = 1000) {
+  let lastError;
+  
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+      
+      const response = await fetch(metadataURI, { 
+        signal: controller.signal 
+      });
+      clearTimeout(timeoutId);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const bundle = await response.json();
+      
+      // Validate bundle structure
+      if (!bundle.version || !bundle.encryptedPayload || !bundle.recipients) {
+        throw new Error('Invalid bundle structure');
+      }
+      
+      return bundle;
+    } catch (error) {
+      lastError = error;
+      const isTimeout = error.name === 'AbortError';
+      const isNetworkError = error.message.includes('Failed to fetch') || error.message.includes('Network');
+      
+      // Don't retry on validation errors
+      if (error.message.includes('Invalid bundle structure')) {
+        throw new Error(`IPFS bundle validation failed: ${error.message}`);
+      }
+      
+      // Retry on timeouts and network errors
+      if ((isTimeout || isNetworkError) && attempt < maxRetries) {
+        console.warn(`IPFS fetch attempt ${attempt + 1}/${maxRetries + 1} failed, retrying in ${retryDelay}ms...`, error.message);
+        await new Promise(resolve => setTimeout(resolve, retryDelay * (attempt + 1))); // Exponential backoff
+        continue;
+      }
+      
+      // For other errors or final attempt, throw immediately
+      if (attempt === maxRetries) {
+        throw new Error(`IPFS fetch failed after ${maxRetries + 1} attempts: ${error.message}`);
+      }
     }
-    const bundle = await response.json();
-    return bundle;
-  } catch (error) {
-    throw new Error(`Error fetching IPFS bundle: ${error.message}`);
   }
+  
+  throw new Error(`IPFS fetch failed: ${lastError?.message || 'Unknown error'}`);
 }
 
 /**

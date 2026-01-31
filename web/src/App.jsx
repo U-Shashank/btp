@@ -22,7 +22,11 @@ import {
 import { logMetric } from "./services/metricsApi";
 import { appConfig } from "./config";
 import { PRESCRIPTION_REGISTRY_ABI } from "./lib/abi";
-import { encryptPrescription, isEncrypted, addRecipientToBundle } from "./lib/encryption";
+import {
+  encryptPrescription,
+  isEncrypted,
+  addRecipientToBundle,
+} from "./lib/encryption";
 import { useDecryption } from "./hooks/useDecryption";
 
 const blankMedication = () => ({ name: "", dosage: "", schedule: "" });
@@ -41,6 +45,70 @@ function Section({ title, description, children }) {
   );
 }
 
+function DecryptButton({ onClick, isLoading, className = "" }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={isLoading}
+      className={`
+        group relative inline-flex items-center gap-2 
+        rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600
+        px-4 py-2 text-sm font-semibold text-white shadow-md
+        transition-all duration-200 ease-in-out
+        hover:from-indigo-600 hover:to-purple-700 hover:shadow-lg hover:-translate-y-0.5
+        focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
+        active:translate-y-0 active:shadow-md
+        disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:shadow-md
+        ${className}
+      `}
+    >
+      {isLoading ? (
+        <>
+          <svg
+            className="animate-spin h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            />
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            />
+          </svg>
+          <span>Decrypting...</span>
+        </>
+      ) : (
+        <>
+          <svg
+            className="h-4 w-4 transition-transform group-hover:scale-110"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
+            />
+          </svg>
+          <span>Decrypt to View</span>
+        </>
+      )}
+    </button>
+  );
+}
+
 function App() {
   const { address, isConnected } = useAccount();
   const { connect, connectors, status: connectStatus } = useConnect();
@@ -49,7 +117,7 @@ function App() {
   const { signTypedDataAsync } = useSignTypedData();
   const publicClient = usePublicClient();
   const { data: walletClient } = useWalletClient();
-  
+
   // Decryption hook for managing encrypted prescriptions
   const {
     decrypt,
@@ -84,9 +152,46 @@ function App() {
     current: 0,
     inProgress: false,
   });
+  const [batchDecrypting, setBatchDecrypting] = useState(false);
 
   const primaryConnector = connectors[0];
   const normalizedAddress = address?.toLowerCase();
+
+  // Batch decryption helper
+  const batchDecrypt = useCallback(
+    async (items, getItemId, getItemPayload) => {
+      setBatchDecrypting(true);
+      let successCount = 0;
+      let failCount = 0;
+
+      try {
+        for (const item of items) {
+          const itemId = getItemId(item);
+          const payload = getItemPayload(item);
+
+          if (isEncrypted(payload) && !getCached(itemId)) {
+            try {
+              await decrypt(itemId, payload);
+              successCount++;
+            } catch (error) {
+              console.error(`Failed to decrypt ${itemId}:`, error);
+              failCount++;
+            }
+          }
+        }
+
+        if (failCount > 0) {
+          setFeedback({
+            type: "warning",
+            message: `Decrypted ${successCount} items. ${failCount} failed.`,
+          });
+        }
+      } finally {
+        setBatchDecrypting(false);
+      }
+    },
+    [decrypt, getCached, isEncrypted],
+  );
 
   const { data: doctorFlag } = useReadContract({
     address: CONTRACT_ADDRESS,
@@ -118,11 +223,17 @@ function App() {
 
   const requireWallet = () => {
     if (!isConnected || !address) {
-      setFeedback({ type: "error", message: "Connect your wallet before performing actions." });
+      setFeedback({
+        type: "error",
+        message: "Connect your wallet before performing actions.",
+      });
       return false;
     }
     if (!CONTRACT_ADDRESS) {
-      setFeedback({ type: "error", message: "Contract address missing in config." });
+      setFeedback({
+        type: "error",
+        message: "Contract address missing in config.",
+      });
       return false;
     }
     return true;
@@ -137,7 +248,7 @@ function App() {
           schedule: med.schedule.trim(),
         }))
         .filter((med) => med.name || med.dosage || med.schedule),
-    [medications]
+    [medications],
   );
 
   const [pendingDrafts, setPendingDrafts] = useState([]);
@@ -163,23 +274,33 @@ function App() {
         });
         setPendingDrafts(
           data.filter(
-            (req) => req.kind === "prescription" && (req.status === "pending" || req.status === "approved")
-          )
+            (req) =>
+              req.kind === "prescription" &&
+              (req.status === "pending" || req.status === "approved"),
+          ),
         );
         setPublishedPrescriptions(
-          data.filter((req) => req.kind === "prescription" && req.status === "recorded")
+          data.filter(
+            (req) => req.kind === "prescription" && req.status === "recorded",
+          ),
         );
         setPendingAccessRequests(
-          data.filter((req) => req.kind === "access" && req.status === "pending")
+          data.filter(
+            (req) => req.kind === "access" && req.status === "pending",
+          ),
         );
-        setGrantedAccess(data.filter((req) => req.kind === "access" && req.status === "granted"));
+        setGrantedAccess(
+          data.filter(
+            (req) => req.kind === "access" && req.status === "granted",
+          ),
+        );
       } catch (error) {
         setFeedback({ type: "error", message: error.message });
       } finally {
         setRequestsLoading((prev) => ({ ...prev, [key]: false }));
       }
     },
-    [address, isDoctor]
+    [address, isDoctor],
   );
 
   useEffect(() => {
@@ -199,7 +320,8 @@ function App() {
     const receipt = await publicClient.waitForTransactionReceipt({ hash });
     let eventArgs = null;
     for (const log of receipt.logs) {
-      if (log.address.toLowerCase() !== CONTRACT_ADDRESS?.toLowerCase()) continue;
+      if (log.address.toLowerCase() !== CONTRACT_ADDRESS?.toLowerCase())
+        continue;
       try {
         const decoded = decodeEventLog({
           abi: PRESCRIPTION_REGISTRY_ABI,
@@ -222,13 +344,20 @@ function App() {
     setFeedback(null);
     if (!requireWallet()) return;
     if (!isDoctor) {
-      setFeedback({ type: "error", message: "Only allow-listed doctors can submit drafts." });
-      return;
-    }
-    if (prescriptionForm.patientAddress.toLowerCase() === CONTRACT_ADDRESS.toLowerCase()) {
       setFeedback({
         type: "error",
-        message: "Invalid Patient Address: You entered the contract address. Please enter the patient's wallet address.",
+        message: "Only allow-listed doctors can submit drafts.",
+      });
+      return;
+    }
+    if (
+      prescriptionForm.patientAddress.toLowerCase() ===
+      CONTRACT_ADDRESS.toLowerCase()
+    ) {
+      setFeedback({
+        type: "error",
+        message:
+          "Invalid Patient Address: You entered the contract address. Please enter the patient's wallet address.",
       });
       return;
     }
@@ -288,7 +417,7 @@ function App() {
         prescriptionForm.patientAddress, // patient
         walletClient,
         appConfig.chainId,
-        CONTRACT_ADDRESS
+        CONTRACT_ADDRESS,
       );
       const encryptionTime = performance.now() - encryptionStart;
       logMetric("encryption_ms", encryptionTime);
@@ -310,7 +439,12 @@ function App() {
         type: "success",
         message: `Draft created off-chain. Awaiting patient signature.`,
       });
-      setPrescriptionForm({ patientAddress: "", title: "", summary: "", notes: "" });
+      setPrescriptionForm({
+        patientAddress: "",
+        title: "",
+        summary: "",
+        notes: "",
+      });
       setMedications([blankMedication()]);
     } catch (error) {
       setFeedback({ type: "error", message: error.message });
@@ -331,7 +465,10 @@ function App() {
         sender: address,
       });
       await loadRequests("accessPending");
-      setFeedback({ type: "success", message: "Access request sent to patient." });
+      setFeedback({
+        type: "success",
+        message: "Access request sent to patient.",
+      });
       setAccessRequestForm({ patientAddress: "", reason: "" });
     } catch (error) {
       setFeedback({ type: "error", message: error.message });
@@ -349,10 +486,12 @@ function App() {
       // 1. Patient Co-Signs (EIP-712)
       // The patient must sign the EXACT same data the doctor signed
       // Use the stored medicationDetails from the request
-      const medicationDetails = request.medicationDetails || 
-        (request.payload?.medications
+      const medicationDetails =
+        request.medicationDetails ||
+        request.payload?.medications
           ?.map((m) => `${m.name} (${m.dosage}, ${m.schedule})`)
-          .join("; ") || "No medications listed");
+          .join("; ") ||
+        "No medications listed";
 
       const patientSignature = await signTypedDataAsync({
         domain: {
@@ -396,7 +535,10 @@ function App() {
           patientSignature,
         ],
       });
-      const { eventArgs, receipt } = await waitForReceiptAndDecode(txHash, "PrescriptionIssued");
+      const { eventArgs, receipt } = await waitForReceiptAndDecode(
+        txHash,
+        "PrescriptionIssued",
+      );
       if (!eventArgs) {
         throw new Error("Unable to decode PrescriptionIssued event");
       }
@@ -431,7 +573,7 @@ function App() {
     try {
       setApprovalLoading(true);
       const delegateStart = performance.now();
-      
+
       // Step 1: Grant delegate access on-chain
       const txHash = await writeContractAsync({
         address: CONTRACT_ADDRESS,
@@ -439,7 +581,9 @@ function App() {
         functionName: "setDelegate",
         args: [request.doctorAddress, true],
       });
-      const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
+      const receipt = await publicClient.waitForTransactionReceipt({
+        hash: txHash,
+      });
 
       await completeRequest({
         requestId: request.id,
@@ -452,7 +596,10 @@ function App() {
         logMetric("gas_delegate", Number(receipt.gasUsed));
       }
 
-      setFeedback({ type: "success", message: "Doctor granted full access. Re-encrypting prescriptions..." });
+      setFeedback({
+        type: "success",
+        message: "Doctor granted full access. Re-encrypting prescriptions...",
+      });
 
       // Step 2: Re-encrypt all patient's prescriptions with delegate's key
       try {
@@ -464,13 +611,14 @@ function App() {
 
         // Filter only encrypted prescriptions that need re-encryption
         const encryptedPrescriptions = prescriptions.filter(
-          (p) => p.metadataURI && isEncrypted(p)
+          (p) => p.metadataURI && isEncrypted(p),
         );
 
         if (encryptedPrescriptions.length === 0) {
-          setFeedback({ 
-            type: "success", 
-            message: "Doctor granted full access. No encrypted prescriptions to update." 
+          setFeedback({
+            type: "success",
+            message:
+              "Doctor granted full access. No encrypted prescriptions to update.",
           });
           return;
         }
@@ -483,11 +631,12 @@ function App() {
 
         let successCount = 0;
         let failureCount = 0;
+        const failures = []; // Track detailed failure information
 
         // Process each prescription
         for (let i = 0; i < encryptedPrescriptions.length; i++) {
           const prescription = encryptedPrescriptions[i];
-          
+
           try {
             // Fetch encrypted bundle from IPFS
             const bundle = await fetchIPFSBundle(prescription.metadataURI);
@@ -498,7 +647,7 @@ function App() {
               address,
               walletClient,
               appConfig.chainId,
-              CONTRACT_ADDRESS
+              CONTRACT_ADDRESS,
             );
 
             // Add delegate as recipient
@@ -508,11 +657,12 @@ function App() {
               decryptedPayload,
               walletClient,
               appConfig.chainId,
-              CONTRACT_ADDRESS
+              CONTRACT_ADDRESS,
             );
 
             // Pin updated bundle to IPFS
-            const { metadataURI: newMetadataURI } = await pinUpdatedBundle(updatedBundle);
+            const { metadataURI: newMetadataURI } =
+              await pinUpdatedBundle(updatedBundle);
 
             // Update on-chain metadata
             await writeContractAsync({
@@ -525,8 +675,30 @@ function App() {
             successCount++;
             logMetric("reencryption_success", 1);
           } catch (error) {
-            console.error(`Failed to re-encrypt prescription ${prescription.prescriptionId}:`, error);
+            console.error(
+              `Failed to re-encrypt prescription ${prescription.prescriptionId}:`,
+              error,
+            );
             failureCount++;
+
+            // Categorize error for better user feedback
+            let errorCategory = "unknown";
+            if (error.message.includes("IPFS")) {
+              errorCategory = "IPFS fetch";
+            } else if (error.message.includes("decrypt")) {
+              errorCategory = "decryption";
+            } else if (error.message.includes("User rejected")) {
+              errorCategory = "user rejected";
+            } else if (error.message.includes("updatePrescriptionMetadata")) {
+              errorCategory = "blockchain update";
+            }
+
+            failures.push({
+              prescriptionId: prescription.prescriptionId,
+              error: error.message,
+              category: errorCategory,
+            });
+
             logMetric("reencryption_failure", 1);
           }
 
@@ -546,13 +718,30 @@ function App() {
         if (failureCount === 0) {
           setFeedback({
             type: "success",
-            message: `Doctor granted full access. Successfully re-encrypted ${successCount} prescription${successCount !== 1 ? 's' : ''}.`,
+            message: `Doctor granted full access. Successfully re-encrypted ${successCount} prescription${successCount !== 1 ? "s" : ""}.`,
           });
         } else {
+          // Group failures by category
+          const failuresByCategory = failures.reduce((acc, f) => {
+            acc[f.category] = (acc[f.category] || 0) + 1;
+            return acc;
+          }, {});
+
+          const categorySummary = Object.entries(failuresByCategory)
+            .map(([cat, count]) => `${count} ${cat}`)
+            .join(", ");
+
+          const failedIds = failures
+            .map((f) => `#${f.prescriptionId}`)
+            .join(", ");
+
           setFeedback({
             type: "warning",
-            message: `Doctor granted access. Re-encrypted ${successCount}/${encryptedPrescriptions.length} prescriptions (${failureCount} failed).`,
+            message: `Doctor granted access. Re-encrypted ${successCount}/${encryptedPrescriptions.length} prescriptions. Failures: ${categorySummary}. IDs: ${failedIds}`,
           });
+
+          // Log detailed failures to console for debugging
+          console.error("Re-encryption failures:", failures);
         }
       } catch (error) {
         console.error("Re-encryption error:", error);
@@ -590,7 +779,7 @@ function App() {
         setPatientLookupLoading(false);
       }
     },
-    [address]
+    [address],
   );
 
   useEffect(() => {
@@ -614,11 +803,12 @@ function App() {
 
   const updateMedicationField = (index, field, value) => {
     setMedications((prev) =>
-      prev.map((med, i) => (i === index ? { ...med, [field]: value } : med))
+      prev.map((med, i) => (i === index ? { ...med, [field]: value } : med)),
     );
   };
 
-  const addMedicationRow = () => setMedications((prev) => [...prev, blankMedication()]);
+  const addMedicationRow = () =>
+    setMedications((prev) => [...prev, blankMedication()]);
   const removeMedicationRow = (index) =>
     setMedications((prev) => prev.filter((_, i) => i !== index));
 
@@ -634,8 +824,8 @@ function App() {
               Dual-signature prescription + access portal
             </h1>
             <p className="text-sm text-slate-500">
-              Doctors register drafts on-chain, patients co-sign to publish, and access requests stay
-              under patient control.
+              Doctors register drafts on-chain, patients co-sign to publish, and
+              access requests stay under patient control.
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -697,7 +887,10 @@ function App() {
                       className="rounded-xl border border-slate-200 px-3 py-2 text-base text-slate-900 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100"
                       value={prescriptionForm.patientAddress}
                       onChange={(e) =>
-                        setPrescriptionForm((prev) => ({ ...prev, patientAddress: e.target.value }))
+                        setPrescriptionForm((prev) => ({
+                          ...prev,
+                          patientAddress: e.target.value,
+                        }))
                       }
                       placeholder="0x..."
                       required
@@ -710,7 +903,10 @@ function App() {
                       className="rounded-xl border border-slate-200 px-3 py-2"
                       value={prescriptionForm.title}
                       onChange={(e) =>
-                        setPrescriptionForm((prev) => ({ ...prev, title: e.target.value }))
+                        setPrescriptionForm((prev) => ({
+                          ...prev,
+                          title: e.target.value,
+                        }))
                       }
                       placeholder="Acute migraine therapy"
                       required
@@ -724,7 +920,10 @@ function App() {
                     className="rounded-xl border border-slate-200 px-3 py-2"
                     value={prescriptionForm.summary}
                     onChange={(e) =>
-                      setPrescriptionForm((prev) => ({ ...prev, summary: e.target.value }))
+                      setPrescriptionForm((prev) => ({
+                        ...prev,
+                        summary: e.target.value,
+                      }))
                     }
                     placeholder="Short background for the patient"
                   />
@@ -736,14 +935,19 @@ function App() {
                     className="rounded-xl border border-slate-200 px-3 py-2"
                     value={prescriptionForm.notes}
                     onChange={(e) =>
-                      setPrescriptionForm((prev) => ({ ...prev, notes: e.target.value }))
+                      setPrescriptionForm((prev) => ({
+                        ...prev,
+                        notes: e.target.value,
+                      }))
                     }
                     placeholder="Observations, instructions, warnings…"
                   />
                 </label>
                 <div className="rounded-2xl border border-dashed border-slate-200 p-4">
                   <div className="mb-3 flex items-center justify-between">
-                    <p className="text-sm font-semibold text-slate-700">Medications</p>
+                    <p className="text-sm font-semibold text-slate-700">
+                      Medications
+                    </p>
                     <button
                       type="button"
                       onClick={addMedicationRow}
@@ -767,11 +971,17 @@ function App() {
                               field === "name"
                                 ? "Medication"
                                 : field === "dosage"
-                                ? "Dosage"
-                                : "Schedule"
+                                  ? "Dosage"
+                                  : "Schedule"
                             }
                             value={med[field]}
-                            onChange={(e) => updateMedicationField(index, field, e.target.value)}
+                            onChange={(e) =>
+                              updateMedicationField(
+                                index,
+                                field,
+                                e.target.value,
+                              )
+                            }
                           />
                         ))}
                         {medications.length > 1 && (
@@ -792,7 +1002,9 @@ function App() {
                   disabled={prescriptionSubmitting}
                   className="w-full rounded-2xl bg-indigo-600 px-4 py-3 text-center text-sm font-semibold text-white shadow hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
                 >
-                  {prescriptionSubmitting ? "Submitting on-chain…" : "Submit Draft"}
+                  {prescriptionSubmitting
+                    ? "Submitting on-chain…"
+                    : "Submit Draft"}
                 </button>
               </form>
             </Section>
@@ -809,7 +1021,10 @@ function App() {
                     className="rounded-xl border border-slate-200 px-3 py-2"
                     value={accessRequestForm.patientAddress}
                     onChange={(e) =>
-                      setAccessRequestForm((prev) => ({ ...prev, patientAddress: e.target.value }))
+                      setAccessRequestForm((prev) => ({
+                        ...prev,
+                        patientAddress: e.target.value,
+                      }))
                     }
                     placeholder="0x..."
                     required
@@ -822,7 +1037,10 @@ function App() {
                     className="rounded-xl border border-slate-200 px-3 py-2"
                     value={accessRequestForm.reason}
                     onChange={(e) =>
-                      setAccessRequestForm((prev) => ({ ...prev, reason: e.target.value }))
+                      setAccessRequestForm((prev) => ({
+                        ...prev,
+                        reason: e.target.value,
+                      }))
                     }
                     placeholder="Provide clinical context for the patient"
                     required
@@ -848,41 +1066,129 @@ function App() {
             >
               <div className="mb-4 flex justify-between text-sm text-slate-500">
                 <span>{pendingDrafts.length} awaiting signature</span>
-                <button
-                  type="button"
-                  onClick={() => loadRequests("drafts")}
-                  className="text-xs font-semibold text-indigo-600 disabled:opacity-60"
-                  disabled={requestsLoading.drafts}
-                >
-                  {requestsLoading.drafts ? "Refreshing…" : "Refresh"}
-                </button>
+                <div className="flex gap-2">
+                  {pendingDrafts.some(
+                    (req) => isEncrypted(req.payload) && !getCached(req.id),
+                  ) && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        batchDecrypt(
+                          pendingDrafts,
+                          (req) => req.id,
+                          (req) => req.payload,
+                        )
+                      }
+                      className="text-xs font-semibold text-purple-600 hover:text-purple-700 disabled:opacity-60"
+                      disabled={
+                        batchDecrypting ||
+                        pendingDrafts.some((req) => isDecrypting(req.id))
+                      }
+                    >
+                      {batchDecrypting ||
+                      pendingDrafts.some((req) => isDecrypting(req.id))
+                        ? "Decrypting..."
+                        : "Decrypt All"}
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => loadRequests("drafts")}
+                    className="text-xs font-semibold text-indigo-600 disabled:opacity-60"
+                    disabled={requestsLoading.drafts}
+                  >
+                    {requestsLoading.drafts ? "Refreshing…" : "Refresh"}
+                  </button>
+                </div>
               </div>
               {pendingDrafts.length ? (
                 <div className="space-y-4">
                   {pendingDrafts.map((req) => (
-                    <div key={req.id} className="rounded-2xl border border-slate-200 p-4 shadow-sm">
+                    <div
+                      key={req.id}
+                      className="rounded-2xl border border-slate-200 p-4 shadow-sm"
+                    >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <div className="flex-1">
                           <p className="text-sm font-semibold text-slate-900">
-                            Draft · {isEncrypted(req.payload) ? "🔒 Encrypted Prescription" : (req.payload?.title ?? "Untitled rx")}
+                            Draft ·{" "}
+                            {isEncrypted(req.payload)
+                              ? "🔒 Encrypted Prescription"
+                              : (req.payload?.title ?? "Untitled rx")}
                           </p>
                           <p className="text-xs text-slate-500">
                             Doctor {shorten(req.doctorAddress)} ·{" "}
                             {new Date(req.createdAt).toLocaleString()}
                           </p>
                           {isEncrypted(req.payload) && !getCached(req.id) && (
-                            <button
-                              type="button"
+                            <DecryptButton
                               onClick={() => decrypt(req.id, req.payload)}
-                              disabled={isDecrypting(req.id)}
-                              className="mt-2 text-xs font-semibold text-indigo-600 hover:text-indigo-800 disabled:opacity-50"
-                            >
-                              {isDecrypting(req.id) ? "Decrypting..." : "🔓 Decrypt to View"}
-                            </button>
+                              isLoading={isDecrypting(req.id)}
+                              className="mt-3"
+                            />
                           )}
                           {getCached(req.id) && (
-                            <div className="mt-2 text-xs text-slate-600">
-                              <strong>Title:</strong> {getCached(req.id).title || "Untitled"}
+                            <div className="mt-3 space-y-2 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 p-4">
+                              <div className="flex items-start gap-2">
+                                <svg
+                                  className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                  />
+                                </svg>
+                                <div className="flex-1 text-sm text-slate-700">
+                                  <p className="font-semibold text-slate-900">
+                                    {getCached(req.id).title || "Untitled"}
+                                  </p>
+                                  {getCached(req.id).summary && (
+                                    <p className="mt-1 text-slate-600">
+                                      {getCached(req.id).summary}
+                                    </p>
+                                  )}
+                                  {getCached(req.id).notes && (
+                                    <p className="mt-1 text-xs text-slate-500">
+                                      <span className="font-medium">
+                                        Notes:
+                                      </span>{" "}
+                                      {getCached(req.id).notes}
+                                    </p>
+                                  )}
+                                  {getCached(req.id).medications &&
+                                    getCached(req.id).medications.length >
+                                      0 && (
+                                      <div className="mt-2">
+                                        <p className="text-xs font-medium text-slate-700">
+                                          Medications:
+                                        </p>
+                                        <ul className="mt-1 space-y-1">
+                                          {getCached(req.id).medications.map(
+                                            (med, i) => (
+                                              <li
+                                                key={i}
+                                                className="text-xs text-slate-600 flex items-start gap-1"
+                                              >
+                                                <span className="text-green-600 mt-0.5">
+                                                  •
+                                                </span>
+                                                <span>
+                                                  {med.name} - {med.dosage},{" "}
+                                                  {med.schedule}
+                                                </span>
+                                              </li>
+                                            ),
+                                          )}
+                                        </ul>
+                                      </div>
+                                    )}
+                                </div>
+                              </div>
                             </div>
                           )}
                           {getDecryptionError(req.id) && (
@@ -914,7 +1220,9 @@ function App() {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-slate-500">No drafts waiting on you.</p>
+                <p className="text-sm text-slate-500">
+                  No drafts waiting on you.
+                </p>
               )}
             </Section>
 
@@ -960,14 +1268,18 @@ function App() {
                       </div>
                       {reencryptionProgress.inProgress && (
                         <div className="mt-2 text-xs text-indigo-600">
-                          Re-encrypting prescriptions... {reencryptionProgress.current}/{reencryptionProgress.total}
+                          Re-encrypting prescriptions...{" "}
+                          {reencryptionProgress.current}/
+                          {reencryptionProgress.total}
                         </div>
                       )}
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-slate-500">No pending access requests.</p>
+                <p className="text-sm text-slate-500">
+                  No pending access requests.
+                </p>
               )}
             </Section>
 
@@ -989,7 +1301,10 @@ function App() {
               {grantedAccess.length ? (
                 <div className="grid gap-3 md:grid-cols-2">
                   {grantedAccess.map((req) => (
-                    <div key={req.id} className="rounded-2xl border border-slate-100 p-4">
+                    <div
+                      key={req.id}
+                      className="rounded-2xl border border-slate-100 p-4"
+                    >
                       <p className="text-sm font-semibold text-slate-900">
                         Doctor {shorten(req.doctorAddress)}
                       </p>
@@ -997,14 +1312,17 @@ function App() {
                         Granted {new Date(req.updatedAt).toLocaleString()}
                       </p>
                       {req.payload?.reason && (
-                        <p className="mt-1 text-xs text-slate-500">{req.payload.reason}</p>
+                        <p className="mt-1 text-xs text-slate-500">
+                          {req.payload.reason}
+                        </p>
                       )}
                     </div>
                   ))}
                 </div>
               ) : (
                 <p className="text-sm text-slate-500">
-                  No doctors currently have blanket access. Approve requests above when you’re ready.
+                  No doctors currently have blanket access. Approve requests
+                  above when you’re ready.
                 </p>
               )}
             </Section>
@@ -1015,14 +1333,42 @@ function App() {
             >
               <div className="mb-4 flex justify-between text-sm text-slate-500">
                 <span>{publishedPrescriptions.length} recorded entries</span>
-                <button
-                  type="button"
-                  onClick={() => loadRequests("published")}
-                  disabled={requestsLoading.published}
-                  className="text-xs font-semibold text-indigo-600 disabled:opacity-60"
-                >
-                  {requestsLoading.published ? "Refreshing…" : "Refresh"}
-                </button>
+                <div className="flex gap-2">
+                  {publishedPrescriptions.some(
+                    (req) => isEncrypted(req.payload) && !getCached(req.id),
+                  ) && (
+                    <button
+                      type="button"
+                      onClick={() =>
+                        batchDecrypt(
+                          publishedPrescriptions,
+                          (req) => req.id,
+                          (req) => req.payload,
+                        )
+                      }
+                      className="text-xs font-semibold text-purple-600 hover:text-purple-700 disabled:opacity-60"
+                      disabled={
+                        batchDecrypting ||
+                        publishedPrescriptions.some((req) =>
+                          isDecrypting(req.id),
+                        )
+                      }
+                    >
+                      {batchDecrypting ||
+                      publishedPrescriptions.some((req) => isDecrypting(req.id))
+                        ? "Decrypting..."
+                        : "Decrypt All"}
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => loadRequests("published")}
+                    disabled={requestsLoading.published}
+                    className="text-xs font-semibold text-indigo-600 disabled:opacity-60"
+                  >
+                    {requestsLoading.published ? "Refreshing…" : "Refresh"}
+                  </button>
+                </div>
               </div>
               {publishedPrescriptions.length ? (
                 <div className="space-y-3">
@@ -1032,12 +1378,92 @@ function App() {
                       className="rounded-2xl border border-slate-100 p-4 text-sm text-slate-600"
                     >
                       <p className="font-semibold text-slate-900">
-                        #{req.prescriptionId} · {req.payload?.title ?? "Untitled rx"}
+                        #{req.prescriptionId} ·{" "}
+                        {isEncrypted(req.payload)
+                          ? getCached(req.id)?.title ||
+                            "🔒 Encrypted Prescription"
+                          : (req.payload?.title ?? "Untitled rx")}
                       </p>
                       <p className="text-xs text-slate-500">
                         Doctor {shorten(req.doctorAddress)} ·{" "}
-                        {new Date(req.recordedAt || req.updatedAt).toLocaleString()}
+                        {new Date(
+                          req.recordedAt || req.updatedAt,
+                        ).toLocaleString()}
                       </p>
+                      {isEncrypted(req.payload) && !getCached(req.id) && (
+                        <DecryptButton
+                          onClick={() => decrypt(req.id, req.payload)}
+                          isLoading={isDecrypting(req.id)}
+                          className="mt-3"
+                        />
+                      )}
+                      {getCached(req.id) && (
+                        <div className="mt-3 space-y-2 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 p-4">
+                          <div className="flex items-start gap-2">
+                            <svg
+                              className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                              />
+                            </svg>
+                            <div className="flex-1 text-sm text-slate-700">
+                              <p className="font-semibold text-slate-900">
+                                {getCached(req.id).title || "Untitled"}
+                              </p>
+                              {getCached(req.id).summary && (
+                                <p className="mt-1 text-slate-600">
+                                  {getCached(req.id).summary}
+                                </p>
+                              )}
+                              {getCached(req.id).notes && (
+                                <p className="mt-1 text-xs text-slate-500">
+                                  <span className="font-medium">Notes:</span>{" "}
+                                  {getCached(req.id).notes}
+                                </p>
+                              )}
+                              {getCached(req.id).medications &&
+                                getCached(req.id).medications.length > 0 && (
+                                  <div className="mt-2">
+                                    <p className="text-xs font-medium text-slate-700">
+                                      Medications:
+                                    </p>
+                                    <ul className="mt-1 space-y-1">
+                                      {getCached(req.id).medications.map(
+                                        (med, i) => (
+                                          <li
+                                            key={i}
+                                            className="text-xs text-slate-600 flex items-start gap-1"
+                                          >
+                                            <span className="text-blue-600 mt-0.5">
+                                              •
+                                            </span>
+                                            <span>
+                                              {med.name} - {med.dosage},{" "}
+                                              {med.schedule}
+                                            </span>
+                                          </li>
+                                        ),
+                                      )}
+                                    </ul>
+                                  </div>
+                                )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      {getDecryptionError(req.id) && (
+                        <p className="mt-1 text-xs text-rose-600">
+                          {getDecryptionError(req.id)}
+                        </p>
+                      )}
+                      <br />
                       {req.metadataURI && (
                         <a
                           href={req.metadataURI}
@@ -1055,7 +1481,6 @@ function App() {
                 <p className="text-sm text-slate-500">Nothing recorded yet.</p>
               )}
             </Section>
-
           </>
         )}
 
@@ -1063,7 +1488,10 @@ function App() {
           title="View Patient Prescriptions"
           description="Enter a patient wallet to list every prescription you are authorized to view."
         >
-          <form className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto]" onSubmit={handlePatientLookup}>
+          <form
+            className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto]"
+            onSubmit={handlePatientLookup}
+          >
             <label className="flex flex-col gap-1 text-sm font-medium text-slate-600">
               Patient Address
               <input
@@ -1092,16 +1520,51 @@ function App() {
                 ? `${patientRecords.length} prescription(s) loaded`
                 : "No prescriptions loaded yet"}
             </span>
-            <button
-              type="button"
-              onClick={() =>
-                patientLookupAddress && loadPatientRecords(isPatient ? address : patientLookupAddress)
-              }
-              disabled={patientLookupLoading || !(patientLookupAddress || isPatient)}
-              className="text-xs font-semibold text-indigo-600 disabled:opacity-60"
-            >
-              {patientLookupLoading ? "Refreshing…" : "Refresh"}
-            </button>
+            <div className="flex gap-2">
+              {patientRecords.some(
+                (record) =>
+                  isEncrypted(record.payload) &&
+                  !getCached(`record-${record.prescriptionId}`),
+              ) && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    batchDecrypt(
+                      patientRecords,
+                      (record) => `record-${record.prescriptionId}`,
+                      (record) => record.payload,
+                    )
+                  }
+                  className="text-xs font-semibold text-purple-600 hover:text-purple-700 disabled:opacity-60"
+                  disabled={
+                    batchDecrypting ||
+                    patientRecords.some((record) =>
+                      isDecrypting(`record-${record.prescriptionId}`),
+                    )
+                  }
+                >
+                  {batchDecrypting ||
+                  patientRecords.some((record) =>
+                    isDecrypting(`record-${record.prescriptionId}`),
+                  )
+                    ? "Decrypting..."
+                    : "Decrypt All"}
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() =>
+                  patientLookupAddress &&
+                  loadPatientRecords(isPatient ? address : patientLookupAddress)
+                }
+                disabled={
+                  patientLookupLoading || !(patientLookupAddress || isPatient)
+                }
+                className="text-xs font-semibold text-indigo-600 disabled:opacity-60"
+              >
+                {patientLookupLoading ? "Refreshing…" : "Refresh"}
+              </button>
+            </div>
           </div>
           {patientRecords.length ? (
             <div className="mt-4 space-y-3">
@@ -1111,15 +1574,115 @@ function App() {
                   className="rounded-2xl border border-slate-200 p-4 text-sm text-slate-700"
                 >
                   <p className="font-semibold text-slate-900">
-                    #{record.prescriptionId} · {record.payload?.title ?? "Untitled rx"}
+                    #{record.prescriptionId} ·{" "}
+                    {isEncrypted(record.payload)
+                      ? getCached(`record-${record.prescriptionId}`)?.title ||
+                        "🔒 Encrypted Prescription"
+                      : (record.payload?.title ?? "Untitled rx")}
                   </p>
                   <p className="text-xs text-slate-500">
                     Doctor {shorten(record.doctorAddress)} ·{" "}
-                    {record.recordedAt ? new Date(record.recordedAt).toLocaleString() : "Pending"}
+                    {record.recordedAt
+                      ? new Date(record.recordedAt).toLocaleString()
+                      : "Pending"}
                   </p>
+                  {isEncrypted(record.payload) &&
+                    !getCached(`record-${record.prescriptionId}`) && (
+                      <DecryptButton
+                        onClick={() =>
+                          decrypt(
+                            `record-${record.prescriptionId}`,
+                            record.payload,
+                          )
+                        }
+                        isLoading={isDecrypting(
+                          `record-${record.prescriptionId}`,
+                        )}
+                        className="mt-3"
+                      />
+                    )}
+                  {getCached(`record-${record.prescriptionId}`) && (
+                    <div className="mt-3 space-y-2 rounded-lg bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 p-4">
+                      <div className="flex items-start gap-2">
+                        <svg
+                          className="h-5 w-5 text-purple-600 mt-0.5 flex-shrink-0"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                        <div className="flex-1 text-sm text-slate-700">
+                          <p className="font-semibold text-slate-900">
+                            {getCached(`record-${record.prescriptionId}`)
+                              .title || "Untitled"}
+                          </p>
+                          {getCached(`record-${record.prescriptionId}`)
+                            .summary && (
+                            <p className="mt-1 text-slate-600">
+                              {
+                                getCached(`record-${record.prescriptionId}`)
+                                  .summary
+                              }
+                            </p>
+                          )}
+                          {getCached(`record-${record.prescriptionId}`)
+                            .notes && (
+                            <p className="mt-1 text-xs text-slate-500">
+                              <span className="font-medium">Notes:</span>{" "}
+                              {
+                                getCached(`record-${record.prescriptionId}`)
+                                  .notes
+                              }
+                            </p>
+                          )}
+                          {getCached(`record-${record.prescriptionId}`)
+                            .medications &&
+                            getCached(`record-${record.prescriptionId}`)
+                              .medications.length > 0 && (
+                              <div className="mt-2">
+                                <p className="text-xs font-medium text-slate-700">
+                                  Medications:
+                                </p>
+                                <ul className="mt-1 space-y-1">
+                                  {getCached(
+                                    `record-${record.prescriptionId}`,
+                                  ).medications.map((med, i) => (
+                                    <li
+                                      key={i}
+                                      className="text-xs text-slate-600 flex items-start gap-1"
+                                    >
+                                      <span className="text-purple-600 mt-0.5">
+                                        •
+                                      </span>
+                                      <span>
+                                        {med.name} - {med.dosage},{" "}
+                                        {med.schedule}
+                                      </span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {getDecryptionError(`record-${record.prescriptionId}`) && (
+                    <p className="mt-1 text-xs text-rose-600">
+                      {getDecryptionError(`record-${record.prescriptionId}`)}
+                    </p>
+                  )}
                   {record.metadataURI && (
                     <p className="mt-1">
-                      <span className="font-semibold text-slate-900">Metadata:</span>{" "}
+                      <span className="font-semibold text-slate-900">
+                        Metadata:
+                      </span>{" "}
                       <a
                         href={record.metadataURI}
                         target="_blank"
