@@ -7,6 +7,7 @@ import {
   useWriteContract,
   usePublicClient,
   useSignTypedData,
+  useWalletClient,
 } from "wagmi";
 import { decodeEventLog } from "viem";
 import {
@@ -15,10 +16,14 @@ import {
   createPrescriptionRequest,
   fetchPatientPrescriptions,
   fetchRequests,
+  fetchIPFSBundle,
+  pinUpdatedBundle,
 } from "./services/prescriptionApi";
 import { logMetric } from "./services/metricsApi";
 import { appConfig } from "./config";
 import { PRESCRIPTION_REGISTRY_ABI } from "./lib/abi";
+import { encryptPrescription, isEncrypted, addRecipientToBundle } from "./lib/encryption";
+import { useDecryption } from "./hooks/useDecryption";
 
 const blankMedication = () => ({ name: "", dosage: "", schedule: "" });
 const shorten = (addr) => `${addr.slice(0, 6)}…${addr.slice(-4)}`;
@@ -43,6 +48,16 @@ function App() {
   const { writeContractAsync } = useWriteContract();
   const { signTypedDataAsync } = useSignTypedData();
   const publicClient = usePublicClient();
+  const { data: walletClient } = useWalletClient();
+  
+  // Decryption hook for managing encrypted prescriptions
+  const {
+    decrypt,
+    getCached,
+    isLoading: isDecrypting,
+    getError: getDecryptionError,
+    clearCache,
+  } = useDecryption();
 
   const [prescriptionForm, setPrescriptionForm] = useState({
     patientAddress: "",
@@ -64,6 +79,11 @@ function App() {
   const [approvalLoading, setApprovalLoading] = useState(false);
   const [patientLookupLoading, setPatientLookupLoading] = useState(false);
   const [feedback, setFeedback] = useState(null);
+  const [reencryptionProgress, setReencryptionProgress] = useState({
+    total: 0,
+    current: 0,
+    inProgress: false,
+  });
 
   const primaryConnector = connectors[0];
   const normalizedAddress = address?.toLowerCase();
@@ -254,15 +274,30 @@ function App() {
         },
       });
 
-      // Send signed payload to API (Off-chain storage)
-      await createPrescriptionRequest({
-        patientAddress: prescriptionForm.patientAddress,
-        payload: {
+      // Encrypt payload before sending to API
+      const encryptionStart = performance.now();
+      const encryptedBundle = await encryptPrescription(
+        {
           title: prescriptionForm.title,
           summary: prescriptionForm.summary,
           notes: prescriptionForm.notes,
           medications: cleanMedications,
+          medicationDetails, // Include the hashed string for verification
         },
+        address, // doctor
+        prescriptionForm.patientAddress, // patient
+        walletClient,
+        appConfig.chainId,
+        CONTRACT_ADDRESS
+      );
+      const encryptionTime = performance.now() - encryptionStart;
+      logMetric("encryption_ms", encryptionTime);
+
+      // Send encrypted payload to API (Off-chain storage)
+      await createPrescriptionRequest({
+        patientAddress: prescriptionForm.patientAddress,
+        encryptedPayload: encryptedBundle,
+        medicationDetails, // Send plaintext medication string for co-signing
         doctorSignature,
         nonce: Number(nonce),
         validUntil,
@@ -313,10 +348,11 @@ function App() {
 
       // 1. Patient Co-Signs (EIP-712)
       // The patient must sign the EXACT same data the doctor signed
-      const medicationDetails =
-        request.payload?.medications
+      // Use the stored medicationDetails from the request
+      const medicationDetails = request.medicationDetails || 
+        (request.payload?.medications
           ?.map((m) => `${m.name} (${m.dosage}, ${m.schedule})`)
-          .join("; ") || "No medications listed";
+          .join("; ") || "No medications listed");
 
       const patientSignature = await signTypedDataAsync({
         domain: {
@@ -395,6 +431,8 @@ function App() {
     try {
       setApprovalLoading(true);
       const delegateStart = performance.now();
+      
+      // Step 1: Grant delegate access on-chain
       const txHash = await writeContractAsync({
         address: CONTRACT_ADDRESS,
         abi: PRESCRIPTION_REGISTRY_ABI,
@@ -414,7 +452,121 @@ function App() {
         logMetric("gas_delegate", Number(receipt.gasUsed));
       }
 
-      setFeedback({ type: "success", message: "Doctor granted full access." });
+      setFeedback({ type: "success", message: "Doctor granted full access. Re-encrypting prescriptions..." });
+
+      // Step 2: Re-encrypt all patient's prescriptions with delegate's key
+      try {
+        const reencryptStart = performance.now();
+        const prescriptions = await fetchPatientPrescriptions({
+          patientAddress: address,
+          viewerAddress: address,
+        });
+
+        // Filter only encrypted prescriptions that need re-encryption
+        const encryptedPrescriptions = prescriptions.filter(
+          (p) => p.metadataURI && isEncrypted(p)
+        );
+
+        if (encryptedPrescriptions.length === 0) {
+          setFeedback({ 
+            type: "success", 
+            message: "Doctor granted full access. No encrypted prescriptions to update." 
+          });
+          return;
+        }
+
+        setReencryptionProgress({
+          total: encryptedPrescriptions.length,
+          current: 0,
+          inProgress: true,
+        });
+
+        let successCount = 0;
+        let failureCount = 0;
+
+        // Process each prescription
+        for (let i = 0; i < encryptedPrescriptions.length; i++) {
+          const prescription = encryptedPrescriptions[i];
+          
+          try {
+            // Fetch encrypted bundle from IPFS
+            const bundle = await fetchIPFSBundle(prescription.metadataURI);
+
+            // Decrypt to get plaintext payload (patient has access)
+            const decryptedPayload = await decrypt(
+              bundle,
+              address,
+              walletClient,
+              appConfig.chainId,
+              CONTRACT_ADDRESS
+            );
+
+            // Add delegate as recipient
+            const updatedBundle = await addRecipientToBundle(
+              bundle,
+              request.doctorAddress,
+              decryptedPayload,
+              walletClient,
+              appConfig.chainId,
+              CONTRACT_ADDRESS
+            );
+
+            // Pin updated bundle to IPFS
+            const { metadataURI: newMetadataURI } = await pinUpdatedBundle(updatedBundle);
+
+            // Update on-chain metadata
+            await writeContractAsync({
+              address: CONTRACT_ADDRESS,
+              abi: PRESCRIPTION_REGISTRY_ABI,
+              functionName: "updatePrescriptionMetadata",
+              args: [BigInt(prescription.prescriptionId), newMetadataURI],
+            });
+
+            successCount++;
+            logMetric("reencryption_success", 1);
+          } catch (error) {
+            console.error(`Failed to re-encrypt prescription ${prescription.prescriptionId}:`, error);
+            failureCount++;
+            logMetric("reencryption_failure", 1);
+          }
+
+          // Update progress
+          setReencryptionProgress({
+            total: encryptedPrescriptions.length,
+            current: i + 1,
+            inProgress: i + 1 < encryptedPrescriptions.length,
+          });
+        }
+
+        const reencryptionTime = performance.now() - reencryptStart;
+        logMetric("reencryption_ms", reencryptionTime);
+        logMetric("reencryption_count", successCount);
+
+        // Final feedback message
+        if (failureCount === 0) {
+          setFeedback({
+            type: "success",
+            message: `Doctor granted full access. Successfully re-encrypted ${successCount} prescription${successCount !== 1 ? 's' : ''}.`,
+          });
+        } else {
+          setFeedback({
+            type: "warning",
+            message: `Doctor granted access. Re-encrypted ${successCount}/${encryptedPrescriptions.length} prescriptions (${failureCount} failed).`,
+          });
+        }
+      } catch (error) {
+        console.error("Re-encryption error:", error);
+        setFeedback({
+          type: "warning",
+          message: `Doctor granted access, but re-encryption failed: ${error.message}`,
+        });
+      } finally {
+        setReencryptionProgress({
+          total: 0,
+          current: 0,
+          inProgress: false,
+        });
+      }
     } catch (error) {
       setFeedback({ type: "error", message: error.message });
     } finally {
@@ -710,20 +862,40 @@ function App() {
                   {pendingDrafts.map((req) => (
                     <div key={req.id} className="rounded-2xl border border-slate-200 p-4 shadow-sm">
                       <div className="flex flex-wrap items-center justify-between gap-2">
-                        <div>
+                        <div className="flex-1">
                           <p className="text-sm font-semibold text-slate-900">
-                            Draft · {req.payload?.title ?? "Untitled rx"}
+                            Draft · {isEncrypted(req.payload) ? "🔒 Encrypted Prescription" : (req.payload?.title ?? "Untitled rx")}
                           </p>
                           <p className="text-xs text-slate-500">
                             Doctor {shorten(req.doctorAddress)} ·{" "}
                             {new Date(req.createdAt).toLocaleString()}
                           </p>
+                          {isEncrypted(req.payload) && !getCached(req.id) && (
+                            <button
+                              type="button"
+                              onClick={() => decrypt(req.id, req.payload)}
+                              disabled={isDecrypting(req.id)}
+                              className="mt-2 text-xs font-semibold text-indigo-600 hover:text-indigo-800 disabled:opacity-50"
+                            >
+                              {isDecrypting(req.id) ? "Decrypting..." : "🔓 Decrypt to View"}
+                            </button>
+                          )}
+                          {getCached(req.id) && (
+                            <div className="mt-2 text-xs text-slate-600">
+                              <strong>Title:</strong> {getCached(req.id).title || "Untitled"}
+                            </div>
+                          )}
+                          {getDecryptionError(req.id) && (
+                            <p className="mt-1 text-xs text-rose-600">
+                              Decryption failed: {getDecryptionError(req.id)}
+                            </p>
+                          )}
                         </div>
                         <button
                           type="button"
                           onClick={() => handleFinalizeDraft(req)}
                           disabled={approvalLoading}
-                          className="rounded-full bg-emerald-500 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white shadow"
+                          className="rounded-full bg-emerald-500 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white shadow hover:bg-emerald-600 disabled:opacity-50"
                         >
                           {approvalLoading ? "Publishing…" : "Sign & Publish"}
                         </button>
@@ -786,6 +958,11 @@ function App() {
                           {approvalLoading ? "Approving…" : "Approve access"}
                         </button>
                       </div>
+                      {reencryptionProgress.inProgress && (
+                        <div className="mt-2 text-xs text-indigo-600">
+                          Re-encrypting prescriptions... {reencryptionProgress.current}/{reencryptionProgress.total}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

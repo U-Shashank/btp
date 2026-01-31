@@ -5,12 +5,19 @@ const prescriptionsRouter = require("./routes/prescriptions");
 const requestsRouter = require("./routes/requests");
 const patientsRouter = require("./routes/patients");
 const metricsRouter = require("./routes/metrics");
+const ipfsRouter = require("./routes/ipfs");
 const metrics = require("./utils/metrics");
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+// Enhanced CORS configuration
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'x-sender', 'x-viewer'],
+  credentials: true
+}));
+app.use(express.json({ limit: '10mb' })); // Increase limit for encrypted payloads
 
 app.use((req, res, next) => {
   const start = process.hrtime.bigint();
@@ -32,6 +39,7 @@ app.use("/api/prescriptions", prescriptionsRouter);
 app.use("/api/requests", requestsRouter);
 app.use("/api/patients", patientsRouter);
 app.use("/api/metrics", metricsRouter);
+app.use("/api/ipfs", ipfsRouter);
 
 app.use((err, _req, res, _next) => {
   console.error(err);

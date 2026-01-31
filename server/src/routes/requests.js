@@ -35,6 +35,19 @@ function assertPayloadFields(payload) {
     err.status = 400;
     throw err;
   }
+  
+  // Check if it's an encrypted bundle
+  if (payload.version && payload.encryptedPayload && payload.recipients) {
+    // Encrypted bundle - validate structure
+    if (!payload.encryptedPayload.ciphertext || !payload.encryptedPayload.iv) {
+      const err = new Error("Invalid encrypted bundle structure");
+      err.status = 400;
+      throw err;
+    }
+    return; // Valid encrypted bundle
+  }
+  
+  // Plaintext payload - validate fields
   if (typeof payload.title !== "string" || !payload.title.trim()) {
     const err = new Error("Payload title is required");
     err.status = 400;
@@ -94,6 +107,7 @@ router.post("/", async (req, res, next) => {
       patientAddress: body.patientAddress,
       kind: body.kind,
       payload: body.kind === "prescription" ? body.payload : undefined,
+      medicationDetails: body.kind === "prescription" ? body.medicationDetails : undefined,
       reason: body.kind === "access" ? body.reason : undefined,
       doctorSignature: body.kind === "prescription" ? body.doctorSignature : undefined,
       nonce: body.kind === "prescription" ? body.nonce : undefined,

@@ -24,6 +24,7 @@ contract PrescriptionRegistry {
     // Removed DraftCreated, DraftFinalized events
     event PrescriptionIssued(uint256 indexed prescriptionId, address indexed doctor, address indexed patient, string metadataURI);
     event PatientDelegationUpdated(address indexed patient, address indexed viewer, bool allowed);
+    event PrescriptionMetadataUpdated(uint256 indexed prescriptionId, string newMetadataURI);
 
     error NotPatient(uint256 prescriptionId, address caller);
     error UnauthorizedViewer(uint256 prescriptionId, address caller);
@@ -126,6 +127,17 @@ contract PrescriptionRegistry {
         require(viewer != address(0), "invalid viewer");
         patientDelegates[msg.sender][viewer] = allowed;
         emit PatientDelegationUpdated(msg.sender, viewer, allowed);
+    }
+
+    /// @notice Allows patient to update metadataURI (e.g., when adding encrypted keys for new delegates)
+    function updatePrescriptionMetadata(uint256 prescriptionId, string calldata newMetadataURI) external {
+        Prescription storage prescription = prescriptions[prescriptionId];
+        require(prescription.patient != address(0), "prescription does not exist");
+        require(msg.sender == prescription.patient, "only patient can update metadata");
+        require(bytes(newMetadataURI).length > 0, "empty metadata URI");
+        
+        prescription.metadataURI = newMetadataURI;
+        emit PrescriptionMetadataUpdated(prescriptionId, newMetadataURI);
     }
 
     /// @notice Fetches prescription metadata if caller is the doctor, patient, or an authorized delegate.

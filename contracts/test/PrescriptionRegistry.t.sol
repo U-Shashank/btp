@@ -139,5 +139,96 @@ contract PrescriptionRegistryTest is Test {
         vm.expectRevert("invalid doctor signature");
         registry.registerPrescription(DOCTOR, PATIENT, details, validUntil, "ipfs://1", sigDoctor, sigPatient);
     }
+
+    function testUpdatePrescriptionMetadata() public {
+        // First, create a prescription
+        string memory details = "Meds: Aspirin";
+        uint256 nonce = 0;
+        uint256 validUntil = block.timestamp + 1 hours;
+
+        bytes memory sigDoctor = _sign(doctorKey, details, nonce, validUntil);
+        bytes memory sigPatient = _sign(patientKey, details, nonce, validUntil);
+
+        vm.prank(PATIENT);
+        uint256 prescriptionId = registry.registerPrescription(
+            DOCTOR, PATIENT, details, validUntil, "ipfs://original", sigDoctor, sigPatient
+        );
+
+        // Patient updates metadata (e.g., after adding delegate)
+        vm.prank(PATIENT);
+        registry.updatePrescriptionMetadata(prescriptionId, "ipfs://updated-with-delegate");
+
+        // Verify update
+        vm.prank(PATIENT);
+        PrescriptionRegistry.Prescription memory record = registry.getPrescription(prescriptionId);
+        assertEq(record.metadataURI, "ipfs://updated-with-delegate");
+    }
+
+    function testUpdateMetadataOnlyByPatient() public {
+        // Create prescription
+        string memory details = "Meds: Aspirin";
+        uint256 nonce = 0;
+        uint256 validUntil = block.timestamp + 1 hours;
+
+        bytes memory sigDoctor = _sign(doctorKey, details, nonce, validUntil);
+        bytes memory sigPatient = _sign(patientKey, details, nonce, validUntil);
+
+        vm.prank(PATIENT);
+        uint256 prescriptionId = registry.registerPrescription(
+            DOCTOR, PATIENT, details, validUntil, "ipfs://original", sigDoctor, sigPatient
+        );
+
+        // Doctor tries to update (should fail)
+        vm.prank(DOCTOR);
+        vm.expectRevert("only patient can update metadata");
+        registry.updatePrescriptionMetadata(prescriptionId, "ipfs://hacked");
+
+        // Random viewer tries to update (should fail)
+        vm.prank(VIEWER);
+        vm.expectRevert("only patient can update metadata");
+        registry.updatePrescriptionMetadata(prescriptionId, "ipfs://hacked");
+    }
+
+    function testUpdateMetadataRejectsEmptyURI() public {
+        // Create prescription
+        string memory details = "Meds: Aspirin";
+        uint256 nonce = 0;
+        uint256 validUntil = block.timestamp + 1 hours;
+
+        bytes memory sigDoctor = _sign(doctorKey, details, nonce, validUntil);
+        bytes memory sigPatient = _sign(patientKey, details, nonce, validUntil);
+
+        vm.prank(PATIENT);
+        uint256 prescriptionId = registry.registerPrescription(
+            DOCTOR, PATIENT, details, validUntil, "ipfs://original", sigDoctor, sigPatient
+        );
+
+        // Patient tries to set empty URI (should fail)
+        vm.prank(PATIENT);
+        vm.expectRevert("empty metadata URI");
+        registry.updatePrescriptionMetadata(prescriptionId, "");
+    }
+
+    function testUpdateMetadataEmitsEvent() public {
+        // Create prescription
+        string memory details = "Meds: Aspirin";
+        uint256 nonce = 0;
+        uint256 validUntil = block.timestamp + 1 hours;
+
+        bytes memory sigDoctor = _sign(doctorKey, details, nonce, validUntil);
+        bytes memory sigPatient = _sign(patientKey, details, nonce, validUntil);
+
+        vm.prank(PATIENT);
+        uint256 prescriptionId = registry.registerPrescription(
+            DOCTOR, PATIENT, details, validUntil, "ipfs://original", sigDoctor, sigPatient
+        );
+
+        // Expect event emission
+        vm.expectEmit(true, false, false, true);
+        emit PrescriptionRegistry.PrescriptionMetadataUpdated(prescriptionId, "ipfs://updated");
+
+        vm.prank(PATIENT);
+        registry.updatePrescriptionMetadata(prescriptionId, "ipfs://updated");
+    }
 }
 

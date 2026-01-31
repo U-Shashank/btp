@@ -6,6 +6,7 @@ async function createDoctorRequest({
   patientAddress,
   kind,
   payload,
+  medicationDetails,  // New: Plaintext medication string for co-signing
   reason,
   doctorSignature, // New: EIP-712 Signature from Doctor
   nonce,           // New: Nonce used for signature
@@ -21,16 +22,22 @@ async function createDoctorRequest({
       err.status = 400;
       throw err;
     }
-    // Note: draftId is no longer required on input as it's not on-chain yet
     
-    const pinPayload = {
-      doctor: doctorAddress,
-      patient: patientAddress,
-      payload,
-      createdAt: new Date().toISOString(),
-    };
+    // Check if payload is encrypted
+    const isEncrypted = payload.version && payload.encryptedPayload;
+    
+    const pinPayload = isEncrypted 
+      ? payload  // Pin the encrypted bundle directly
+      : {
+          // Legacy plaintext format
+          doctor: doctorAddress,
+          patient: patientAddress,
+          payload,
+          createdAt: new Date().toISOString(),
+        };
+    
     const pinResult = await pinJSON(pinPayload, {
-      name: `prescription-${patientAddress}-${Date.now()}`,
+      name: `${isEncrypted ? 'encrypted-' : ''}prescription-${patientAddress}-${Date.now()}`,
     });
     metadataURI = pinResult.metadataURI;
     ipfsHash = pinResult.ipfsHash;
@@ -46,10 +53,10 @@ async function createDoctorRequest({
     doctorAddress,
     patientAddress,
     kind,
-    // Removed draftId/draftTxHash
     ipfsHash,
     metadataURI,
     payload: storedPayload,
+    medicationDetails, // Store for co-signing
     doctorSignature,
     nonce,
     validUntil

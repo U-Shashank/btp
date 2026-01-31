@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@noble/ciphers": "^0.5.3",
+    "@noble/hashes": "^1.8.0",
     "@tanstack/react-query": "^5.90.7",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

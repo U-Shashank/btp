@@ -28,9 +28,11 @@ async function request(path, options = {}) {
 export async function createPrescriptionRequest({
   patientAddress,
   payload,
-  doctorSignature, // New
-  nonce,           // New
-  validUntil,      // New
+  encryptedPayload,   // New: Support encrypted payloads
+  medicationDetails,  // New: Plaintext string for co-signing
+  doctorSignature,    // New
+  nonce,              // New
+  validUntil,         // New
   sender,
 }) {
   return request("/requests", {
@@ -42,7 +44,9 @@ export async function createPrescriptionRequest({
     body: JSON.stringify({
       kind: "prescription",
       patientAddress,
-      payload,
+      payload: encryptedPayload || payload, // Send encrypted if available, else plaintext
+      encryptedPayload, // Explicitly include encrypted payload
+      medicationDetails, // Medication string for EIP-712 signing
       doctorSignature,
       nonce: nonce.toString(),
       validUntil: validUntil.toString(),
@@ -87,5 +91,35 @@ export async function fetchPrescription({ prescriptionId, viewerAddress }) {
 export async function fetchPatientPrescriptions({ patientAddress, viewerAddress }) {
   return request(`/patients/${patientAddress}/prescriptions`, {
     headers: viewerAddress ? { "x-viewer": viewerAddress } : undefined,
+  });
+}
+
+/**
+ * Fetches an encrypted bundle from IPFS gateway
+ * @param {string} metadataURI - IPFS gateway URL (e.g., https://gateway.pinata.cloud/ipfs/QmXXX)
+ * @returns {Promise<Object>} Encrypted bundle object
+ */
+export async function fetchIPFSBundle(metadataURI) {
+  try {
+    const response = await fetch(metadataURI);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch IPFS bundle: ${response.status} ${response.statusText}`);
+    }
+    const bundle = await response.json();
+    return bundle;
+  } catch (error) {
+    throw new Error(`Error fetching IPFS bundle: ${error.message}`);
+  }
+}
+
+/**
+ * Pins an updated encrypted bundle to IPFS via backend
+ * @param {Object} bundle - Updated encrypted bundle
+ * @returns {Promise<{ipfsHash: string, metadataURI: string}>} New IPFS hash and URI
+ */
+export async function pinUpdatedBundle(bundle) {
+  return request("/ipfs/update", {
+    method: "POST",
+    body: JSON.stringify({ bundle }),
   });
 }

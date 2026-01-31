@@ -16,7 +16,7 @@ const env = {
   })(),
   RPC_URL: parseOptionalString(process.env.RPC_URL),
   PRESCRIPTION_REGISTRY_ADDRESS: parseOptionalString(
-    process.env.PRESCRIPTION_REGISTRY_ADDRESS
+    process.env.PRESCRIPTION_REGISTRY_ADDRESS,
   ),
   PINATA_JWT: parseOptionalString(process.env.PINATA_JWT),
   PINATA_GATEWAY:
@@ -25,7 +25,7 @@ const env = {
 };
 
 // Temporary log of env variables (remove later)
-console.log("env:", env);
+// console.log("env:", env);
 
 function ensureChainConfig() {
   const missing = [];
