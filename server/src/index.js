@@ -6,19 +6,40 @@ const requestsRouter = require("./routes/requests");
 const patientsRouter = require("./routes/patients");
 const metricsRouter = require("./routes/metrics");
 const ipfsRouter = require("./routes/ipfs");
+const doctorsRouter = require("./routes/doctors");
 const metrics = require("./utils/metrics");
 
 const app = express();
 
 // Enhanced CORS configuration
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'x-sender', 'x-viewer'],
-  credentials: true
-}));
-app.use(express.json({ limit: '10mb' })); // Increase limit for encrypted payloads
+app.use(cors());
 
+// Increase JSON payload size limit for encrypted prescriptions
+app.use(express.json());
+
+// Request logging middleware
+app.use((req, res, next) => {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] ${req.method} ${req.path}`);
+
+  if (req.method === "POST" && req.path.includes("/requests")) {
+    console.log("  📝 POST /api/requests received");
+    console.log("  📨 Headers:", {
+      "content-type": req.headers["content-type"],
+      "x-sender": req.headers["x-sender"] || "(missing)",
+      origin: req.headers.origin || "(none)",
+    });
+    if (req.body) {
+      console.log("  📦 Body size:", JSON.stringify(req.body).length, "bytes");
+      console.log("  📋 Request kind:", req.body.kind);
+      console.log("  👤 Patient:", req.body.patientAddress);
+    }
+  }
+
+  next();
+});
+
+// Latency tracking
 app.use((req, res, next) => {
   const start = process.hrtime.bigint();
   res.on("finish", () => {
@@ -40,6 +61,7 @@ app.use("/api/requests", requestsRouter);
 app.use("/api/patients", patientsRouter);
 app.use("/api/metrics", metricsRouter);
 app.use("/api/ipfs", ipfsRouter);
+app.use("/api/doctors", doctorsRouter);
 
 app.use((err, _req, res, _next) => {
   console.error(err);

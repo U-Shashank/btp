@@ -1,6 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.23;
 
+/// @title IDoctorStatusOracle
+/// @notice Interface for the DoctorStatusOracle contract
+interface IDoctorStatusOracle {
+    function isDoctorActive(address doctor) external view returns (bool);
+}
+
 /// @title PrescriptionRegistry
 /// @notice Anchors prescription metadata on-chain while delegating payload storage off-chain.
 contract PrescriptionRegistry {
@@ -16,10 +22,12 @@ contract PrescriptionRegistry {
     mapping(uint256 => Prescription) private prescriptions;
     // Removed drafts mapping
     mapping(address => mapping(address => bool)) private patientDelegates;
-    mapping(address => bool) private allowedDoctors;
 
     uint256 private nextPrescriptionId = 1;
     // Removed nextDraftId
+
+    // Oracle for doctor authorization
+    IDoctorStatusOracle public immutable doctorOracle;
 
     // Removed DraftCreated, DraftFinalized events
     event PrescriptionIssued(uint256 indexed prescriptionId, address indexed doctor, address indexed patient, string metadataURI);
@@ -30,18 +38,12 @@ contract PrescriptionRegistry {
     error UnauthorizedViewer(uint256 prescriptionId, address caller);
     // Removed DraftNotActive error
 
-    // Hard-coded sample doctors for prototyping.
-    address private constant DOCTOR_ONE = address(0x70997970C51812dc3A010C7d01b50e0d17dc79C8);
-    address private constant DOCTOR_TWO = address(0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC);
-    address private constant DOCTOR_THREE = address(0x90F79bf6EB2c4f870365E785982E1f101E93b906);
-
     bytes32 private constant DOMAIN_TYPE_HASH = keccak256("EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)");
     bytes32 private constant PRESCRIPTION_TYPE_HASH = keccak256("Prescription(address doctor,address patient,string medicationDetails,uint256 nonce,uint256 validUntil)");
 
-    constructor() {
-        allowedDoctors[DOCTOR_ONE] = true;
-        allowedDoctors[DOCTOR_TWO] = true;
-        allowedDoctors[DOCTOR_THREE] = true;
+    constructor(address _doctorOracleAddress) {
+        require(_doctorOracleAddress != address(0), "Invalid oracle address");
+        doctorOracle = IDoctorStatusOracle(_doctorOracleAddress);
     }
 
     function _domainSeparatorV4() internal view returns (bytes32) {
@@ -90,7 +92,7 @@ contract PrescriptionRegistry {
         bytes calldata doctorSignature,
         bytes calldata patientSignature
     ) external returns (uint256 prescriptionId) {
-        require(allowedDoctors[doctor], "doctor not authorized");
+        require(doctorOracle.isDoctorActive(doctor), "doctor not authorized");
         require(patient != address(0), "invalid patient");
         require(block.timestamp <= validUntil, "signature expired");
         require(bytes(metadataURI).length > 0, "empty metadata");
@@ -161,7 +163,7 @@ contract PrescriptionRegistry {
     }
 
     function isDoctor(address account) external view returns (bool) {
-        return allowedDoctors[account];
+        return doctorOracle.isDoctorActive(account);
     }
     
     // Removed getDraft function

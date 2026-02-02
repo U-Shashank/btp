@@ -18,6 +18,8 @@ const env = {
   PRESCRIPTION_REGISTRY_ADDRESS: parseOptionalString(
     process.env.PRESCRIPTION_REGISTRY_ADDRESS,
   ),
+  DOCTOR_ORACLE_ADDRESS: parseOptionalString(process.env.DOCTOR_ORACLE_ADDRESS),
+  ADMIN_PRIVATE_KEY: parseOptionalString(process.env.ADMIN_PRIVATE_KEY),
   PINATA_JWT: parseOptionalString(process.env.PINATA_JWT),
   PINATA_GATEWAY:
     parseOptionalString(process.env.PINATA_GATEWAY) ??

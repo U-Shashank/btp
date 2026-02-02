@@ -22,6 +22,7 @@ import {
 import { logMetric } from "./services/metricsApi";
 import { appConfig } from "./config";
 import { PRESCRIPTION_REGISTRY_ABI } from "./lib/abi";
+import DOCTOR_ORACLE_ABI from "./lib/DoctorStatusOracleABI.json";
 import {
   encryptPrescription,
   isEncrypted,
@@ -366,6 +367,30 @@ function App() {
       setPrescriptionSubmitting(true);
       const draftStart = performance.now();
 
+      // Check if doctor is active in the oracle (if oracle is configured)
+      if (appConfig.oracleAddress) {
+        try {
+          const isActive = await publicClient.readContract({
+            address: appConfig.oracleAddress,
+            abi: DOCTOR_ORACLE_ABI,
+            functionName: "isDoctorActive",
+            args: [address],
+          });
+
+          if (!isActive) {
+            setFeedback({
+              type: "error",
+              message: "Cannot create prescription: Your doctor account is currently suspended. Please contact the administrator.",
+            });
+            setPrescriptionSubmitting(false);
+            return;
+          }
+        } catch (error) {
+          console.warn("Could not check doctor status from oracle:", error);
+          // Continue anyway - blockchain will enforce the check
+        }
+      }
+
       // New: Doctor signs off-chain via EIP-712
       const medicationDetails = cleanMedications
         .map((m) => `${m.name} (${m.dosage}, ${m.schedule})`)
@@ -423,6 +448,12 @@ function App() {
       logMetric("encryption_ms", encryptionTime);
 
       // Send encrypted payload to API (Off-chain storage)
+      console.log('🏥 About to call createPrescriptionRequest');
+      console.log('  Doctor address (sender):', address);
+      console.log('  Patient address:', prescriptionForm.patientAddress);
+      console.log('  Address defined:', !!address);
+      console.log('  Address type:', typeof address);
+      
       await createPrescriptionRequest({
         patientAddress: prescriptionForm.patientAddress,
         encryptedPayload: encryptedBundle,
@@ -432,6 +463,9 @@ function App() {
         validUntil,
         sender: address,
       });
+      
+      console.log('✅ createPrescriptionRequest completed');
+      
       await loadRequests("drafts");
       logMetric("draft_creation_ms", performance.now() - draftStart);
 

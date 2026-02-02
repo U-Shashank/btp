@@ -3,9 +3,11 @@ pragma solidity ^0.8.23;
 
 import "forge-std/Test.sol";
 import "../src/PrescriptionRegistry.sol";
+import "../src/DoctorStatusOracle.sol";
 
 contract PrescriptionRegistryTest is Test {
     PrescriptionRegistry private registry;
+    DoctorStatusOracle private oracle;
     uint256 internal doctorKey = 0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d; // 0x7099...
     address private constant DOCTOR = 0x70997970C51812dc3A010C7d01b50e0d17dc79C8;
     
@@ -18,7 +20,16 @@ contract PrescriptionRegistryTest is Test {
 
     function setUp() public {
         PATIENT = vm.addr(patientKey);
-        registry = new PrescriptionRegistry();
+        
+        // Deploy oracle first
+        oracle = new DoctorStatusOracle();
+        
+        // Add doctor to oracle
+        oracle.addDoctor(DOCTOR);
+        
+        // Deploy registry with oracle
+        registry = new PrescriptionRegistry(address(oracle));
+        
         vm.deal(DOCTOR, 10 ether);
         vm.deal(PATIENT, 10 ether);
     }

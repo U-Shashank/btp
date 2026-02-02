@@ -3,14 +3,25 @@ import { appConfig } from "../config";
 async function request(path, options = {}) {
   let res;
   try {
-    res = await fetch(`${appConfig.apiBaseUrl}${path}`, {
-      headers: {
-        "Content-Type": "application/json",
-        ...options.headers,
-      },
+    const url = `${appConfig.apiBaseUrl}${path}`;
+    console.log(`🌐 API Request: ${options.method || 'GET'} ${url}`);
+    
+    const finalHeaders = {
+      "Content-Type": "application/json",
+      ...options.headers,
+    };
+    
+    console.log('  📨 Headers being sent:', finalHeaders);
+    console.log('  📨 x-sender in final headers:', finalHeaders['x-sender']);
+    
+    res = await fetch(url, {
+      headers: finalHeaders,
       ...options,
     });
+    
+    console.log(`✅ API Response: ${res.status} ${res.statusText}`);
   } catch (error) {
+    console.error('❌ API Request Failed:', error);
     const message =
       error?.message?.includes("Network") || error?.message?.includes("Failed to fetch")
         ? "Network error while contacting the API. Please ensure the server is running and try again."
@@ -20,6 +31,7 @@ async function request(path, options = {}) {
 
   if (!res.ok) {
     const errorBody = await res.json().catch(() => ({}));
+    console.error('❌ API Error Response:', errorBody);
     throw new Error(errorBody.message || "Request failed");
   }
   return res.json();
@@ -35,12 +47,23 @@ export async function createPrescriptionRequest({
   validUntil,         // New
   sender,
 }) {
+  console.log('📤 createPrescriptionRequest called');
+  console.log('  sender value:', sender);
+  console.log('  sender type:', typeof sender);
+  console.log('  sender truthy:', !!sender);
+  
+  const headers = {
+    "Content-Type": "application/json",
+    ...(sender && { "x-sender": sender }),
+  };
+  
+  console.log('  Final headers object:', headers);
+  console.log('  x-sender present:', 'x-sender' in headers);
+  console.log('  x-sender value:', headers['x-sender']);
+  
   return request("/requests", {
     method: "POST",
-
-    headers: sender
-      ? { "Content-Type": "application/json", "x-sender": sender }
-      : undefined,
+    headers: headers,
     body: JSON.stringify({
       kind: "prescription",
       patientAddress,
@@ -57,9 +80,10 @@ export async function createPrescriptionRequest({
 export async function createAccessRequest({ patientAddress, reason, sender }) {
   return request("/requests", {
     method: "POST",
-    headers: sender
-      ? { "Content-Type": "application/json", "x-sender": sender }
-      : undefined,
+    headers: {
+      "Content-Type": "application/json",
+      ...(sender && { "x-sender": sender }),
+    },
     body: JSON.stringify({ kind: "access", patientAddress, reason }),
   });
 }
@@ -75,22 +99,27 @@ export async function fetchRequests({ address, role }) {
 export async function completeRequest({ requestId, sender, payload }) {
   return request(`/requests/${requestId}/approve`, {
     method: "POST",
-    headers: sender
-      ? { "Content-Type": "application/json", "x-sender": sender }
-      : undefined,
+    headers: {
+      "Content-Type": "application/json",
+      ...(sender && { "x-sender": sender }),
+    },
     body: JSON.stringify(payload),
   });
 }
 
 export async function fetchPrescription({ prescriptionId, viewerAddress }) {
   return request(`/prescriptions/${prescriptionId}`, {
-    headers: viewerAddress ? { "x-viewer": viewerAddress } : undefined,
+    headers: {
+      ...(viewerAddress && { "x-viewer": viewerAddress }),
+    },
   });
 }
 
 export async function fetchPatientPrescriptions({ patientAddress, viewerAddress }) {
   return request(`/patients/${patientAddress}/prescriptions`, {
-    headers: viewerAddress ? { "x-viewer": viewerAddress } : undefined,
+    headers: {
+      ...(viewerAddress && { "x-viewer": viewerAddress }),
+    },
   });
 }
 
