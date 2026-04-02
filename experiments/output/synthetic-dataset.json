@@ -1,0 +1,4406 @@
+{
+  "generatedAt": "2026-04-01T20:38:01.811Z",
+  "seed": 20260401,
+  "counts": {
+    "patients": 30,
+    "doctors": 8,
+    "activeDoctors": 7,
+    "prescriptions": 120,
+    "finalizedPrescriptions": 109
+  },
+  "patients": [
+    {
+      "id": "PT-001",
+      "wallet": "0xcb1ac7aefbcbd74882a4d5f4f99da0a63ae94801",
+      "name": "Diya Gupta",
+      "age": 78,
+      "bloodGroup": "A+",
+      "allergy": "None"
+    },
+    {
+      "id": "PT-002",
+      "wallet": "0x9822c35cfe20d5a81afbec00664b51c9f6b03f87",
+      "name": "Kavya Kapoor",
+      "age": 19,
+      "bloodGroup": "A+",
+      "allergy": "None"
+    },
+    {
+      "id": "PT-003",
+      "wallet": "0x9741499aaa805af73c51ad75dd3b809411e2f6fc",
+      "name": "Kabir Gupta",
+      "age": 18,
+      "bloodGroup": "AB+",
+      "allergy": "None"
+    },
+    {
+      "id": "PT-004",
+      "wallet": "0x740556e27ef920208fc2e783b6ea888aa3fa4dd8",
+      "name": "Neel Kapoor",
+      "age": 61,
+      "bloodGroup": "B+",
+      "allergy": "Seafood"
+    },
+    {
+      "id": "PT-005",
+      "wallet": "0xbb852bc433704eacd3113a8329dd905ced94c194",
+      "name": "Sneha Kapoor",
+      "age": 48,
+      "bloodGroup": "O+",
+      "allergy": "Pollen"
+    },
+    {
+      "id": "PT-006",
+      "wallet": "0x44437c83f938d5694afb28b8df23bf975a2f1f00",
+      "name": "Aarav Verma",
+      "age": 36,
+      "bloodGroup": "AB+",
+      "allergy": "Seafood"
+    },
+    {
+      "id": "PT-007",
+      "wallet": "0x5eb7c66585c44dff748fa06000ba6aec4130229b",
+      "name": "Diya Verma",
+      "age": 35,
+      "bloodGroup": "AB-",
+      "allergy": "None"
+    },
+    {
+      "id": "PT-008",
+      "wallet": "0xfba511dc293f508e4709836dad310337f69100d0",
+      "name": "Meera Menon",
+      "age": 41,
+      "bloodGroup": "B+",
+      "allergy": "None"
+    },
+    {
+      "id": "PT-009",
+      "wallet": "0xe58d0777a2223615ef179d0b0040e9bda79a4f93",
+      "name": "Rohan Reddy",
+      "age": 78,
+      "bloodGroup": "O-",
+      "allergy": "Dust"
+    },
+    {
+      "id": "PT-010",
+      "wallet": "0x2e7b1d365288286a4c63a70c0c4e529c2abd3fd4",
+      "name": "Dev Sharma",
+      "age": 65,
+      "bloodGroup": "B-",
+      "allergy": "Dust"
+    },
+    {
+      "id": "PT-011",
+      "wallet": "0xadc302cc323b428fe1086a7852208f986c76ddfc",
+      "name": "Nisha Singh",
+      "age": 22,
+      "bloodGroup": "A-",
+      "allergy": "Peanuts"
+    },
+    {
+      "id": "PT-012",
+      "wallet": "0x3d355419986a01096669c6f315fed2741ab73c4b",
+      "name": "Meera Das",
+      "age": 35,
+      "bloodGroup": "AB+",
+      "allergy": "Dust"
+    },
+    {
+      "id": "PT-013",
+      "wallet": "0x6b120d556f79a375d410153583664610f652402d",
+      "name": "Arjun Rao",
+      "age": 62,
+      "bloodGroup": "AB-",
+      "allergy": "Peanuts"
+    },
+    {
+      "id": "PT-014",
+      "wallet": "0x3ca18d22e754620a63188c86281831dc539b8ddf",
+      "name": "Nisha Mehta",
+      "age": 55,
+      "bloodGroup": "O+",
+      "allergy": "Penicillin"
+    },
+    {
+      "id": "PT-015",
+      "wallet": "0x2bfffa5117806086af02d39518b7300eb7f9a00b",
+      "name": "Ishaan Gupta",
+      "age": 31,
+      "bloodGroup": "B+",
+      "allergy": "None"
+    },
+    {
+      "id": "PT-016",
+      "wallet": "0x71e3e0fa100c448257965ccb9f5be3af061a546a",
+      "name": "Ishaan Nair",
+      "age": 23,
+      "bloodGroup": "A-",
+      "allergy": "Pollen"
+    },
+    {
+      "id": "PT-017",
+      "wallet": "0x398005303c7f19f5cc6c2f17729468b67fabd158",
+      "name": "Arjun Iyer",
+      "age": 24,
+      "bloodGroup": "B+",
+      "allergy": "Peanuts"
+    },
+    {
+      "id": "PT-018",
+      "wallet": "0x6f871d71cb3f3da8841c54d5af269ba6d5e44bdd",
+      "name": "Rohan Mehta",
+      "age": 62,
+      "bloodGroup": "B-",
+      "allergy": "None"
+    },
+    {
+      "id": "PT-019",
+      "wallet": "0x7d47eed630677531609387a0d0e2bdca53536927",
+      "name": "Kavya Khan",
+      "age": 56,
+      "bloodGroup": "O-",
+      "allergy": "Seafood"
+    },
+    {
+      "id": "PT-020",
+      "wallet": "0xe713ebaea269710da488f430bc6d75e313057c81",
+      "name": "Aarav Iyer",
+      "age": 25,
+      "bloodGroup": "O-",
+      "allergy": "Seafood"
+    },
+    {
+      "id": "PT-021",
+      "wallet": "0x46c7bea5c6a60693776d8c0f0b47e1ffda313015",
+      "name": "Sneha Pillai",
+      "age": 59,
+      "bloodGroup": "A+",
+      "allergy": "None"
+    },
+    {
+      "id": "PT-022",
+      "wallet": "0x5345753f1c27ffab23127dd8eea96798c9fafffb",
+      "name": "Rohan Singh",
+      "age": 30,
+      "bloodGroup": "B-",
+      "allergy": "Penicillin"
+    },
+    {
+      "id": "PT-023",
+      "wallet": "0x913ac9c6c8ffc43504c7cb8490d7f7dda8dd7d43",
+      "name": "Ishaan Iyer",
+      "age": 60,
+      "bloodGroup": "O+",
+      "allergy": "Pollen"
+    },
+    {
+      "id": "PT-024",
+      "wallet": "0xd8ea4e83bd58f233f62b5f8c59465eb2ae42c77c",
+      "name": "Saanvi Kapoor",
+      "age": 41,
+      "bloodGroup": "AB+",
+      "allergy": "Dust"
+    },
+    {
+      "id": "PT-025",
+      "wallet": "0x2ef8f723dfecebff95afbda383597bf009ee375d",
+      "name": "Vikram Reddy",
+      "age": 35,
+      "bloodGroup": "A-",
+      "allergy": "Seafood"
+    },
+    {
+      "id": "PT-026",
+      "wallet": "0x7b9d911f1b4cf404ca270cce123ffba7a5e52c83",
+      "name": "Nisha Bose",
+      "age": 35,
+      "bloodGroup": "A-",
+      "allergy": "Dust"
+    },
+    {
+      "id": "PT-027",
+      "wallet": "0xfcfa255d1c77624e2613fdf264160a0e7b573610",
+      "name": "Saanvi Gupta",
+      "age": 46,
+      "bloodGroup": "B-",
+      "allergy": "Penicillin"
+    },
+    {
+      "id": "PT-028",
+      "wallet": "0x46c8aea88220f8d3991e5eea4c59de15e890ed6b",
+      "name": "Arjun Verma",
+      "age": 56,
+      "bloodGroup": "AB-",
+      "allergy": "Dust"
+    },
+    {
+      "id": "PT-029",
+      "wallet": "0x297e227d41b6db7646b91a199b696849a38f62ef",
+      "name": "Dev Sharma",
+      "age": 36,
+      "bloodGroup": "A-",
+      "allergy": "Dust"
+    },
+    {
+      "id": "PT-030",
+      "wallet": "0xae1aec29be68c7c09a8ae16da755101bf318501b",
+      "name": "Sneha Iyer",
+      "age": 77,
+      "bloodGroup": "O+",
+      "allergy": "Seafood"
+    }
+  ],
+  "doctors": [
+    {
+      "id": "DR-001",
+      "wallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "name": "Dr. Rohan Singh",
+      "specialty": "Dermatology",
+      "hospital": "City Care Hospital",
+      "active": true
+    },
+    {
+      "id": "DR-002",
+      "wallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "name": "Dr. Dev Bose",
+      "specialty": "ENT",
+      "hospital": "Green Valley Clinic",
+      "active": true
+    },
+    {
+      "id": "DR-003",
+      "wallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "name": "Dr. Kavya Rao",
+      "specialty": "Orthopedics",
+      "hospital": "IIITK Health Centre",
+      "active": true
+    },
+    {
+      "id": "DR-004",
+      "wallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "name": "Dr. Anaya Menon",
+      "specialty": "ENT",
+      "hospital": "Sunrise Medical Institute",
+      "active": true
+    },
+    {
+      "id": "DR-005",
+      "wallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "name": "Dr. Anaya Sharma",
+      "specialty": "Dermatology",
+      "hospital": "Sunrise Medical Institute",
+      "active": true
+    },
+    {
+      "id": "DR-006",
+      "wallet": "0x40d8013df6087f1a119262bdd688b1abc4eb2b2f",
+      "name": "Dr. Rohan Verma",
+      "specialty": "Cardiology",
+      "hospital": "IIITK Health Centre",
+      "active": false
+    },
+    {
+      "id": "DR-007",
+      "wallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "name": "Dr. Dev Rao",
+      "specialty": "Orthopedics",
+      "hospital": "Sunrise Medical Institute",
+      "active": true
+    },
+    {
+      "id": "DR-008",
+      "wallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "name": "Dr. Dev Pillai",
+      "specialty": "Neurology",
+      "hospital": "Sunrise Medical Institute",
+      "active": true
+    }
+  ],
+  "prescriptions": [
+    {
+      "id": "RX-0001",
+      "patientId": "PT-007",
+      "patientWallet": "0x5eb7c66585c44dff748fa06000ba6aec4130229b",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-01T09:00:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 1",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 21 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          }
+        ]
+      },
+      "payloadHash": "9f9a9aca25b93e6015a9edaad7e0f30896db43bda7b290dc10de437361a0b10d",
+      "ipfsCid": "bafy042145cf2a7115c958d7ae6f0fab",
+      "onChainAnchor": "0x625f700883f221a446cc0dcf2521b148cd28165ac9ae8f11c5928c303e3f6661",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": false,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0002",
+      "patientId": "PT-005",
+      "patientWallet": "0xbb852bc433704eacd3113a8329dd905ced94c194",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-02T10:01:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 2",
+        "summary": "Asthma management",
+        "notes": "Review in 12 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "cf554c408b3fc4d5e5067a046979416b9bfb4db0644675207231dda0686455ce",
+      "ipfsCid": "bafy67200d4a5a77c6640d3d3a3ab325",
+      "onChainAnchor": "0x6e45eca83a7c16b7e34a52f22063d7abce454cc72a8582a39f1cf93604268707",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0003",
+      "patientId": "PT-016",
+      "patientWallet": "0x71e3e0fa100c448257965ccb9f5be3af061a546a",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-03T11:02:00.000Z",
+      "diagnosis": "Hypertension review",
+      "payload": {
+        "title": "Prescription 3",
+        "summary": "Hypertension review",
+        "notes": "Review in 6 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "7c70b1fa7f9b8afa18e3b7eb28a0f272a7653d50e1eb0b3b2054b8d30b3e0594",
+      "ipfsCid": "bafyc20ddc90133faf0a347794c16353",
+      "onChainAnchor": "0x931b8b84281aa81a7271a07555e5cd9fe1042072ec565a11b994cec98b68c64b",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0004",
+      "patientId": "PT-024",
+      "patientWallet": "0xd8ea4e83bd58f233f62b5f8c59465eb2ae42c77c",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-04T12:03:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 4",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 21 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "fb10dfac482074cb191b032bdafa27939e059d048a15068657d390efa7788d23",
+      "ipfsCid": "bafy75820ab2ca6f640bd54a12d5ba42",
+      "onChainAnchor": "0xf89b79e036f91991dfe31b263d5cf3e952f017e7bf25c97fba073c1704062797",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0005",
+      "patientId": "PT-009",
+      "patientWallet": "0xe58d0777a2223615ef179d0b0040e9bda79a4f93",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-05T13:04:00.000Z",
+      "diagnosis": "Hypertension review",
+      "payload": {
+        "title": "Prescription 5",
+        "summary": "Hypertension review",
+        "notes": "Review in 18 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "95063d5ae384d5e7cc242fa7fa4d41ce63e489ac4228de6bc72b50c4f6bda1e7",
+      "ipfsCid": "bafy015ee3fd2156f0b99dd1dd80fced",
+      "onChainAnchor": "0x492f481590ed5a82453c3a37981fc18a260857997ad4db355b501c56e60f1bc1",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0006",
+      "patientId": "PT-021",
+      "patientWallet": "0x46c7bea5c6a60693776d8c0f0b47e1ffda313015",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-06T14:05:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 6",
+        "summary": "Asthma management",
+        "notes": "Review in 14 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "ce555834ad7436afc5afbd4b9f30483f5a32a00dc1b7e96ff2e923641ba94613",
+      "ipfsCid": "bafybcfca23064873fd26693f7218ab5",
+      "onChainAnchor": "0x057060fd51b2b3018fbb8ca31bc4ad2df2d403a558edf68fc88f62a233905004",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0007",
+      "patientId": "PT-005",
+      "patientWallet": "0xbb852bc433704eacd3113a8329dd905ced94c194",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-07T15:06:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 7",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 16 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "509919f8df89b94d4de07f82f8ed24890d72da26839ff2198f113f07b4c317bd",
+      "ipfsCid": "bafy5144908f01c4a59865ef013390f1",
+      "onChainAnchor": "0xb9b2c1e4417fe18db62a65f29bd4992548c2d7beedf0ba279a3971c03fe61c9f",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0008",
+      "patientId": "PT-004",
+      "patientWallet": "0x740556e27ef920208fc2e783b6ea888aa3fa4dd8",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-08T09:07:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 8",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 5 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "696cf4239125fd39f46a3df6de6f73e2cd9283f8ec9e3122f024c50660f34bd1",
+      "ipfsCid": "bafy425297032e1a45cbc616c2593780",
+      "onChainAnchor": "0xcd811aff505fc3b8250628288dd5ed4b5181e215785ddaf9233923223ff83b6b",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0009",
+      "patientId": "PT-006",
+      "patientWallet": "0x44437c83f938d5694afb28b8df23bf975a2f1f00",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-09T10:08:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 9",
+        "summary": "Asthma management",
+        "notes": "Review in 11 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "3847703531d7bd8a3a78da6748ead97a0f885c029a04ec798ae7226f344c1ee2",
+      "ipfsCid": "bafya6e1a6cd85f5eaca4691642305d0",
+      "onChainAnchor": "0xb1206f27f8cc37a8a6d7fe4a1a620e52ebddfe12bf7e8127184609a754f82af9",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0010",
+      "patientId": "PT-010",
+      "patientWallet": "0x2e7b1d365288286a4c63a70c0c4e529c2abd3fd4",
+      "doctorId": "DR-004",
+      "doctorWallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "createdAt": "2026-03-10T11:09:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 10",
+        "summary": "Asthma management",
+        "notes": "Review in 13 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          }
+        ]
+      },
+      "payloadHash": "9f9021e6644cc0a1e17f7c928386f98ab76d83c1f4da7e28e5e448f0e3045a29",
+      "ipfsCid": "bafy689b847f43a4d36daab1b42dc4df",
+      "onChainAnchor": "0xb51cf5d5654fd62b9086021a937ee082f0087246c96eedb74756e7a197f742d1",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0011",
+      "patientId": "PT-010",
+      "patientWallet": "0x2e7b1d365288286a4c63a70c0c4e529c2abd3fd4",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-11T12:10:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 11",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 16 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "6811372a81837306a74c713705946889250acc8c850ced0fb300ed820ba1413e",
+      "ipfsCid": "bafy4d335d7ae35fe86b0e88695b6976",
+      "onChainAnchor": "0xeaf1284dd52c5a1c46814a12ef862aa76b614c196b3b946b27a7c868b8bc0a21",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0012",
+      "patientId": "PT-009",
+      "patientWallet": "0xe58d0777a2223615ef179d0b0040e9bda79a4f93",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-12T13:11:00.000Z",
+      "diagnosis": "Post-operative pain review",
+      "payload": {
+        "title": "Prescription 12",
+        "summary": "Post-operative pain review",
+        "notes": "Review in 15 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "4d2989204e7e1d3038f86426ee31ae281dea40494e24f5603deb173baec105ec",
+      "ipfsCid": "bafya15afad6d1c15778f3402eabe69e",
+      "onChainAnchor": "0xa3b9bfdadd456cf2038c55481065e79c8d26ba711f9448a4257423bc14455362",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": false,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0013",
+      "patientId": "PT-015",
+      "patientWallet": "0x2bfffa5117806086af02d39518b7300eb7f9a00b",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-13T14:12:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 13",
+        "summary": "Seasonal flu",
+        "notes": "Review in 8 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "dd8bdcff661211b8a581203d81c522a84476541629165277d3331f474da39693",
+      "ipfsCid": "bafya26230f013e8a8331c648524273e",
+      "onChainAnchor": "0x1ad441308b1632cc34209a111468fea7abe6c2819ea1c018943ace57bcf7ee8b",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0014",
+      "patientId": "PT-014",
+      "patientWallet": "0x3ca18d22e754620a63188c86281831dc539b8ddf",
+      "doctorId": "DR-004",
+      "doctorWallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "createdAt": "2026-03-14T15:13:00.000Z",
+      "diagnosis": "Routine pediatric fever",
+      "payload": {
+        "title": "Prescription 14",
+        "summary": "Routine pediatric fever",
+        "notes": "Review in 9 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "c352fc5dc8650416291268de2661dca0275c357718184b70f5d9e39caf271e98",
+      "ipfsCid": "bafyb310acb175bec77d8eb1bb32bfaa",
+      "onChainAnchor": "0x6ee8f2f13fdfc4941c563d20e9470a94b69668ccc780714fb47aa070c3c7116d",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0015",
+      "patientId": "PT-010",
+      "patientWallet": "0x2e7b1d365288286a4c63a70c0c4e529c2abd3fd4",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-15T09:14:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 15",
+        "summary": "Seasonal flu",
+        "notes": "Review in 7 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "0103375d2938ea038945d09d5641f8119df075e45b8dda2f3389d3998e483290",
+      "ipfsCid": "bafyc63bf2192178b7a90dc4fecff699",
+      "onChainAnchor": "0x08455ad732322e457122191841cc1201607f36f49dfde804dfee4910630c5909",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0016",
+      "patientId": "PT-022",
+      "patientWallet": "0x5345753f1c27ffab23127dd8eea96798c9fafffb",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-16T10:15:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 16",
+        "summary": "Asthma management",
+        "notes": "Review in 21 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "1ae72a6765aea399f8dff30910efd04423b81229c15218d44a978b161ece56bf",
+      "ipfsCid": "bafy157a671d976c40bb821ff5a94b74",
+      "onChainAnchor": "0x00266930d2ebab3630d0586c5253630f7897a2d32cce37961ab8ee578c5cfd8f",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0017",
+      "patientId": "PT-015",
+      "patientWallet": "0x2bfffa5117806086af02d39518b7300eb7f9a00b",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-17T11:16:00.000Z",
+      "diagnosis": "Routine pediatric fever",
+      "payload": {
+        "title": "Prescription 17",
+        "summary": "Routine pediatric fever",
+        "notes": "Review in 21 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          }
+        ]
+      },
+      "payloadHash": "197daa72a447b70d694bd49b3f84325f43dfcf40e3651793e18387070697c97c",
+      "ipfsCid": "bafy4785ce011e5fa83c093f85bb7349",
+      "onChainAnchor": "0x29a5a8fb8b9924333a72b0c26fecea3087a7d8da73d414c76622d10d0ecdd087",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0018",
+      "patientId": "PT-019",
+      "patientWallet": "0x7d47eed630677531609387a0d0e2bdca53536927",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-18T12:17:00.000Z",
+      "diagnosis": "Routine pediatric fever",
+      "payload": {
+        "title": "Prescription 18",
+        "summary": "Routine pediatric fever",
+        "notes": "Review in 10 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "e046628dd0f0610a84118021df461446b07800ebec8f6d4c5d8abf502a178336",
+      "ipfsCid": "bafy5d38a89efa7fcab1a77087c52c87",
+      "onChainAnchor": "0xb2f724789253387e6f51de532cd6de1f2d1e53af6ecd99ba5a927b89ba71230c",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0019",
+      "patientId": "PT-013",
+      "patientWallet": "0x6b120d556f79a375d410153583664610f652402d",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-19T13:18:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 19",
+        "summary": "Asthma management",
+        "notes": "Review in 6 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          },
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "4183e676ee46e1304ca55b8f527e588c6a26f848f3111ae35616e25654640ffa",
+      "ipfsCid": "bafy625d5980f47c6088e6eec9111ea8",
+      "onChainAnchor": "0x1e385f296dd165d778c70acb92c3160e626cdcec7457f34b4f926e12e213bf9a",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0020",
+      "patientId": "PT-005",
+      "patientWallet": "0xbb852bc433704eacd3113a8329dd905ced94c194",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-20T14:19:00.000Z",
+      "diagnosis": "Migraine episode",
+      "payload": {
+        "title": "Prescription 20",
+        "summary": "Migraine episode",
+        "notes": "Review in 14 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "af4dee61bfbdc381653842a811284a0aecb49c401beec30e0c24c85de8b76e7f",
+      "ipfsCid": "bafy96dd35b1b9343daf2c3cd63802c1",
+      "onChainAnchor": "0x25564349847c20042c826bbdab44e2765c3ef0aae8e3469af1b9a7697bf25443",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0021",
+      "patientId": "PT-019",
+      "patientWallet": "0x7d47eed630677531609387a0d0e2bdca53536927",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-21T15:20:00.000Z",
+      "diagnosis": "Type 2 diabetes follow-up",
+      "payload": {
+        "title": "Prescription 21",
+        "summary": "Type 2 diabetes follow-up",
+        "notes": "Review in 14 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "2adf4ad3c965bc3e52be7566b5ed0fe32802ae2a422fa85a6a9843def4747175",
+      "ipfsCid": "bafy78dac85869200b628cbd2b403233",
+      "onChainAnchor": "0xe4b532024f890ff47303743d6dab6065585fccb2ca739a1f1951bc625849be87",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0022",
+      "patientId": "PT-007",
+      "patientWallet": "0x5eb7c66585c44dff748fa06000ba6aec4130229b",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-22T09:21:00.000Z",
+      "diagnosis": "Post-operative pain review",
+      "payload": {
+        "title": "Prescription 22",
+        "summary": "Post-operative pain review",
+        "notes": "Review in 9 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          }
+        ]
+      },
+      "payloadHash": "499173a119d782203a4d9a6be0fd5c64153d9d4c04bc10909662fe1128dc165a",
+      "ipfsCid": "bafy4aaf3d747f43be59742a3b748420",
+      "onChainAnchor": "0x712cbbe98c076c07cf811a8b3fac12365a2c6997119d786309c9fe8f2bd42bfa",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0023",
+      "patientId": "PT-003",
+      "patientWallet": "0x9741499aaa805af73c51ad75dd3b809411e2f6fc",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-23T10:22:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 23",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 14 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "16ee0998a3031fdd06cc1d875cf7fd6621c1d90b17b66a939c89d21d5ae51eb6",
+      "ipfsCid": "bafy08e2bf6b2878ad953da0301877bf",
+      "onChainAnchor": "0xd70feca202dcbc36414ceb65c24ed14f5b3affed2e62ce7526e0abe1a5171af4",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": false,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0024",
+      "patientId": "PT-013",
+      "patientWallet": "0x6b120d556f79a375d410153583664610f652402d",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-24T11:23:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 24",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 15 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "2ba56a3dc10b3430f4c23207c181239abba14b184587f7e45a2e4c0cd0a894b6",
+      "ipfsCid": "bafyb967fd85dfc68e8507c633401ae6",
+      "onChainAnchor": "0x32930c54b46c26ceac6c398c1c7b2f022817000f47d98c65a4a97ee5da7742da",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0025",
+      "patientId": "PT-006",
+      "patientWallet": "0x44437c83f938d5694afb28b8df23bf975a2f1f00",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-25T12:24:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 25",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 20 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "f7ae860004d2d37b8ae6929b96dae8b8b5e9179458b7cd22c345e4c95fb1374f",
+      "ipfsCid": "bafye93cd58ec7d27239632ed1031231",
+      "onChainAnchor": "0x93a3ed0b15f091e2fe8009cb527f8c5de91b6bb5a0813917db7f693e00d52c72",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0026",
+      "patientId": "PT-002",
+      "patientWallet": "0x9822c35cfe20d5a81afbec00664b51c9f6b03f87",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-26T13:25:00.000Z",
+      "diagnosis": "Routine pediatric fever",
+      "payload": {
+        "title": "Prescription 26",
+        "summary": "Routine pediatric fever",
+        "notes": "Review in 15 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "64efda40282bf81558eedcaa3435a09ac8839cc51a6c0c0122ada71fb0a70c9b",
+      "ipfsCid": "bafy743bd9666ac15b9e38fa9f3c8540",
+      "onChainAnchor": "0xa39e3999404a2923686569a1564e0dd1237845380d8a5160c9edae2664dbf232",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0027",
+      "patientId": "PT-030",
+      "patientWallet": "0xae1aec29be68c7c09a8ae16da755101bf318501b",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-27T14:26:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 27",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 15 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          }
+        ]
+      },
+      "payloadHash": "eeca7f5eeb724bb98016225931982cf9500ab72d5f280d8584e771267923be29",
+      "ipfsCid": "bafye05f9392ca2d9ddf2c5ef1d223b3",
+      "onChainAnchor": "0xb8c0081618d4a6c37a1004654166f99aa049f2a7f3abea2205c44a7b285a5a78",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0028",
+      "patientId": "PT-017",
+      "patientWallet": "0x398005303c7f19f5cc6c2f17729468b67fabd158",
+      "doctorId": "DR-004",
+      "doctorWallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "createdAt": "2026-03-28T15:27:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 28",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 19 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "526ffd2a88558a6388098cba485e0ef9f789f43f0bcd48720a1f363ee60bfb7f",
+      "ipfsCid": "bafy1de46cb773e8979e3c1b004de50f",
+      "onChainAnchor": "0x9c22150da308ab550ef64d4df8c7361195e3bdf2676955e0c7211b159e010a75",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0029",
+      "patientId": "PT-028",
+      "patientWallet": "0x46c8aea88220f8d3991e5eea4c59de15e890ed6b",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-01T09:28:00.000Z",
+      "diagnosis": "Vitamin deficiency",
+      "payload": {
+        "title": "Prescription 29",
+        "summary": "Vitamin deficiency",
+        "notes": "Review in 9 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          }
+        ]
+      },
+      "payloadHash": "c9002d503ec0f88ddb038eed83be4e49484ee947ea2da12c21ac9451d534fadf",
+      "ipfsCid": "bafy1b484ae2197a2e1f535f9376f8bd",
+      "onChainAnchor": "0xe35ec1e55a2ef83d08e5a74a4fbbb12458b13329bab10f701ca2b11f67fb8e5d",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0030",
+      "patientId": "PT-020",
+      "patientWallet": "0xe713ebaea269710da488f430bc6d75e313057c81",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-02T10:29:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 30",
+        "summary": "Seasonal flu",
+        "notes": "Review in 5 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "592148db10d786910ff4d59cd90077f387873c743b56415ada8600554e5ddf38",
+      "ipfsCid": "bafy04fa191c4e5c42d56162250995d9",
+      "onChainAnchor": "0x12a06ed827bca14357acfab5174c6cc9019d7a8ea428d544921c9788c6702018",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0031",
+      "patientId": "PT-017",
+      "patientWallet": "0x398005303c7f19f5cc6c2f17729468b67fabd158",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-03T11:30:00.000Z",
+      "diagnosis": "Migraine episode",
+      "payload": {
+        "title": "Prescription 31",
+        "summary": "Migraine episode",
+        "notes": "Review in 18 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          }
+        ]
+      },
+      "payloadHash": "b18cd9718137c017dddec87943a6b8ef4a206f982d15950f7fafe2f868e899b3",
+      "ipfsCid": "bafyc498469b727903086ac42e19c6a1",
+      "onChainAnchor": "0xe0deb80f5eccb4b104e86cd7136b76c3a695252da579c6bd5a4c6e75431a5104",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0032",
+      "patientId": "PT-005",
+      "patientWallet": "0xbb852bc433704eacd3113a8329dd905ced94c194",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-04T12:31:00.000Z",
+      "diagnosis": "Post-operative pain review",
+      "payload": {
+        "title": "Prescription 32",
+        "summary": "Post-operative pain review",
+        "notes": "Review in 10 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "5bd9cd151aaece4086b257ef428f7fb3c0cf508f475f4b71af31d0264a3b7fc9",
+      "ipfsCid": "bafy64f2e849f25e8c880de7ef4ef627",
+      "onChainAnchor": "0x508a0bafd5f59c8324b627d394d3525621155b70f898199e38b486454009712d",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0033",
+      "patientId": "PT-010",
+      "patientWallet": "0x2e7b1d365288286a4c63a70c0c4e529c2abd3fd4",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-05T13:32:00.000Z",
+      "diagnosis": "Type 2 diabetes follow-up",
+      "payload": {
+        "title": "Prescription 33",
+        "summary": "Type 2 diabetes follow-up",
+        "notes": "Review in 19 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "17f75b30408b1650fb267e448e4f845d8211c4b0b1eb577ee340135ffa92cca6",
+      "ipfsCid": "bafy5480537792ebb435a46786083027",
+      "onChainAnchor": "0x6dc253926ed9b49f3a61dc814aaa03f334b67df786f5ee048a1017eb3ccbff07",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0034",
+      "patientId": "PT-030",
+      "patientWallet": "0xae1aec29be68c7c09a8ae16da755101bf318501b",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-06T14:33:00.000Z",
+      "diagnosis": "Hypertension review",
+      "payload": {
+        "title": "Prescription 34",
+        "summary": "Hypertension review",
+        "notes": "Review in 12 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          }
+        ]
+      },
+      "payloadHash": "3d883537c9ec31f05736fdec39dc6f9d8f64faad82e80e302750b663069205d0",
+      "ipfsCid": "bafy0cf8de3b97311cf1794b85c7ab44",
+      "onChainAnchor": "0xc738bc9b2b40c7bb405b6aff338a961db4bf95dd0e54106344772d47685ebd96",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": false,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0035",
+      "patientId": "PT-003",
+      "patientWallet": "0x9741499aaa805af73c51ad75dd3b809411e2f6fc",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-07T15:34:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 35",
+        "summary": "Asthma management",
+        "notes": "Review in 15 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "81def065f64235b7592061b1d060af6b6004fa5205464418368ae60fcca616ba",
+      "ipfsCid": "bafy37907c5a0d5278f15cd0609b9110",
+      "onChainAnchor": "0xe53b48c305ba89e908eb06dc03898fd833c26604056dfddd37648f1d8c09562d",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0036",
+      "patientId": "PT-017",
+      "patientWallet": "0x398005303c7f19f5cc6c2f17729468b67fabd158",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-08T09:35:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 36",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 10 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "7d3458dcc2519a1b57a88d94427ed8c6534bba124446a9f5459ee277297b44cf",
+      "ipfsCid": "bafy12a992ba8c07aa99c47b100097fa",
+      "onChainAnchor": "0x0ad53f6fa3fd79e30a86fa014ecb27472de3b2cb08dfde6ddb30ca8d4bc44dbb",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0037",
+      "patientId": "PT-009",
+      "patientWallet": "0xe58d0777a2223615ef179d0b0040e9bda79a4f93",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-09T10:36:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 37",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 8 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          },
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "d619ccfdc2ded2171cfc4b4028141d0916f30a2cc88328c0082e153d6c84afd4",
+      "ipfsCid": "bafy51c8735fb3a2f6b90859820bd195",
+      "onChainAnchor": "0xab039854f0713725f300bfa198ed118850b977ac8c4f5064d3db17384d8505f1",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0038",
+      "patientId": "PT-009",
+      "patientWallet": "0xe58d0777a2223615ef179d0b0040e9bda79a4f93",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-10T11:37:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 38",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 18 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "e1bc5aacd380f3e2cba504b22ff597d1fa3db182df7088ccfa9f4d27f5c35b4c",
+      "ipfsCid": "bafy7c30a6d0ebde6fe1850d0709b811",
+      "onChainAnchor": "0x0a794163afebc0d9b9074a490c8b13f3a7bef80bebfd4bc609c8ee91768a74c4",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0039",
+      "patientId": "PT-002",
+      "patientWallet": "0x9822c35cfe20d5a81afbec00664b51c9f6b03f87",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-11T12:38:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 39",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 18 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "950a7eaed97fa2e6cf2b3fcd3fac4619008ad96a31bbd810eb6bf0b4ef687b1b",
+      "ipfsCid": "bafydf8126086a0b9ffc772a33721e11",
+      "onChainAnchor": "0xea673f4d2e392b4f5092242452ace912e1c16cf848130eb720a2c9f94bc37d01",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0040",
+      "patientId": "PT-029",
+      "patientWallet": "0x297e227d41b6db7646b91a199b696849a38f62ef",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-12T13:39:00.000Z",
+      "diagnosis": "Migraine episode",
+      "payload": {
+        "title": "Prescription 40",
+        "summary": "Migraine episode",
+        "notes": "Review in 17 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          },
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "a5db7017e150c692fd383ebf8c33648843d7691c6dadcd9a68fbb80b01b08dc1",
+      "ipfsCid": "bafy24e01556f9678b7f8143ffdd6583",
+      "onChainAnchor": "0xb1991a9fd89c1545ab0de4e6b8567bb582fdbc50045fea4d640a23f468f2bfa2",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0041",
+      "patientId": "PT-003",
+      "patientWallet": "0x9741499aaa805af73c51ad75dd3b809411e2f6fc",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-13T14:40:00.000Z",
+      "diagnosis": "Post-operative pain review",
+      "payload": {
+        "title": "Prescription 41",
+        "summary": "Post-operative pain review",
+        "notes": "Review in 11 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "db2c2bb69f38fe8bca296be68a4fd37f775ac1ac9cc7044d695b52a7ba03a08d",
+      "ipfsCid": "bafyb422dd43f7dfb8d4bf61d640ff56",
+      "onChainAnchor": "0xa9306b813f250c7da87fdad9ac97cda12484b9e92a5015dd941700c6f8a1ec9c",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0042",
+      "patientId": "PT-016",
+      "patientWallet": "0x71e3e0fa100c448257965ccb9f5be3af061a546a",
+      "doctorId": "DR-004",
+      "doctorWallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "createdAt": "2026-03-14T15:41:00.000Z",
+      "diagnosis": "Hypertension review",
+      "payload": {
+        "title": "Prescription 42",
+        "summary": "Hypertension review",
+        "notes": "Review in 11 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          }
+        ]
+      },
+      "payloadHash": "c8152ed731158c2c91182fb681620d9bbda67c5473cd6f4cb122d860b78c09c0",
+      "ipfsCid": "bafyc9c680f7a3d5b6877b23a201b2a3",
+      "onChainAnchor": "0xbe97eea9a79da7b210b412ef6c1ec8f26dda47c997a3af0a405a0f60f0b578ae",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0043",
+      "patientId": "PT-002",
+      "patientWallet": "0x9822c35cfe20d5a81afbec00664b51c9f6b03f87",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-15T09:42:00.000Z",
+      "diagnosis": "Migraine episode",
+      "payload": {
+        "title": "Prescription 43",
+        "summary": "Migraine episode",
+        "notes": "Review in 18 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "e47f4cb3812514e942f7e3436d852aa150f6923397d608b09f5a26fa52f473f6",
+      "ipfsCid": "bafy926806fac4078f3d380d674a9300",
+      "onChainAnchor": "0x9fbd2284920db9bf74b1fa4c74c05abad60e3e9ca3a2f90e1d5833237e064854",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0044",
+      "patientId": "PT-010",
+      "patientWallet": "0x2e7b1d365288286a4c63a70c0c4e529c2abd3fd4",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-16T10:43:00.000Z",
+      "diagnosis": "Post-operative pain review",
+      "payload": {
+        "title": "Prescription 44",
+        "summary": "Post-operative pain review",
+        "notes": "Review in 12 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "6f0f6f9efc77c961800aac40e66f140af61e2cdccb19e448cd4f224a7edd21b6",
+      "ipfsCid": "bafy92d34f187ef5c233d83431ba2267",
+      "onChainAnchor": "0x962f6a3361ab70e38731355692e09b94e275943ccb7cf4d1353d8bf176ee57ce",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0045",
+      "patientId": "PT-012",
+      "patientWallet": "0x3d355419986a01096669c6f315fed2741ab73c4b",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-17T11:44:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 45",
+        "summary": "Asthma management",
+        "notes": "Review in 11 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          },
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          }
+        ]
+      },
+      "payloadHash": "174e3d430678e8fad831f9a484c2333e6fe46fa5f267c8582af4c2ad1bc44007",
+      "ipfsCid": "bafy515c112ba0a59d5f8721d4bb993a",
+      "onChainAnchor": "0xe97685c926fba3e0d3700e5dcddf504f9f09ec51d411336c7c563827ee72e7db",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": false,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0046",
+      "patientId": "PT-015",
+      "patientWallet": "0x2bfffa5117806086af02d39518b7300eb7f9a00b",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-18T12:45:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 46",
+        "summary": "Asthma management",
+        "notes": "Review in 17 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "5a16c975a3e2d0dd8623ca35361fa5b0f07e05bbb3c279794ab39f85a5161f10",
+      "ipfsCid": "bafy0f35c3e89eb8c52ce1d8cc6dfe42",
+      "onChainAnchor": "0xa7d87247b0ca7528cb46c51fbd5ee8ea1d55d4937d96cdc73bea20fa5683b787",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0047",
+      "patientId": "PT-010",
+      "patientWallet": "0x2e7b1d365288286a4c63a70c0c4e529c2abd3fd4",
+      "doctorId": "DR-004",
+      "doctorWallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "createdAt": "2026-03-19T13:46:00.000Z",
+      "diagnosis": "Migraine episode",
+      "payload": {
+        "title": "Prescription 47",
+        "summary": "Migraine episode",
+        "notes": "Review in 12 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "d157bb196a83683236984c4ec551e4380d6406fb966e03fd8786381fb8138672",
+      "ipfsCid": "bafy16c27c3b8b8f6d299917d12134cb",
+      "onChainAnchor": "0xc85fff1b250d94c5b286e2b32959f3725628f5fe3dcf36ce458ad2838df4e013",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0048",
+      "patientId": "PT-027",
+      "patientWallet": "0xfcfa255d1c77624e2613fdf264160a0e7b573610",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-20T14:47:00.000Z",
+      "diagnosis": "Hypertension review",
+      "payload": {
+        "title": "Prescription 48",
+        "summary": "Hypertension review",
+        "notes": "Review in 14 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          }
+        ]
+      },
+      "payloadHash": "7dfbdb34b9a5ee6edf5e5da1fc7438aeecaad27168a4b7642b8831207584dfde",
+      "ipfsCid": "bafyd214c9d5512c14bdd70ccaf1144f",
+      "onChainAnchor": "0xe0cc13a2b6296078cc16225a3bc0c63cb1dd3c4f9256350e3b0f40e69952130c",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0049",
+      "patientId": "PT-002",
+      "patientWallet": "0x9822c35cfe20d5a81afbec00664b51c9f6b03f87",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-21T15:48:00.000Z",
+      "diagnosis": "Post-operative pain review",
+      "payload": {
+        "title": "Prescription 49",
+        "summary": "Post-operative pain review",
+        "notes": "Review in 5 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          },
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "9a3d65cf46d2b2ccff8ce04b427c7506a3aec2fa18da69f778b3a6a7c3f1db04",
+      "ipfsCid": "bafyf5c3f4a7c0aa162523466d1c1b13",
+      "onChainAnchor": "0x23b6d540f75a6b0ca36b527afa6ffe9c2c4d5e4692b15a499a8e932131735778",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0050",
+      "patientId": "PT-010",
+      "patientWallet": "0x2e7b1d365288286a4c63a70c0c4e529c2abd3fd4",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-22T09:49:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 50",
+        "summary": "Seasonal flu",
+        "notes": "Review in 15 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "036910ed65bdfc8362ff95c2b5260c61f453b64d7a27a1816df7274ccbe3cbd0",
+      "ipfsCid": "bafye1c9d987d96a53a4e7f0c9f3ad6e",
+      "onChainAnchor": "0x21b8553a320956093b0df42caf76ddc9838d582f9814ed8277160266f04e1871",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0051",
+      "patientId": "PT-022",
+      "patientWallet": "0x5345753f1c27ffab23127dd8eea96798c9fafffb",
+      "doctorId": "DR-004",
+      "doctorWallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "createdAt": "2026-03-23T10:50:00.000Z",
+      "diagnosis": "Migraine episode",
+      "payload": {
+        "title": "Prescription 51",
+        "summary": "Migraine episode",
+        "notes": "Review in 12 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          }
+        ]
+      },
+      "payloadHash": "2dfc27a913a41811f54454b8b6e7d972c39cfa5322865ce837a7ad003ab8e12d",
+      "ipfsCid": "bafy8a947bf231c25a6eaed8544f6065",
+      "onChainAnchor": "0xb977b4d80b02d809cd6b5aa47ad6b150e376033df8fdbe4d30f6695b66e2520a",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0052",
+      "patientId": "PT-001",
+      "patientWallet": "0xcb1ac7aefbcbd74882a4d5f4f99da0a63ae94801",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-24T11:51:00.000Z",
+      "diagnosis": "Type 2 diabetes follow-up",
+      "payload": {
+        "title": "Prescription 52",
+        "summary": "Type 2 diabetes follow-up",
+        "notes": "Review in 5 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "4d85bee3e855e01bb48347c40b2e25721aa1c4c397d76013004de717cf2c90f6",
+      "ipfsCid": "bafyc9b33575015c5c5379e6a9d1a3d8",
+      "onChainAnchor": "0x70172793c91a2593a9a1dab7a4100fd3008cedc13478ff7057ccea65f2258b72",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0053",
+      "patientId": "PT-007",
+      "patientWallet": "0x5eb7c66585c44dff748fa06000ba6aec4130229b",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-25T12:52:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 53",
+        "summary": "Asthma management",
+        "notes": "Review in 6 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "c100e73e1da9a6260eb3d5017a891cf346b19b4d23eb5430a416f9182a611127",
+      "ipfsCid": "bafy354e577e27aa020acdbb9eab325c",
+      "onChainAnchor": "0x7c7db59ca50a47a0d09ae7ce6d0676af23f33181d7ae5d1bedb203e45579aaf6",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0054",
+      "patientId": "PT-011",
+      "patientWallet": "0xadc302cc323b428fe1086a7852208f986c76ddfc",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-26T13:53:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 54",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 15 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "ed013ccd576c6227a4fc0e81703d1993bc0699a5e8b6ddcee2d1eedd59aa5ac0",
+      "ipfsCid": "bafyd3de1c71759145f6f536687d0f32",
+      "onChainAnchor": "0x42df5998c474e5b12fae100fc56ebc4163e408185f4f7c960757202522fbf364",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0055",
+      "patientId": "PT-009",
+      "patientWallet": "0xe58d0777a2223615ef179d0b0040e9bda79a4f93",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-27T14:54:00.000Z",
+      "diagnosis": "Post-operative pain review",
+      "payload": {
+        "title": "Prescription 55",
+        "summary": "Post-operative pain review",
+        "notes": "Review in 16 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          },
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "53291a9465aaf9e1ffc322cd3881922b5a0a2d1e5a2ef326321c6708371bfaad",
+      "ipfsCid": "bafy2de071dd9cdfbba73b6a00d1cad8",
+      "onChainAnchor": "0xb0156a9b7991e48c2c8a1d52bdad5fa49e68f7cf0264de5e486adab4c2e4aa1f",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0056",
+      "patientId": "PT-003",
+      "patientWallet": "0x9741499aaa805af73c51ad75dd3b809411e2f6fc",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-28T15:55:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 56",
+        "summary": "Seasonal flu",
+        "notes": "Review in 6 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          },
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          }
+        ]
+      },
+      "payloadHash": "788a53736e0cc715ac395670a4fe875a719c93204967bb683bdcfcea89c16693",
+      "ipfsCid": "bafy92c6e4fb910c16413583d47f55bb",
+      "onChainAnchor": "0x6228d1bbfea5e5a9bd8f3d6285807baeef709f547919052937832081f0453db0",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": false,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0057",
+      "patientId": "PT-011",
+      "patientWallet": "0xadc302cc323b428fe1086a7852208f986c76ddfc",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-01T09:56:00.000Z",
+      "diagnosis": "Routine pediatric fever",
+      "payload": {
+        "title": "Prescription 57",
+        "summary": "Routine pediatric fever",
+        "notes": "Review in 8 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "2534ada5f42774e49cce6e4b4866df4bede639e2a28e2a101c8feb7a16d7fb65",
+      "ipfsCid": "bafydb268c36e94ec856a94210fff482",
+      "onChainAnchor": "0xa4f13e56032721d9125b8cb50af68331596dadf7fb4d00271733b32a7d9523b2",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0058",
+      "patientId": "PT-004",
+      "patientWallet": "0x740556e27ef920208fc2e783b6ea888aa3fa4dd8",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-02T10:57:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 58",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 21 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          }
+        ]
+      },
+      "payloadHash": "bbaac1a926887e1db9e2dfe644cee5b1b8631f5b227bec293b264e1659945916",
+      "ipfsCid": "bafy1f62d2ce5c2f2cb98de59877bfae",
+      "onChainAnchor": "0xda8566cb11de5c7ecee8ad8c4dd154dd6a862715dd14bfb8da664dd2358f2ead",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0059",
+      "patientId": "PT-026",
+      "patientWallet": "0x7b9d911f1b4cf404ca270cce123ffba7a5e52c83",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-03T11:58:00.000Z",
+      "diagnosis": "Vitamin deficiency",
+      "payload": {
+        "title": "Prescription 59",
+        "summary": "Vitamin deficiency",
+        "notes": "Review in 8 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          },
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          }
+        ]
+      },
+      "payloadHash": "b99d752327083aea0c4bdf9a47b88ca6a525cb641b37e8ba2b1f7cae78eca33d",
+      "ipfsCid": "bafy3a4597f89ea34a94d729a3d49e1c",
+      "onChainAnchor": "0xec0e2646c74aea4bb812fec1edcb9dd52f11fbb5b7f7c1a904e19add88bdeb0a",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0060",
+      "patientId": "PT-007",
+      "patientWallet": "0x5eb7c66585c44dff748fa06000ba6aec4130229b",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-04T12:59:00.000Z",
+      "diagnosis": "Type 2 diabetes follow-up",
+      "payload": {
+        "title": "Prescription 60",
+        "summary": "Type 2 diabetes follow-up",
+        "notes": "Review in 9 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "38da73c0202e0eeb9bb8bfb8c5b50e0ec3e369d157c2e0502ebc98ea65020841",
+      "ipfsCid": "bafyb75108a19f285e893a2aecd4adb4",
+      "onChainAnchor": "0x054f893b5be1c19614c9bae2edb9c0ccad0acca7ea7b19f3028b962f690bbed6",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0061",
+      "patientId": "PT-028",
+      "patientWallet": "0x46c8aea88220f8d3991e5eea4c59de15e890ed6b",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-05T13:00:00.000Z",
+      "diagnosis": "Post-operative pain review",
+      "payload": {
+        "title": "Prescription 61",
+        "summary": "Post-operative pain review",
+        "notes": "Review in 11 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          }
+        ]
+      },
+      "payloadHash": "0ad3962087aef9d572f9750d7d033b1e810130f109ebaf925994e06fda597147",
+      "ipfsCid": "bafyf071599f812a04203ad3ad8588b1",
+      "onChainAnchor": "0xe7bbd8b0b4e9b45de064589316b0cb8e0905b4bd8eed3474c83354e344f98410",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0062",
+      "patientId": "PT-001",
+      "patientWallet": "0xcb1ac7aefbcbd74882a4d5f4f99da0a63ae94801",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-06T14:01:00.000Z",
+      "diagnosis": "Post-operative pain review",
+      "payload": {
+        "title": "Prescription 62",
+        "summary": "Post-operative pain review",
+        "notes": "Review in 19 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "4bea5bc1656d6602f4ef7ddcee3376985ad0194c887ce2745ed01dda27bc2178",
+      "ipfsCid": "bafy66e8fbea19c2cfdcc7c2146dccef",
+      "onChainAnchor": "0x6b65dcee697431e9ed6fba8ab571d673a13caaf7940a2ade87a9f696f4e53c80",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0063",
+      "patientId": "PT-024",
+      "patientWallet": "0xd8ea4e83bd58f233f62b5f8c59465eb2ae42c77c",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-07T15:02:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 63",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 9 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "99ebbba64b49921ab1a3dcafbd32740d06e52d9bdf47e30b970252cb3c02fc96",
+      "ipfsCid": "bafy3103c0dc960710e25f68318762d7",
+      "onChainAnchor": "0xc1b116233f54d0b27122c73d12e0dc8e72d32a2a909bcd6d30af7eed0da7579c",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0064",
+      "patientId": "PT-022",
+      "patientWallet": "0x5345753f1c27ffab23127dd8eea96798c9fafffb",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-08T09:03:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 64",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 14 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "08a923e960c0adbacaba42cc93faba184de54e7d5172d6b4fac69ca7cf99021e",
+      "ipfsCid": "bafy450c48baac92493885dc08bc1ddd",
+      "onChainAnchor": "0x91e1432123ad31a1676bb655cd2fe5ade90c13a75a32f4e9d9a7afac9e3ddafd",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0065",
+      "patientId": "PT-021",
+      "patientWallet": "0x46c7bea5c6a60693776d8c0f0b47e1ffda313015",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-09T10:04:00.000Z",
+      "diagnosis": "Type 2 diabetes follow-up",
+      "payload": {
+        "title": "Prescription 65",
+        "summary": "Type 2 diabetes follow-up",
+        "notes": "Review in 5 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "20b28804714c84a23b546efd725a99a4747f2c138d7e0e0d0ae083e874b006c8",
+      "ipfsCid": "bafy47e395598b3f220b1013b411e709",
+      "onChainAnchor": "0xc78dafec5e95279e94cdacbe134b878c493f2e63aadafe6df3d76f6706b60597",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0066",
+      "patientId": "PT-021",
+      "patientWallet": "0x46c7bea5c6a60693776d8c0f0b47e1ffda313015",
+      "doctorId": "DR-004",
+      "doctorWallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "createdAt": "2026-03-10T11:05:00.000Z",
+      "diagnosis": "Migraine episode",
+      "payload": {
+        "title": "Prescription 66",
+        "summary": "Migraine episode",
+        "notes": "Review in 10 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "d94bcb07b96632c5f4925d1d857a8e4905fe5aea3e66bb7e4aab9048d0f2f454",
+      "ipfsCid": "bafyc1ab6e100e8d3191b8a03c27a7c9",
+      "onChainAnchor": "0x1b3cc4ce19539f047703fd61983f5446d622d66a863e520cb26987c1eea00d26",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0067",
+      "patientId": "PT-017",
+      "patientWallet": "0x398005303c7f19f5cc6c2f17729468b67fabd158",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-11T12:06:00.000Z",
+      "diagnosis": "Vitamin deficiency",
+      "payload": {
+        "title": "Prescription 67",
+        "summary": "Vitamin deficiency",
+        "notes": "Review in 14 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "7ec30d7c15820e39b5a0416bad414bea36dde12f418a6dd25c0ac960c971fede",
+      "ipfsCid": "bafyd2f22db1aaeda35b4f6c7efe93da",
+      "onChainAnchor": "0x81c3ecd4938a59ed3c2b356f7f32e68382ea39119c78840c257b64d68aa1b392",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": false,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0068",
+      "patientId": "PT-025",
+      "patientWallet": "0x2ef8f723dfecebff95afbda383597bf009ee375d",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-12T13:07:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 68",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 14 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "cfea0c9368fd7f9f6afa5b5cc9c19bced772c1135fceed291aa72b19df61ed09",
+      "ipfsCid": "bafyee57403f14a9645e8fc876fccab3",
+      "onChainAnchor": "0x655d8276ee7d29da84973036ea5c4c6438681fb8ef4ceab44088e8a74359f52c",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0069",
+      "patientId": "PT-006",
+      "patientWallet": "0x44437c83f938d5694afb28b8df23bf975a2f1f00",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-13T14:08:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 69",
+        "summary": "Seasonal flu",
+        "notes": "Review in 19 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "01339ce829c4b5083e17af3f8393c9dedf92a88c1f722d04af78b7b6cd1c2f6d",
+      "ipfsCid": "bafy8d5c872ad025a0747a5f401be061",
+      "onChainAnchor": "0x272c711a97bca756ce1af371fd01940d0012fe4d3419a9f5148e95ddc57587f7",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0070",
+      "patientId": "PT-027",
+      "patientWallet": "0xfcfa255d1c77624e2613fdf264160a0e7b573610",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-14T15:09:00.000Z",
+      "diagnosis": "Type 2 diabetes follow-up",
+      "payload": {
+        "title": "Prescription 70",
+        "summary": "Type 2 diabetes follow-up",
+        "notes": "Review in 14 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          }
+        ]
+      },
+      "payloadHash": "7907934be0bc0d69e2a8c1dded316656c7ea60e64d918dacb802778a3f6a3498",
+      "ipfsCid": "bafyc0d003dfde4e37520c07a9b78e86",
+      "onChainAnchor": "0xafde2a603485ac32aa8cb3bb6492fa9444dd150ad46eb305cd98ed28db9bade0",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0071",
+      "patientId": "PT-030",
+      "patientWallet": "0xae1aec29be68c7c09a8ae16da755101bf318501b",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-15T09:10:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 71",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 7 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "672677d2c876412379bda0c4de04b2ff8a43f29bc6d2c03907cb0de42b6114fe",
+      "ipfsCid": "bafy72394c05beacf9d48476061c71d4",
+      "onChainAnchor": "0x380409615cac663e5f05afdbe9ef6dafe6a70122cfe93ee8a108481c6d58b7fa",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0072",
+      "patientId": "PT-019",
+      "patientWallet": "0x7d47eed630677531609387a0d0e2bdca53536927",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-16T10:11:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 72",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 16 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          }
+        ]
+      },
+      "payloadHash": "dc9fa97b2b4b1fb24213754298c1d156adeb6c85de35bb9d6ab7b9f16611fa4c",
+      "ipfsCid": "bafy937c9c6a5a72d7e36ce2aec11749",
+      "onChainAnchor": "0x8b8ad65f63c8d07835195865fb7710435d98c2b1f11ada519d968c4099e7be81",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0073",
+      "patientId": "PT-022",
+      "patientWallet": "0x5345753f1c27ffab23127dd8eea96798c9fafffb",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-17T11:12:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 73",
+        "summary": "Seasonal flu",
+        "notes": "Review in 12 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "f8eb1f9926a1e77086aa967fe579ea6f637f54b89d43642c5a46f722c84a6315",
+      "ipfsCid": "bafyfc5358f053d777bfef7f82a3e420",
+      "onChainAnchor": "0xe3f389ecd4045bc376e9525e6bc4b3e0826bda38f59fcf50eb7da60f7712cb4e",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0074",
+      "patientId": "PT-021",
+      "patientWallet": "0x46c7bea5c6a60693776d8c0f0b47e1ffda313015",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-18T12:13:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 74",
+        "summary": "Seasonal flu",
+        "notes": "Review in 6 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "e89b772a1ecbe0a62e469a3184384bcefaf229b817767a47d8117dde718bdeae",
+      "ipfsCid": "bafyfcb79e860e1252d841fe1f41f663",
+      "onChainAnchor": "0xda9b236eb9fd72322ae9a757824b9a3dc5159f0101ba565a7202a53fa1ca6688",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0075",
+      "patientId": "PT-029",
+      "patientWallet": "0x297e227d41b6db7646b91a199b696849a38f62ef",
+      "doctorId": "DR-004",
+      "doctorWallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "createdAt": "2026-03-19T13:14:00.000Z",
+      "diagnosis": "Vitamin deficiency",
+      "payload": {
+        "title": "Prescription 75",
+        "summary": "Vitamin deficiency",
+        "notes": "Review in 18 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "7432e9ea63a42d663b32226b70ab05487daad10f7b4a33afb863fa711e48a1b4",
+      "ipfsCid": "bafy98d89471dd2afe257572729df44c",
+      "onChainAnchor": "0x4ead711f5ea4319e45d867f8b614095b0abc7d7de40bbeaa9f560925e3897205",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0076",
+      "patientId": "PT-018",
+      "patientWallet": "0x6f871d71cb3f3da8841c54d5af269ba6d5e44bdd",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-20T14:15:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 76",
+        "summary": "Seasonal flu",
+        "notes": "Review in 21 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "321ecb8e4b5c4d5d93f99254dec7591a206067103527a04c07551b05c4c4117d",
+      "ipfsCid": "bafy74b2338a7605b8de2fc6f57aeeb0",
+      "onChainAnchor": "0xedd91b561beefd901c313ac20c327f1d9a1cc59b074dde6f7033ba4ec8963fc4",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0077",
+      "patientId": "PT-008",
+      "patientWallet": "0xfba511dc293f508e4709836dad310337f69100d0",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-21T15:16:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 77",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 15 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "cc1c49fe49ccd3ea5dc82e6abe11d51ee758cde68037aa978ad94a8286585a37",
+      "ipfsCid": "bafy95c5bd083e1a7d59ddf92355b4b7",
+      "onChainAnchor": "0xc142b5208da643fe7c9a9f0fa99a69f76ab152c17f24c296256ad9ae5311cf89",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0078",
+      "patientId": "PT-002",
+      "patientWallet": "0x9822c35cfe20d5a81afbec00664b51c9f6b03f87",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-22T09:17:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 78",
+        "summary": "Seasonal flu",
+        "notes": "Review in 5 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          },
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          }
+        ]
+      },
+      "payloadHash": "6ba915ed9464828ac318e56648e4906d12ad4de8a897a2d6f8dacd5dce361ac2",
+      "ipfsCid": "bafybd931cea47b049a2aa4f91e2e6d4",
+      "onChainAnchor": "0x9e62ce196d3008ed3c65da9e807555e2b32621e500bb8dba8cffc0b08679af8a",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": false,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0079",
+      "patientId": "PT-006",
+      "patientWallet": "0x44437c83f938d5694afb28b8df23bf975a2f1f00",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-23T10:18:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 79",
+        "summary": "Seasonal flu",
+        "notes": "Review in 21 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "4ede9e881b4e930773270ba994fcc3a4183852efd39a414d06728a52de17394b",
+      "ipfsCid": "bafyc197d46c75cbbd6f0c57da3d4b2e",
+      "onChainAnchor": "0xf3d09202348ed628c6d6a4df4f117dbb0c9a6a08397dc5b418d87b2dfb36642c",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0080",
+      "patientId": "PT-012",
+      "patientWallet": "0x3d355419986a01096669c6f315fed2741ab73c4b",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-24T11:19:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 80",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 18 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "88d11fc47c673374820bf313966c5f54ffa958d8fc639df27141052d44d97436",
+      "ipfsCid": "bafy3eb456085f13c47bc62b7704e367",
+      "onChainAnchor": "0xf8831a5106dd19f03da7a1ef017598a7e10dbdc0bd9668a873aaacf1f5e03eab",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0081",
+      "patientId": "PT-005",
+      "patientWallet": "0xbb852bc433704eacd3113a8329dd905ced94c194",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-25T12:20:00.000Z",
+      "diagnosis": "Vitamin deficiency",
+      "payload": {
+        "title": "Prescription 81",
+        "summary": "Vitamin deficiency",
+        "notes": "Review in 9 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "5d3a271db3eb7fd81a919a52a8642f5d0a44a0916f4fc87fcbe35beb310c53f6",
+      "ipfsCid": "bafy7dd825a49282fd80921da32f60c8",
+      "onChainAnchor": "0x3e853695b8ad755c51d74e68dd9617aa5d605a14ab7648193a1a81216ecd9525",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0082",
+      "patientId": "PT-008",
+      "patientWallet": "0xfba511dc293f508e4709836dad310337f69100d0",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-26T13:21:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 82",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 12 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "1d15155c950e385b942bed7845f54e52552c339fee2b0076bd2ff3b8fd0371e0",
+      "ipfsCid": "bafyf98e7e2c6d8baa8ea6e6cc696279",
+      "onChainAnchor": "0x0ec7b005325fcecbb0aba4dbbe36ad49558e93e2e665aeae5ad22052a33be786",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0083",
+      "patientId": "PT-019",
+      "patientWallet": "0x7d47eed630677531609387a0d0e2bdca53536927",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-27T14:22:00.000Z",
+      "diagnosis": "Post-operative pain review",
+      "payload": {
+        "title": "Prescription 83",
+        "summary": "Post-operative pain review",
+        "notes": "Review in 18 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "f58343494d6f036e5db0e07990a4fb0ae72a557130d8bdc994d8c8e3b19b49a4",
+      "ipfsCid": "bafy4dd64dd3e79e5d0c17e70959af7b",
+      "onChainAnchor": "0x8a0843eb8b93b6ad06263d5c0b231621cacb2a7f3cf9b7dcf612cf8f43a05a69",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0084",
+      "patientId": "PT-011",
+      "patientWallet": "0xadc302cc323b428fe1086a7852208f986c76ddfc",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-28T15:23:00.000Z",
+      "diagnosis": "Hypertension review",
+      "payload": {
+        "title": "Prescription 84",
+        "summary": "Hypertension review",
+        "notes": "Review in 10 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          }
+        ]
+      },
+      "payloadHash": "7e8862d163d6f56d87915a7582629346162cdb536e60b36c14dc4c034efa3e62",
+      "ipfsCid": "bafy9677cc1e688d78fa8e261a1766ce",
+      "onChainAnchor": "0xe099119a60d124936d4aa92a14de957cb860198748da8582a6c4d85aa07aea43",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0085",
+      "patientId": "PT-011",
+      "patientWallet": "0xadc302cc323b428fe1086a7852208f986c76ddfc",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-01T09:24:00.000Z",
+      "diagnosis": "Type 2 diabetes follow-up",
+      "payload": {
+        "title": "Prescription 85",
+        "summary": "Type 2 diabetes follow-up",
+        "notes": "Review in 17 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "592cf6347ccd8a99d5b80654820e3a34a9add849da8b6f0907eb9ba5ef712bc5",
+      "ipfsCid": "bafy0068d3811e2d9ee21812102fa995",
+      "onChainAnchor": "0x68127eabea1185d7d59a9b08af5c9c07e272fd63fc20b16067b736d8d296eda6",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0086",
+      "patientId": "PT-015",
+      "patientWallet": "0x2bfffa5117806086af02d39518b7300eb7f9a00b",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-02T10:25:00.000Z",
+      "diagnosis": "Vitamin deficiency",
+      "payload": {
+        "title": "Prescription 86",
+        "summary": "Vitamin deficiency",
+        "notes": "Review in 13 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "0612242481a6ebc219572f4115fddeb98eddd8385792cbfcd79349b7f6d2689d",
+      "ipfsCid": "bafyaab26cbc28367b35ae2c0c8289a3",
+      "onChainAnchor": "0x87ee6903dd69e3fcd14607ab079ea8b2c89fd6db943bcadac60b69c88e10661b",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0087",
+      "patientId": "PT-026",
+      "patientWallet": "0x7b9d911f1b4cf404ca270cce123ffba7a5e52c83",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-03T11:26:00.000Z",
+      "diagnosis": "Post-operative pain review",
+      "payload": {
+        "title": "Prescription 87",
+        "summary": "Post-operative pain review",
+        "notes": "Review in 10 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "703303f02a2e62f9a09dccb9722b22878831bd679fd7a8a4ad9833c94da00015",
+      "ipfsCid": "bafy125b3f3886ba648a72b4fadc01a8",
+      "onChainAnchor": "0xb0b86c7fbc72e9d4d9891af610f1014016c4dbc91cefa3f1b27186fe89e9300c",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0088",
+      "patientId": "PT-008",
+      "patientWallet": "0xfba511dc293f508e4709836dad310337f69100d0",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-04T12:27:00.000Z",
+      "diagnosis": "Migraine episode",
+      "payload": {
+        "title": "Prescription 88",
+        "summary": "Migraine episode",
+        "notes": "Review in 15 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          }
+        ]
+      },
+      "payloadHash": "33cad2df16725c98888542698b0b930cbaa982922e3dae5269465d0dae8a620a",
+      "ipfsCid": "bafy3a8276989b4328994387ad0ba038",
+      "onChainAnchor": "0x5d786361c24cf5ef07e91bd70699fd8ec5cbbf06685f7e366dd8c3ceb9fd87b1",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0089",
+      "patientId": "PT-005",
+      "patientWallet": "0xbb852bc433704eacd3113a8329dd905ced94c194",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-05T13:28:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 89",
+        "summary": "Asthma management",
+        "notes": "Review in 16 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "1748b30e789c0a8d59637af4c8fe5e49b045054e321969c13221baa9d2a1c3d1",
+      "ipfsCid": "bafyd510eb4ac7f172a44ababdff66c2",
+      "onChainAnchor": "0x677b0f0b637db6903b29f2c8c4ea75d2950409d536a2de80e6568c91e9b06b56",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": false,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0090",
+      "patientId": "PT-010",
+      "patientWallet": "0x2e7b1d365288286a4c63a70c0c4e529c2abd3fd4",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-06T14:29:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 90",
+        "summary": "Asthma management",
+        "notes": "Review in 13 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          }
+        ]
+      },
+      "payloadHash": "bcbf75f522f9279528ca613300a34f3fb01f2472d9da9d7fb80fe958036deb9f",
+      "ipfsCid": "bafya10aa464aa4b22eb7d210addd62f",
+      "onChainAnchor": "0x808736b1ec5b43a54a0ec869a83bd80795aa297651a0283bb7b16feff9c5be46",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0091",
+      "patientId": "PT-015",
+      "patientWallet": "0x2bfffa5117806086af02d39518b7300eb7f9a00b",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-07T15:30:00.000Z",
+      "diagnosis": "Routine pediatric fever",
+      "payload": {
+        "title": "Prescription 91",
+        "summary": "Routine pediatric fever",
+        "notes": "Review in 6 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "9ca958c4a009bc5e40f1462870e8068016e1af30bc751631306f3ff86e3a7974",
+      "ipfsCid": "bafy493246eb7a4ad41d7e4838e7507b",
+      "onChainAnchor": "0x7b4784e358bbd8a3f92e52d6f233ea3acd09501cf192d576f830451c069cf655",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0092",
+      "patientId": "PT-020",
+      "patientWallet": "0xe713ebaea269710da488f430bc6d75e313057c81",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-08T09:31:00.000Z",
+      "diagnosis": "Routine pediatric fever",
+      "payload": {
+        "title": "Prescription 92",
+        "summary": "Routine pediatric fever",
+        "notes": "Review in 13 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          },
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "c347cb8472c09387cc25a7468e69abc5496ed05c76b7e788b7d386c948eb2f56",
+      "ipfsCid": "bafy3d091cde6f317a06b0662f05452e",
+      "onChainAnchor": "0xc1a321f9f74e20b0a4c4144b2a52e88d63417c59e9d3287e3dddbb5dece54358",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0093",
+      "patientId": "PT-012",
+      "patientWallet": "0x3d355419986a01096669c6f315fed2741ab73c4b",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-09T10:32:00.000Z",
+      "diagnosis": "Hypertension review",
+      "payload": {
+        "title": "Prescription 93",
+        "summary": "Hypertension review",
+        "notes": "Review in 8 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "8c9f3e34f297fbc5dd1f74dc10d1fbd16ded1350f93290de38a4965d50d447be",
+      "ipfsCid": "bafy48bb4f4ca461b28833c360be5322",
+      "onChainAnchor": "0xf0139c220bbc24977f0d29b500928fad270cfdc1dadef72ea673949131dcaaf1",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0094",
+      "patientId": "PT-024",
+      "patientWallet": "0xd8ea4e83bd58f233f62b5f8c59465eb2ae42c77c",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-10T11:33:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 94",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 21 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "6f957c34ff320374777860ce11fd7868ecfa2d85ed0cf7f9f3a010707faacc58",
+      "ipfsCid": "bafy265b05fffa7468dcb76c8c198158",
+      "onChainAnchor": "0x39cf2fc9003f0737c820218e121ec2dec8ca144556d4263eddff517187ecf5ed",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0095",
+      "patientId": "PT-024",
+      "patientWallet": "0xd8ea4e83bd58f233f62b5f8c59465eb2ae42c77c",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-11T12:34:00.000Z",
+      "diagnosis": "Routine pediatric fever",
+      "payload": {
+        "title": "Prescription 95",
+        "summary": "Routine pediatric fever",
+        "notes": "Review in 7 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "09e4dc814f08911a867dee6587d2d3b196d8e913a42b6859e2d3ecf0a0e7c668",
+      "ipfsCid": "bafy7e7d5de1445b6d257578b778cba6",
+      "onChainAnchor": "0x203e7ecb5ad9ade10b770183a5f67a9acdb1df28d2e071c36aa1c15d93e8ce5f",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0096",
+      "patientId": "PT-008",
+      "patientWallet": "0xfba511dc293f508e4709836dad310337f69100d0",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-12T13:35:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 96",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 21 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          },
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          }
+        ]
+      },
+      "payloadHash": "f98b79afabf5d07edbf29a081f6ffcc5ddaabbdad603090954fedb0d990536b7",
+      "ipfsCid": "bafy6e5db157b2f2cdf2992128a83144",
+      "onChainAnchor": "0xc78009f50dac36bfeeb89a44be75ffb57cee5383675bb108601865e2f412a255",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0097",
+      "patientId": "PT-030",
+      "patientWallet": "0xae1aec29be68c7c09a8ae16da755101bf318501b",
+      "doctorId": "DR-004",
+      "doctorWallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "createdAt": "2026-03-13T14:36:00.000Z",
+      "diagnosis": "Type 2 diabetes follow-up",
+      "payload": {
+        "title": "Prescription 97",
+        "summary": "Type 2 diabetes follow-up",
+        "notes": "Review in 18 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          }
+        ]
+      },
+      "payloadHash": "b62f491c3c7fdc94a8d15bfb7167f78b873b510513582aeba31ee6bd25001c04",
+      "ipfsCid": "bafyb72bd9e57456376786bc0d8a0db0",
+      "onChainAnchor": "0x16863f1c6b34ec8f15857c17ad59cf7cbcbd24b7e15315ae947d514cc91af8b9",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0098",
+      "patientId": "PT-027",
+      "patientWallet": "0xfcfa255d1c77624e2613fdf264160a0e7b573610",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-14T15:37:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 98",
+        "summary": "Seasonal flu",
+        "notes": "Review in 15 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "1e823d00b6b6e1b186fd1b41f70cbb67a29908381d489203829ebb7a258898fa",
+      "ipfsCid": "bafy5887c19ce262eeb91c978ecf5638",
+      "onChainAnchor": "0x0b4bd0b25d2c7106d5daf1a73121236d7db18d922efbf83dc4b76d947cf64ed9",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0099",
+      "patientId": "PT-008",
+      "patientWallet": "0xfba511dc293f508e4709836dad310337f69100d0",
+      "doctorId": "DR-004",
+      "doctorWallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "createdAt": "2026-03-15T09:38:00.000Z",
+      "diagnosis": "Seasonal flu",
+      "payload": {
+        "title": "Prescription 99",
+        "summary": "Seasonal flu",
+        "notes": "Review in 10 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "b07296612d8c73b671455d8c4db3ad4934d273990e94b44df8cdc4097625e195",
+      "ipfsCid": "bafyecbd7722cbea2f09bf04d4bd53c8",
+      "onChainAnchor": "0xd895ae9bf10c6acf358ca36225659d77ab25a43cc542e94634ddc3cd518049ec",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0100",
+      "patientId": "PT-007",
+      "patientWallet": "0x5eb7c66585c44dff748fa06000ba6aec4130229b",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-16T10:39:00.000Z",
+      "diagnosis": "Hypertension review",
+      "payload": {
+        "title": "Prescription 100",
+        "summary": "Hypertension review",
+        "notes": "Review in 19 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "5d434103989639e3395ff3e8b5c6e987071c9aee377d7d329b8581fd8a73e5b7",
+      "ipfsCid": "bafye2d34789526bd60f9fd31dc3b065",
+      "onChainAnchor": "0xda6720c262e63db153a30cc1ff13e0ddeaf07f13eeb3048ddcdaea510c23c9e4",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": false,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0101",
+      "patientId": "PT-004",
+      "patientWallet": "0x740556e27ef920208fc2e783b6ea888aa3fa4dd8",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-17T11:40:00.000Z",
+      "diagnosis": "Vitamin deficiency",
+      "payload": {
+        "title": "Prescription 101",
+        "summary": "Vitamin deficiency",
+        "notes": "Review in 7 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          }
+        ]
+      },
+      "payloadHash": "0908d32166bdcb6fca6184b76b9dc64e6dde8466d36af025c3d568f8f958d68b",
+      "ipfsCid": "bafyeff947ae34fc0d13873b4d8408f8",
+      "onChainAnchor": "0xa6a09070c3504a1ccade396a6bc26cfc8b4c5294aef208b13b63f1d643056870",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0102",
+      "patientId": "PT-027",
+      "patientWallet": "0xfcfa255d1c77624e2613fdf264160a0e7b573610",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-18T12:41:00.000Z",
+      "diagnosis": "Asthma management",
+      "payload": {
+        "title": "Prescription 102",
+        "summary": "Asthma management",
+        "notes": "Review in 7 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "0914ec8761f1b28eb0e4e72c2e45682c526bf5f4e13f434b3d5058af4a373c09",
+      "ipfsCid": "bafyba672299508cffbf389be4915188",
+      "onChainAnchor": "0x3f1bd21006843f0040dc30a272f3934176d3a1856c423558d83a43f05f7d5f8d",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0103",
+      "patientId": "PT-022",
+      "patientWallet": "0x5345753f1c27ffab23127dd8eea96798c9fafffb",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-19T13:42:00.000Z",
+      "diagnosis": "Type 2 diabetes follow-up",
+      "payload": {
+        "title": "Prescription 103",
+        "summary": "Type 2 diabetes follow-up",
+        "notes": "Review in 19 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          }
+        ]
+      },
+      "payloadHash": "8ca0b704792d5f8d5fcbe0df31c7d019381cd72a32abdc98a59f11036f42e542",
+      "ipfsCid": "bafy72bb7156611695f0f24da95ed352",
+      "onChainAnchor": "0x054a44a1cb41be36aa605b6ba0c3ea6f03894913069dae7255d553888e5c1f51",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0104",
+      "patientId": "PT-012",
+      "patientWallet": "0x3d355419986a01096669c6f315fed2741ab73c4b",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-20T14:43:00.000Z",
+      "diagnosis": "Vitamin deficiency",
+      "payload": {
+        "title": "Prescription 104",
+        "summary": "Vitamin deficiency",
+        "notes": "Review in 16 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          }
+        ]
+      },
+      "payloadHash": "e41e64f9622ee9138f552a4dc2ce1f084c309932f64e57798de85d46858f0879",
+      "ipfsCid": "bafy3105dd14df468432b67d4ecb2148",
+      "onChainAnchor": "0x03099cb440f5b4ecd43206e89b06a3c3f8747078d75f1285916f9cbc4b8a8e0f",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0105",
+      "patientId": "PT-002",
+      "patientWallet": "0x9822c35cfe20d5a81afbec00664b51c9f6b03f87",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-21T15:44:00.000Z",
+      "diagnosis": "Routine pediatric fever",
+      "payload": {
+        "title": "Prescription 105",
+        "summary": "Routine pediatric fever",
+        "notes": "Review in 6 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "d3d31897f449d3eef2d29b631954d7bf3ed06460d4440773336ea0d375ecdfcf",
+      "ipfsCid": "bafy1671f8f309890038df0c59609f52",
+      "onChainAnchor": "0xddfd200915adfdbd6a4aa004e56ff86724e1a5924757e6896b26788b78da1bc5",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0106",
+      "patientId": "PT-007",
+      "patientWallet": "0x5eb7c66585c44dff748fa06000ba6aec4130229b",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-22T09:45:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 106",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 11 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "8bddf6a3279005bf8d31cb21ce39f2ed17f6f6f4ffe0b52e8abab4cb0199e4f0",
+      "ipfsCid": "bafyc9546f5f90f6ccb2a6da69c62821",
+      "onChainAnchor": "0x083f2bc3b84f5e7d56c6e4e1c15b8eab2c8f02ba94169baf9c68cd4d32731bc1",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0107",
+      "patientId": "PT-012",
+      "patientWallet": "0x3d355419986a01096669c6f315fed2741ab73c4b",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-23T10:46:00.000Z",
+      "diagnosis": "Migraine episode",
+      "payload": {
+        "title": "Prescription 107",
+        "summary": "Migraine episode",
+        "notes": "Review in 12 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "6b1b92a80bed20cef2f2f16a809244e001c8b8efa0fcc8038a882cab1c6c7e50",
+      "ipfsCid": "bafy922f88be512c6cd48605dd392b04",
+      "onChainAnchor": "0x3f7e0c480d67a0a041070cb5c472c6dc517c036232bf55d78f2d0721fd4ed009",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0108",
+      "patientId": "PT-030",
+      "patientWallet": "0xae1aec29be68c7c09a8ae16da755101bf318501b",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-24T11:47:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 108",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 15 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amlodipine",
+            "dosage": "5 mg",
+            "schedule": "Once daily"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          },
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "b9646eed7d1a9448e314e7301d743324984e44fe4227ec67acbe2fbf2d770c3f",
+      "ipfsCid": "bafy6416edc9dc24c9835cdc8c5374a1",
+      "onChainAnchor": "0xd34270eb70c1533c4e8e073bd98769e59956cb385ff3eb931023dc111b659e17",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0109",
+      "patientId": "PT-020",
+      "patientWallet": "0xe713ebaea269710da488f430bc6d75e313057c81",
+      "doctorId": "DR-004",
+      "doctorWallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "createdAt": "2026-03-25T12:48:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 109",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 21 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Pantoprazole",
+            "dosage": "40 mg",
+            "schedule": "Before breakfast"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "a5351975fd2bad7fce9af5945e1a43838bc17bb10b4e086af9290a2681ab0124",
+      "ipfsCid": "bafya21dece8f8cec3440443baf0ca5f",
+      "onChainAnchor": "0x0b3f9a747635ae422eb8d8a64a05a7c1c3b5dada00888ba8d69d39751d8b9f36",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0110",
+      "patientId": "PT-007",
+      "patientWallet": "0x5eb7c66585c44dff748fa06000ba6aec4130229b",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-26T13:49:00.000Z",
+      "diagnosis": "Post-operative pain review",
+      "payload": {
+        "title": "Prescription 110",
+        "summary": "Post-operative pain review",
+        "notes": "Review in 19 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          },
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "54c3c63a8e83405e16ee92bcc83106e2d699dc7ec12e8ff9eb8e4c6cba70c68c",
+      "ipfsCid": "bafy3ff3ba0a6e2684e872c33101e76d",
+      "onChainAnchor": "0x9f9d90855eaf85af23ef868bf49091905fa6d90140a8f8d62c528dc3c40488fe",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0111",
+      "patientId": "PT-014",
+      "patientWallet": "0x3ca18d22e754620a63188c86281831dc539b8ddf",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-27T14:50:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 111",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 9 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          },
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          }
+        ]
+      },
+      "payloadHash": "9b2afea742ac0cac0fe6618dba874b752a79ffc4c636682e62ddb4e83b14c56d",
+      "ipfsCid": "bafy347c31bcd42461230dbf523f67a4",
+      "onChainAnchor": "0x94083427c8649c34eec5220e52d6042002dd25345fc5410c338b3900de506d2f",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": false,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0112",
+      "patientId": "PT-008",
+      "patientWallet": "0xfba511dc293f508e4709836dad310337f69100d0",
+      "doctorId": "DR-003",
+      "doctorWallet": "0x363130597d2b335b4a537139614f4ea87f5cfdd8",
+      "createdAt": "2026-03-28T15:51:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 112",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 17 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Amoxicillin",
+            "dosage": "500 mg",
+            "schedule": "Three times daily"
+          }
+        ]
+      },
+      "payloadHash": "bb6b606a91a5e6bcb47201cf4133b107f92b4cbcf151d28eaaa633c61338b2f2",
+      "ipfsCid": "bafy9cc9d68251896495851b35c9c981",
+      "onChainAnchor": "0x2228bc72259eb7e7879f3d23b4e743d76f9162a626c397b48c17406ab21d48ea",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0113",
+      "patientId": "PT-030",
+      "patientWallet": "0xae1aec29be68c7c09a8ae16da755101bf318501b",
+      "doctorId": "DR-004",
+      "doctorWallet": "0x07acc500bb6ccb9d28fd3d3491fb9572ea91506d",
+      "createdAt": "2026-03-01T09:52:00.000Z",
+      "diagnosis": "Hypertension review",
+      "payload": {
+        "title": "Prescription 113",
+        "summary": "Hypertension review",
+        "notes": "Review in 11 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          },
+          {
+            "name": "Ibuprofen",
+            "dosage": "400 mg",
+            "schedule": "After food if pain persists"
+          }
+        ]
+      },
+      "payloadHash": "4c5b0d0904d94f9ac01f051962b470575d5047f045d1ab8c0a7d92e9817442b0",
+      "ipfsCid": "bafy5b5224fdd8dc8d5fd97f2d0271df",
+      "onChainAnchor": "0xb508db8604f68f5e057d68e4b2c43755374748c4825ed83c165d325431e06a65",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0114",
+      "patientId": "PT-011",
+      "patientWallet": "0xadc302cc323b428fe1086a7852208f986c76ddfc",
+      "doctorId": "DR-005",
+      "doctorWallet": "0x7b26b2e27823ef116ae6387f4e613803aa328269",
+      "createdAt": "2026-03-02T10:53:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 114",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 17 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          },
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "5fbbc4932b1db5fb188379498cf42f8df931ac51515c608b092a1bb56852619a",
+      "ipfsCid": "bafy8160a7a099dc547723d813282f6f",
+      "onChainAnchor": "0x7a7723272e0b7b78b2f08589932ff04746783218c59aeef9d40b085776df0276",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0115",
+      "patientId": "PT-012",
+      "patientWallet": "0x3d355419986a01096669c6f315fed2741ab73c4b",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-03T11:54:00.000Z",
+      "diagnosis": "Vitamin deficiency",
+      "payload": {
+        "title": "Prescription 115",
+        "summary": "Vitamin deficiency",
+        "notes": "Review in 20 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "80adb30deaca3a5478293ea9c6da75e64e88692484dc1ccf1d58066b7a9c6140",
+      "ipfsCid": "bafydf91241d1f887e7edb165d738a0d",
+      "onChainAnchor": "0xd1512b0a3d1dca7313871ce85fe3407fe3097d026ce28d9adf12184a2281925e",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0116",
+      "patientId": "PT-028",
+      "patientWallet": "0x46c8aea88220f8d3991e5eea4c59de15e890ed6b",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-04T12:55:00.000Z",
+      "diagnosis": "Mild skin allergy",
+      "payload": {
+        "title": "Prescription 116",
+        "summary": "Mild skin allergy",
+        "notes": "Review in 6 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Salbutamol Inhaler",
+            "dosage": "2 puffs",
+            "schedule": "When required"
+          }
+        ]
+      },
+      "payloadHash": "8dfa6418370d4ac5313293a71951bff6c14616a74a6fffc6d2c285a905f98dd7",
+      "ipfsCid": "bafy878adbea9532af70aea301854465",
+      "onChainAnchor": "0x9753049e38cac4372bdd05834cd1abde67d4f5e53a70e0935dbd86b21e6b6d04",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 1
+      }
+    },
+    {
+      "id": "RX-0117",
+      "patientId": "PT-014",
+      "patientWallet": "0x3ca18d22e754620a63188c86281831dc539b8ddf",
+      "doctorId": "DR-002",
+      "doctorWallet": "0xa38386a0b805f7becae12799ddda1cf7070d7f0f",
+      "createdAt": "2026-03-05T13:56:00.000Z",
+      "diagnosis": "Vitamin deficiency",
+      "payload": {
+        "title": "Prescription 117",
+        "summary": "Vitamin deficiency",
+        "notes": "Review in 15 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Paracetamol",
+            "dosage": "650 mg",
+            "schedule": "Twice daily"
+          }
+        ]
+      },
+      "payloadHash": "ddbe4bce2d0b8d696590f262a662eb779531102011e4ba5565fa553258b01ee5",
+      "ipfsCid": "bafy0ab7064d4ef3dc89892ed162e84b",
+      "onChainAnchor": "0x25837e0f510adad4103fb9e0390e0d80dd1d3099dd425417970ceb64dcbeb47d",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0118",
+      "patientId": "PT-018",
+      "patientWallet": "0x6f871d71cb3f3da8841c54d5af269ba6d5e44bdd",
+      "doctorId": "DR-008",
+      "doctorWallet": "0x5213c341d7d4e0b65d5b72ed63aa876238a54dc3",
+      "createdAt": "2026-03-06T14:57:00.000Z",
+      "diagnosis": "Hypertension review",
+      "payload": {
+        "title": "Prescription 118",
+        "summary": "Hypertension review",
+        "notes": "Review in 20 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Vitamin D3",
+            "dosage": "60,000 IU",
+            "schedule": "Once weekly"
+          }
+        ]
+      },
+      "payloadHash": "1aff969291b8007295f15d725cea9d5e98d214eb90f7b55d3d35baedbc325f5f",
+      "ipfsCid": "bafy47130f2ae6cd0c617315035dd163",
+      "onChainAnchor": "0xf2f3a8b1b25317a4232074308374525fada61a902f42ba5df37535c4cf1097cc",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0119",
+      "patientId": "PT-012",
+      "patientWallet": "0x3d355419986a01096669c6f315fed2741ab73c4b",
+      "doctorId": "DR-001",
+      "doctorWallet": "0xa67ca2d214a96c80e70d787427f05d9a59fdc0ba",
+      "createdAt": "2026-03-07T15:58:00.000Z",
+      "diagnosis": "Upper respiratory infection",
+      "payload": {
+        "title": "Prescription 119",
+        "summary": "Upper respiratory infection",
+        "notes": "Review in 12 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          }
+        ]
+      },
+      "payloadHash": "6b9726134a389fac4d941967d2db8cf3a472b0ba332fd9e9f636bfd719717cf1",
+      "ipfsCid": "bafy2bcd7f781f7cbecb0bc70e2be4bf",
+      "onChainAnchor": "0x82597d048c0f3cf062296316dfef21cbbe9a6a1bd8e689f1e7cdab4442c7c38b",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    },
+    {
+      "id": "RX-0120",
+      "patientId": "PT-027",
+      "patientWallet": "0xfcfa255d1c77624e2613fdf264160a0e7b573610",
+      "doctorId": "DR-007",
+      "doctorWallet": "0x9dd36474042cbe7949efe35e9cf22a2001208ec5",
+      "createdAt": "2026-03-08T09:59:00.000Z",
+      "diagnosis": "Type 2 diabetes follow-up",
+      "payload": {
+        "title": "Prescription 120",
+        "summary": "Type 2 diabetes follow-up",
+        "notes": "Review in 10 days. Hydration and rest advised.",
+        "medications": [
+          {
+            "name": "Cetirizine",
+            "dosage": "10 mg",
+            "schedule": "At bedtime"
+          },
+          {
+            "name": "Metformin",
+            "dosage": "500 mg",
+            "schedule": "Twice daily after meals"
+          }
+        ]
+      },
+      "payloadHash": "c122d06ab358403782233ad1de6c795288640fe2b0b8be0d8de89d7176cdcb0d",
+      "ipfsCid": "bafy96bc400da3f4055eb59a64d3cfa1",
+      "onChainAnchor": "0x5994467b64fd6f670b434819681c0596c416b5518c6a158a9c237cc60404e801",
+      "workflow": {
+        "doctorSigned": true,
+        "patientApproved": true,
+        "delegatesAdded": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,327 @@
+\documentclass[10pt]{beamer}
+
+% Theme and color scheme
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{ragged2e}
+\usepackage{etoolbox}
+
+% Apply justification globally in Beamer slides
+\apptocmd{\frametitle}{}{\justifying}{} % optional: applies to frame title
+\addtobeamertemplate{frametitle}{}{\justifying} % ensures title slide text is justified
+\let\olditemize\itemize
+\let\endolditemize\enditemize
+\renewenvironment{itemize}
+  {\olditemize\justifying}
+  {\endolditemize}
+\let\oldenumerate\enumerate
+\let\endoldenumerate\endenumerate
+\renewenvironment{enumerate}
+  {\oldenumerate\justifying}
+  {\endoldenumerate}
+\let\olddescription\description
+\let\endolddescription\enddescription
+\renewenvironment{description}
+  {\olddescription\justifying}
+  {\endolddescription}
+
+
+
+% Custom footer with centered text
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1ex]{author in head/foot}
+    \usebeamercolor[fg]{author in head/foot}
+    \hspace{0.3cm}
+    % Left side: Page number
+    \insertframenumber{} / \inserttotalframenumber
+    \hfill
+    % Center: Institution name
+    Indian Institute of Information Technology Kottayam
+    \hfill
+    % Right side: Empty space for balance (or you can add date/other info)
+    \hspace{0.3cm}
+  \end{beamercolorbox}
+}
+
+% Custom title with logo in top right
+\setbeamertemplate{frametitle}{
+  \vspace{-1pt}% Set top space to zero
+  \begin{beamercolorbox}[wd=\paperwidth,ht=4ex,dp=1ex, sep=0.25ex]{frametitle}
+    \hspace{0.3cm}\insertframetitle% Left spacing inside the box for title only
+    \hfill
+    % Logo in top right corner, more visible
+    \raisebox{-0.5ex}{\includegraphics[height=3ex]{logo.jpg}}
+    \hspace{0.2cm}
+  \end{beamercolorbox}
+  \vskip0pt%
+}
+
+% Title page information
+\title{Decentralized Medical Records System}
+\author{}
+\institute{}
+\date{}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+\vfill
+\begin{center}
+% Title with blue background and shadow effect
+\hspace{2cm}
+\begin{beamercolorbox}[rounded=true,shadow=true,wd=0.9\textwidth,center,dp=0.5ex,ht=3ex]{title}
+{\Large \textbf{Decentralized Medical Records System}}
+\end{beamercolorbox}
+
+\vspace{0.8cm}
+
+\textbf{BY}\\[0.5cm]
+\begin{tabular}{cc}
+\textbf{SHASHANK UPADHYAY} & \textbf{ANUSHILA BISWAS} \\
+2022BCS0088 & 2022BCS0069 \\[0.3cm]
+\textbf{VYSHNAVI REDDY} & \textbf{SURAJ RATHORE} \\
+2022BCS0133 & 2022BCS0051
+\end{tabular}
+
+\vspace{0.8cm}
+
+{\large \textbf{Guided By}}\\[0.2cm]
+{\Large \textbf{Dr. Anu Maria Sebastian}}
+\end{center}
+\vfill
+\end{frame}
+% Introduction slide
+\begin{frame}{Introduction}
+\small
+\begin{itemize}
+    \item \textbf{Electronic Health Record (EHR) Systems:}  
+        \begin{itemize}
+            \item Digital platforms to collect, store, and manage patient medical information.
+            \item Enable healthcare providers to efficiently access and update records.
+        \end{itemize}
+
+    \item \textbf{Traditional Centralized Model:}  
+        \begin{itemize}
+            \item Maintained in centralized databases by hospitals, clinics, or government agencies.
+            \item Simplifies administration but introduces several drawbacks.
+        \end{itemize}
+
+    \item \textbf{Limitations of Centralized EHRs:}  
+        \begin{itemize}
+            \item Data silos and poor interoperability between institutions.
+            \item Limited patient ownership and control over medical records.
+            \item High vulnerability to data breaches and single points of failure.
+            \item Compromised privacy and security, reducing trust in healthcare systems.
+        \end{itemize}
+
+    \item \textbf{Need for Decentralization:}  
+        \begin{itemize}
+            \item Empowers patients with greater control over their records.
+            \item Enhances security by eliminating central points of attack.
+            \item Facilitates secure, seamless interoperability across providers.
+            \item Motivates the adoption of blockchain technology in next-generation EHR systems.
+        \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+% Significance slide
+\begin{frame}{Significance}
+\begin{itemize}
+\item \textbf{Overcomes limitations of centralized healthcare systems} such as data silos, poor interoperability, limited patient control, and high vulnerability to breaches.
+\item \textbf{Improves data privacy, resilience, and efficiency} through decentralized storage and access control.
+\item \textbf{Leverages blockchain and advanced cryptography} (zero-knowledge proofs) to ensure confidentiality, integrity, and tamper-resistance of medical records.
+\item \textbf{Enables safer data exchange between patients and healthcare providers} with transparent, auditable, and consent-driven mechanisms.
+\item \textbf{Supports high transaction volumes} on a scalable blockchain infrastructure (Polygon).
+\item \textbf{Empowers patients with ownership and control} over their medical records, strengthening trust in digital healthcare.
+\end{itemize}
+\end{frame}
+
+% Literature Review - Slide 1
+\begin{frame}{Literature Review}
+\tiny
+\begin{adjustbox}{width=\textwidth,center}
+\begin{tabular}{p{3cm}p{3cm}p{3cm}p{3cm}}
+\toprule
+\textbf{Title} & \textbf{Methodology} & \textbf{Outcome} & \textbf{Limitation} \\
+\midrule
+BLOCK MEDCARE: Advancing Healthcare Through Blockchain Integration (Oliver Simonoski, Dijana Capeska Bogatinoska, 2024) & 
+It leverages Ethereum blockchain, Solidity smart contracts, and RBAC for secure EHR management. A dApp was built with Node.js/React.js, tested via Truffle/Ganache, and evaluated through usability testing and a 28-question survey of 30 IT/healthcare professionals. & 
+The system enables secure, patient-controlled EHR storage and sharing. Survey results show strong interest (93.4\% see interoperability potential) and benefits like reduced paperwork, though concerns exist about costs and complexity. & 
+Scalability issues in large-scale applications, high integration costs with existing infrastructure, technological complexity requiring user training, potential privacy risks in public chains, and the need for regulatory compliance (e.g., HIPAA/GDPR). \\
+\midrule
+A Novel Blockchain Based Electronic Health Record Automation System For Healthcare (Usharani Chelladurai, Seethalakshmi Pandian, 2021) & 
+Designs blockchain smart contracts on a Hyperledger Fabric platform for EHR management, incorporating four models: immutable log creation using Modified Merkle Tree and SHA-256 hashing for secure storage; patient-provider permissions for updates; data sharing across providers; and viewership for integrity verification. Implemented with Python for back-end (block creation/hashing) and HTML/PHP for front-end interfaces. & 
+The system enables secure, decentralized EHR storage and sharing, achieving average CPU utilization of 63\%, memory of 65 MB, response times as low as 2.5 seconds, and improved throughput compared to traditional systems. It ensures data integrity, privacy, and interoperability, allowing seamless access to complete patient records across providers. & 
+Potential key management issues in large-scale distributed networks, increased latency with more participants due to validation across nodes, and complexity in handling unconditional patient states (e.g., critical conditions requiring amendments). Lacks extensive real-world testing beyond trials and may need enhancements for scalability. \\
+\midrule
+Modernizing the Legacy Healthcare System to Decentralize Platform Using Blockchain Technology (Abdulaziz Aljaloud, Abdul Razzaq, 2023) & 
+Employs model-driven reverse engineering to extract classes from legacy HMS source code, generate UML diagrams, and migrate to the Ethereum blockchain via smart contracts in Solidity. Implements workflows for storing/accessing medical reports (e.g., blood/lipid tests) using Ganache, Truffle, Remix IDE, and Node.js. & 
+Achieves secure, tamper-proof data storage with low costs (e.g., ~0.057 Ether for contract creation) and efficient queries (faster response times than traditional systems). Enhances interoperability, privacy, and efficiency, enabling decentralized EHR sharing and reducing intermediaries for better patient care. & 
+Faces scalability issues with increasing data volume, regulatory hurdles (e.g., compliance), integration challenges with existing infrastructure, high energy consumption, and potential delays in smart contract execution. Requires further real-world testing and optimizations. \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{frame}
+
+% Literature Review - Slide 2
+\begin{frame}{Literature Review (Continued)}
+\tiny
+\begin{adjustbox}{width=\textwidth,center}
+\begin{tabular}{p{3cm}p{3cm}p{3cm}p{3cm}}
+\toprule
+\textbf{Title} & \textbf{Methodology} & \textbf{Outcome} & \textbf{Limitation} \\
+\midrule
+Secure decentralized electronic health records sharing system based on blockchains (Khaled Shuaib, Juhar Abdella, Farag Sallabi, Mohamed Adel Serhani, 2022) & 
+The system uses a permissioned Hyperledger Besu blockchain with IBFT consensus for efficient validation. EHRs are stored off-chain in IPFS, with hashed references on-chain to ensure privacy and integrity. Threshold signatures require multiple approvals to prevent privacy linking attacks, while smart contracts manage permissions, interoperability, and access control. & 
+Experimental results show the proposed IBFT-based system outperforms Proof-of-Work (PoW) solutions like MedRec in transaction latency (e.g., up to 12,299× lower increase under load), throughput (higher and more stable), and failure rate (zero failures for queries). It handles peak performance better, with latency staying lower and throughput higher than PoW. & 
+No emergency override access fully implemented (though discussed in introduction as needed). \\
+\midrule
+Decentralized Medical Healthcare Record Management System Using Blockchain (Bhavik Bhandari, Prof. Rupali Vairagade, Himanshu Trivedi, Harshal Thakre, Gunjan Indurkar, Ajit Yadav, 2023) & 
+The system uses Ethereum blockchain and IPFS for secure, decentralized patient record management, storing document CIDs privately on-chain. Built with TypeScript and Next UI, it requires user registration and uses smart contracts for uploads and access control. Tested with Ganache and deployed on Ethereum-Ropsten, it involves hospitals and doctors handling registration and data access. & 
+The system provides secure, hassle-free access, storage, and sharing of patient medical records. It ensures data reliability, consistency, and comprehensiveness through anonymous sharing and distributed storage via IPFS. Implementation on the testnet demonstrates functionality with gas costs for activities, preventing financial loss in wrong accounts. & 
+Limited attention to scalability, emergency access, and real-world deployment. \\
+\midrule
+Healthchain: A Blockchain-Based Framework for Secure and Interoperable Electronic Health Records (EHRs)(Ghassan Husnain, Zia Ullah, Muhammad Ismail Mohmand, Mansoor Qadir, Khalid J. Alzahrani, Yazeed Yasin Ghadi, Hend Khalid Alkahtani, 2024) & 
+This holistic system model establishes the foundation upon which HealthChain operates, ensuring secure and efficient management of electronic health records (EHR) within the healthcare ecosystem. & 
+Tests on Ubuntu show HealthChain beats MedRec and FHIRChain with 30\% lower latency, 40\% better interoperability, 50\% fewer breaches, and 250 tps throughput. It scales well and remains stable under attacks. Security and modularity improve emergency response and compliance. & 
+Challenges include legacy integration, EHR standard gaps, scalability, regulatory conflicts, adoption resistance, costs, and privacy concerns. Security issues are manageable. Future work: AI, consensus tweaks, privacy standards, dynamic consent, and real-world trials. \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{frame}
+
+% Literature Review - Slide 3
+\begin{frame}{Literature Review (Continued)}
+\tiny
+\begin{adjustbox}{width=\textwidth,center}
+\begin{tabular}{p{3cm}p{3cm}p{3cm}p{3cm}}
+\toprule
+\textbf{Title} & \textbf{Methodology} & \textbf{Outcome} & \textbf{Limitation} \\
+\midrule
+Blockchain-Based Healthcare Records Management Framework: Enhancing Security, Privacy, and Interoperability (Noor Ul Ain Tahir; Umer Rashid; Hassan Jalil Hadi; Naveed Ahmad; Yue Cao; Mohammed Ali Alshara; Yasir Javed, 2024) & 
+The framework uses Ethereum and IPFS to securely manage EHRs, with smart contracts for registration, updates, and access control. Users access via a web interface with MetaMask. Built with Hardhat, Solidity, and JavaScript, it ensures patient control and data integrity through decentralized storage and blockchain nodes. & 
+The framework outperforms Medichain and CharmHealth with lower transaction costs, faster response (8.16 ms vs. 169.75 ms), higher throughput (67.8 vs. 54.5 Hits/s), and no critical vulnerabilities. It offers improved scalability, load handling, and immutable audit trails. Security analysis shows strong resistance to attacks like DDoS and data tampering. Overall, it enhances privacy, security, interoperability, and patient control, making it a strong EHR solution. & 
+The study notes that more research and development are needed before blockchain-based EHR solutions can be broadly implemented. It highlights challenges in scalability for very large systems, integration with existing EHRs, standardization, and regulatory compliance. \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{frame}
+
+% Problem Statement slide
+\begin{frame}{Problem Statement}
+\small  % Reduce font size
+\begin{itemize}
+    \item \textbf{Current Centralized EHR Systems:} Patient data is often isolated in institutional silos, limiting interoperability and patient access. Centralized storage increases vulnerability to cyberattacks and single points of failure, reducing trust in healthcare systems.
+    
+    \item \textbf{Key Problems:}  
+        \begin{itemize}
+            \item Data silos and poor interoperability between hospitals and clinics.
+            \item Limited patient ownership and control over personal records.
+            \item High vulnerability to breaches and single points of failure.
+        \end{itemize}
+        
+    \item \textbf{Challenges in Addressing These Issues:}  
+        \begin{itemize}
+            \item Regulatory compliance with standards like HIPAA and GDPR.
+            \item Scalability to manage growing volumes of healthcare data.
+            \item Lack of standardized data formats across institutions.
+            \item Organizational resistance due to cost and infrastructure changes.
+        \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+% Architecture slide
+\begin{frame}{Architecture}
+\begin{center}
+% You can add your architecture diagram here
+\includegraphics[width=0.8\textwidth]{arch.png}
+% \textit{[Architecture diagram to be inserted here]}
+\end{center}
+\end{frame}
+
+% Methodology slide
+\begin{frame}{Methodology}
+\textbf{Blockchain Layer:}
+\begin{itemize}
+\item \textbf{Polygon Network:} Scalable Layer-2 solution for low-cost, fast transactions
+\item \textbf{Smart Contracts:} Solidity-based contracts for access control and permission management
+\item \textbf{Zero-Knowledge Proofs:} Privacy-preserving verification without revealing sensitive data
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{Storage \& Frontend:}
+\begin{itemize}
+\item \textbf{IPFS:} Decentralized storage for medical documents with content addressing
+\item \textbf{React.js:} User interface for patients and healthcare providers
+\item \textbf{MetaMask Integration:} Wallet connectivity for blockchain interactions
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{Backend \& Security:}
+\begin{itemize}
+\item \textbf{Node.js API:} Handles encryption/decryption and data hashing operations
+\item \textbf{Cryptographic Hashing:} SHA-256 for document integrity verification
+\item \textbf{Role-Based Access Control (RBAC):} Ensures proper permissions for data access
+\end{itemize}
+\end{frame}
+
+% Conclusion slide
+\begin{frame}{Conclusion}
+\begin{itemize}
+\item \textbf{Project Vision:} Build a decentralized EHR system using IPFS-Polygon for secure, scalable, and globally accessible records with robust validation.
+
+\item \textbf{Planning \& Research:} To research more in depth about all the involved technologies and the MVP requirements.
+
+\item \textbf{Initial Development:} Build Node.js API for encryption/hashing; integrate React frontend with MetaMask.
+\end{itemize}
+\end{frame}
+
+% References slide 1
+\begin{frame}{References}
+\footnotesize
+\begin{enumerate}
+\item O. Simonoski and D. C. Bogatinoska, "Block MedCare: Advancing healthcare through blockchain integration," Int. J. Cybern. Informat., vol. 13, no. 5, pp. 63–84, Oct. 2024, doi: 10.5121/ijci.2024.130505.
+
+\item U. Chelladurai and S. Pandian, "A novel blockchain based electronic health record automation system for healthcare," J. Ambient Intell. Humaniz. Comput., vol. 13, no. 2, pp. 693–703, Feb. 2022, doi: 10.1007/s12652-021-03163-3.
+
+\item A. Aljaloud and A. Razzaq, "Modernizing the legacy healthcare system to decentralize platform using blockchain technology," Technologies, vol. 11, no. 4, art. no. 84, Jun. 2023, doi: 10.3390/technologies11040084.
+
+\item B. Bhandari et al., "Decentralized Medical Healthcare Record Management System Using Blockchain," in Proc. 11th Int. Conf. Emerging Trends Eng. Technol. - Signal Inf. Process. (ICETET-SIP), Nagpur, India, 2023, pp. 1-5, doi: 10.1109/ICETET-SIP58143.2023.10151658.
+\end{enumerate}
+\end{frame}
+
+% References slide 2
+\begin{frame}{References (Continued)}
+\footnotesize
+\begin{enumerate}
+\setcounter{enumi}{4}
+\item K. Shuaib, J. Abdella, F. Sallabi, and M. A. Serhani, "Secure decentralized electronic health records sharing system based on blockchains," J. King Saud Univ. - Comput. Inf. Sci., vol. 34, no. 7, pp. 5045-5058, Jul. 2022, doi: 10.1016/j.jksuci.2021.05.002.
+
+\item G. Husnain et al., "HealthChain: A blockchain-based framework for secure and interoperable electronic health records (EHRs)," IET Commun., vol. 18, no. 19, pp. 1451-1473, Oct. 2024, doi: 10.1049/cmu2.12839.
+
+\item N. U. A. Tahir et al., "Blockchain-Based Healthcare Records Management Framework: Enhancing Security, Privacy, and Interoperability," Technologies, vol. 12, no. 9, art. no. 168, Sep. 2024, doi: 10.3390/technologies12090168.
+\end{enumerate}
+\end{frame}
+
+% Thank You slide
+\begin{frame}
+\begin{center}
+\Huge Thank You
+\end{center}
+\end{frame}
+
+\end{document}

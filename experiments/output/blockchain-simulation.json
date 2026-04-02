@@ -1,0 +1,205 @@
+{
+  "generatedAt": "2026-04-01T20:38:02.384Z",
+  "datasetPath": null,
+  "originalChain": [
+    {
+      "index": 1,
+      "timestamp": "2026-04-01T10:01:00.000Z",
+      "previousHash": "GENESIS",
+      "dataHash": "787f2ae959cf415dae76199a682f2f37d6b73b0fe96d3f1473e89bf4b24955d1",
+      "blockHash": "f931b3231df49b34696914eb6454a953c4a289a51d2fe8c0fd21135214598a2f",
+      "payload": {
+        "prescriptionId": "RX-0001",
+        "patientId": "PT-001",
+        "doctorId": "DR-001",
+        "diagnosis": "Flu",
+        "ipfsCid": "bafya5bb10eb6bdc95823faeb67d6545",
+        "payloadHash": "d449acb92215ed502901c9e6f6a4dc6d28e6856fb6754892becd148dee1b3e85"
+      }
+    },
+    {
+      "index": 2,
+      "timestamp": "2026-04-01T10:02:00.000Z",
+      "previousHash": "f931b3231df49b34696914eb6454a953c4a289a51d2fe8c0fd21135214598a2f",
+      "dataHash": "dcb91c4b63d9ee88910bf57d5e7e83c586dbafc7d8a92213b9c03cdf65befe6a",
+      "blockHash": "1c1e799e3be2d0cfac3c6da4f641563af2e775f81b5d0f4fe9d875cfec11063e",
+      "payload": {
+        "prescriptionId": "RX-0002",
+        "patientId": "PT-002",
+        "doctorId": "DR-002",
+        "diagnosis": "Hypertension",
+        "ipfsCid": "bafy0899cd856fba9b131050135138cd",
+        "payloadHash": "2e6709af8dbfe7cd5abb2f716924848e527b4486c30c4509b0e4aa8171987335"
+      }
+    },
+    {
+      "index": 3,
+      "timestamp": "2026-04-01T10:03:00.000Z",
+      "previousHash": "1c1e799e3be2d0cfac3c6da4f641563af2e775f81b5d0f4fe9d875cfec11063e",
+      "dataHash": "df868bf4b79924a4161c89701a3f4a30b354cd989898f6746638e706e2b52fe7",
+      "blockHash": "beaa3a8432c8456c77f4a8b311c02f46654ac909b7734642b14695873ea584fa",
+      "payload": {
+        "prescriptionId": "RX-0003",
+        "patientId": "PT-003",
+        "doctorId": "DR-003",
+        "diagnosis": "Migraine",
+        "ipfsCid": "bafy2be9fec91c2c7e4b40fedb0d2bf1",
+        "payloadHash": "bddd3a6e5dab59fa05fa8fb0d789a3c2ad3c9982dcc4a368f3d5719f421ffda8"
+      }
+    },
+    {
+      "index": 4,
+      "timestamp": "2026-04-01T10:04:00.000Z",
+      "previousHash": "beaa3a8432c8456c77f4a8b311c02f46654ac909b7734642b14695873ea584fa",
+      "dataHash": "0e806d921e6a5fbe072236a3fb937f99e8044725a64c1639db5038b838f41e6e",
+      "blockHash": "fd7490f70e1f86787090d47c603a74977f0cdc2300524375b037b852d0026034",
+      "payload": {
+        "prescriptionId": "RX-0004",
+        "patientId": "PT-004",
+        "doctorId": "DR-004",
+        "diagnosis": "Asthma",
+        "ipfsCid": "bafy73014671303fd8235351b0a5e8aa",
+        "payloadHash": "c97811e4375fda6eb4b46693d20752e6d584a4ec8a7910a25c52f09988c2d4cb"
+      }
+    },
+    {
+      "index": 5,
+      "timestamp": "2026-04-01T10:05:00.000Z",
+      "previousHash": "fd7490f70e1f86787090d47c603a74977f0cdc2300524375b037b852d0026034",
+      "dataHash": "4dc3d1c25439f00ff403d996e6cfd03b92b57039104b52a0ce24a58f02118d8a",
+      "blockHash": "898b53a320306b8391af3cb1735f7beda6ef9a58efd01fa72a5cdac9851d5e4e",
+      "payload": {
+        "prescriptionId": "RX-0005",
+        "patientId": "PT-005",
+        "doctorId": "DR-001",
+        "diagnosis": "Flu",
+        "ipfsCid": "bafy6e16930f100e4505c66e0a476091",
+        "payloadHash": "85261d40c625814f4e9eae3aac7948691fbcd76d4e19d85a71e30a665add4d3b"
+      }
+    }
+  ],
+  "scenarios": {
+    "original": {
+      "valid": true,
+      "validation": [
+        {
+          "index": 1,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": true
+        },
+        {
+          "index": 2,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": true
+        },
+        {
+          "index": 3,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": true
+        },
+        {
+          "index": 4,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": true
+        },
+        {
+          "index": 5,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": true
+        }
+      ]
+    },
+    "tamperedDataOnly": {
+      "tamperedBlock": 2,
+      "valid": false,
+      "validation": [
+        {
+          "index": 1,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": true
+        },
+        {
+          "index": 2,
+          "previousHashOk": true,
+          "dataHashOk": false,
+          "blockHashOk": false,
+          "valid": false
+        },
+        {
+          "index": 3,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": false
+        },
+        {
+          "index": 4,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": false
+        },
+        {
+          "index": 5,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": false
+        }
+      ]
+    },
+    "tamperedAndRehashedSingleBlock": {
+      "tamperedBlock": 2,
+      "valid": false,
+      "validation": [
+        {
+          "index": 1,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": true
+        },
+        {
+          "index": 2,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": true
+        },
+        {
+          "index": 3,
+          "previousHashOk": false,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": false
+        },
+        {
+          "index": 4,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": false
+        },
+        {
+          "index": 5,
+          "previousHashOk": true,
+          "dataHashOk": true,
+          "blockHashOk": true,
+          "valid": false
+        }
+      ]
+    }
+  }
+}

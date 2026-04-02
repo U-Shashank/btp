@@ -40,15 +40,34 @@ npm run dev             # http://localhost:5173
   ```
   (Ensure you’ve exercised the flows so metrics exist.)
 
+## Final Review Assets
+- Standalone evaluation and simulation tooling lives in `experiments/`.
+- Recommended sequence:
+  ```bash
+  node experiments/run-all.js
+  ```
+- Optional local blockchain benchmark:
+  ```bash
+  cd contracts && anvil --block-time 1
+  # in another terminal
+  node experiments/anvil-load-test.js --modes burst --burst-size 20 --deployment-mode shared --register-counts 100,500,1000 --delegate-counts 100,500
+  ```
+- Review-oriented documentation:
+  - `doc/experiment-handbook.md`
+  - `doc/report-writing-guide.md`
+  - `doc/evaluation.md`
+  - `doc/final-review-checklist.md`
+  - `doc/blockchain-load-test-guide.md`
+
 ## Workflow
 1. **Doctor (allow-listed)**
-   - Connect wallet → Draft prescription (`submitDraft` + Pinata pin)
+   - Connect wallet -> Draft prescription (`submitDraft` + Pinata pin)
    - Optionally send access request (delegation) to a patient
 2. **Patient**
-   - Review drafts → `finalizeDraft` to publish
+   - Review drafts -> `finalizeDraft` to publish
    - Approve or reject doctor access requests (`setDelegate`)
    - View their history or share specific prescriptions
 3. **Viewer**
-   - Use “View Patient Prescriptions” panel; only sees entries they’re authorized for on-chain
+   - Use "View Patient Prescriptions" panel; only sees entries they’re authorized for on-chain
 
 Detailed flow/setup documentation lives in `doc/`.

@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedLedger Storage and Integrity Demo</title>
+    <style>
+      :root {
+        --bg: #efe7db;
+        --panel: rgba(255, 250, 244, 0.88);
+        --line: rgba(31, 37, 40, 0.14);
+        --ink: #1f2528;
+        --muted: #5d696f;
+        --teal: #285c67;
+        --rust: #b24d47;
+        --gold: #b8843d;
+        --green: #2b755d;
+        --red: #9f3b3f;
+        --blue-soft: #dbe8ea;
+        --warn-soft: #f7dfd6;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+        background:
+          radial-gradient(circle at top left, rgba(184, 132, 61, 0.28), transparent 28%),
+          radial-gradient(circle at 85% 8%, rgba(178, 77, 71, 0.18), transparent 22%),
+          linear-gradient(180deg, #f7f1e8, var(--bg));
+      }
+
+      .shell {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 28px 18px 48px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+        letter-spacing: 0.02em;
+      }
+
+      p {
+        margin: 0;
+        line-height: 1.55;
+        color: var(--muted);
+      }
+
+      code,
+      textarea,
+      pre {
+        font-family: "Courier New", monospace;
+      }
+
+      .hero {
+        display: grid;
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.3rem, 4vw, 4.2rem);
+      }
+
+      .hero p {
+        max-width: 860px;
+        font-size: 1.02rem;
+      }
+
+      .badge-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .badge {
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 0.92rem;
+        background: rgba(40, 92, 103, 0.12);
+        color: var(--teal);
+      }
+
+      .grid {
+        display: grid;
+        gap: 20px;
+      }
+
+      .grid.top {
+        grid-template-columns: 1.1fr 0.9fr;
+        margin-bottom: 20px;
+      }
+
+      .grid.bottom {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        padding: 20px;
+        box-shadow: 0 14px 28px rgba(73, 58, 36, 0.08);
+        backdrop-filter: blur(12px);
+      }
+
+      .panel h2 {
+        font-size: 1.55rem;
+        margin-bottom: 8px;
+      }
+
+      .panel p + p {
+        margin-top: 10px;
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      button {
+        border: 0;
+        border-radius: 999px;
+        padding: 11px 16px;
+        font: inherit;
+        color: #fffaf3;
+        background: linear-gradient(135deg, #23454f, #2d6772);
+        cursor: pointer;
+        transition: transform 160ms ease, opacity 160ms ease;
+      }
+
+      button.secondary {
+        background: linear-gradient(135deg, #9f3b3f, #c75c56);
+      }
+
+      button.tertiary {
+        background: linear-gradient(135deg, #98703b, #c6914d);
+      }
+
+      button.quiet {
+        background: linear-gradient(135deg, #46636a, #70898e);
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 220px;
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 18px;
+        border: 1px solid rgba(31, 37, 40, 0.12);
+        resize: vertical;
+        background: rgba(255, 255, 255, 0.76);
+        color: #223136;
+        font-size: 0.93rem;
+        line-height: 1.45;
+      }
+
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .stat {
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(31, 37, 40, 0.08);
+      }
+
+      .stat strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 0.92rem;
+      }
+
+      .stat code {
+        display: block;
+        word-break: break-all;
+        font-size: 0.82rem;
+        color: #203036;
+      }
+
+      .notice {
+        margin-top: 16px;
+        padding: 12px 14px;
+        border-radius: 18px;
+        background: rgba(43, 117, 93, 0.12);
+        color: var(--green);
+      }
+
+      .notice.warn {
+        background: var(--warn-soft);
+        color: var(--red);
+      }
+
+      .peer-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .peer {
+        padding: 14px;
+        border-radius: 18px;
+        border: 1px solid rgba(31, 37, 40, 0.1);
+        background: rgba(255, 255, 255, 0.72);
+      }
+
+      .peer h3 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+      }
+
+      .peer ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+
+      .peer code {
+        display: inline-block;
+        margin-top: 4px;
+        font-size: 0.8rem;
+      }
+
+      .formula-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .formula {
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(219, 232, 234, 0.56);
+        border: 1px solid rgba(40, 92, 103, 0.12);
+      }
+
+      .formula strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--teal);
+      }
+
+      .formula pre {
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-size: 0.85rem;
+        color: #224147;
+      }
+
+      .chain {
+        display: grid;
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      .block {
+        position: relative;
+        padding: 16px 16px 16px 20px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.74);
+        border: 1px solid rgba(31, 37, 40, 0.1);
+      }
+
+      .block::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 8px;
+        border-radius: 20px 0 0 20px;
+        background: linear-gradient(180deg, var(--gold), #d9a25a);
+      }
+
+      .block.invalid {
+        background: rgba(255, 240, 238, 0.9);
+        border-color: rgba(159, 59, 63, 0.28);
+      }
+
+      .block.invalid::before {
+        background: linear-gradient(180deg, var(--rust), #8d3438);
+      }
+
+      .block-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .block-head strong {
+        font-size: 1.08rem;
+      }
+
+      .block-meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 14px;
+        font-size: 0.92rem;
+      }
+
+      .block-meta code {
+        display: block;
+        margin-top: 4px;
+        word-break: break-all;
+        font-size: 0.8rem;
+      }
+
+      .footer-notes {
+        display: grid;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      @media (max-width: 980px) {
+        .grid.top {
+          grid-template-columns: 1fr;
+        }
+
+        .formula-grid,
+        .stat-grid,
+        .block-meta,
+        .peer-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <h1>MedLedger Storage and Integrity Demo</h1>
+        <p>
+          This page explains the complete reasoning chain for the project:
+          medical content changes alter the content hash, IPFS produces a new CID,
+          peer nodes pin content by CID, and the blockchain anchor becomes invalid
+          if someone rewrites old history instead of appending a new block.
+        </p>
+        <div class="badge-row">
+          <div class="badge">Content Addressing</div>
+          <div class="badge">Peer-to-Peer Storage</div>
+          <div class="badge">Tamper-Evident Anchoring</div>
+          <div class="badge">Append-Only History</div>
+        </div>
+      </section>
+
+      <section class="grid top">
+        <div class="panel">
+          <h2>1. Record, Hash, and CID</h2>
+          <p>
+            Edit the off-chain prescription record below. Any byte change creates a
+            different content hash and therefore a different CID. That is the core
+            reason IPFS is content addressed.
+          </p>
+          <div class="controls">
+            <button id="resetRecordBtn">Reset Original Record</button>
+            <button id="tamperRecordBtn" class="secondary">Change Dosage</button>
+            <button id="recalcBtn" class="tertiary">Hash Current Record</button>
+          </div>
+          <textarea id="recordEditor"></textarea>
+
+          <div class="stat-grid">
+            <div class="stat">
+              <strong>Original Content Hash</strong>
+              <code id="originalHash">Loading...</code>
+            </div>
+            <div class="stat">
+              <strong>Current Content Hash</strong>
+              <code id="currentHash">Loading...</code>
+            </div>
+            <div class="stat">
+              <strong>Original CID</strong>
+              <code id="originalCid">Loading...</code>
+            </div>
+            <div class="stat">
+              <strong>Current CID</strong>
+              <code id="currentCid">Loading...</code>
+            </div>
+          </div>
+
+          <div id="recordNotice" class="notice"></div>
+
+          <div class="formula-grid">
+            <div class="formula">
+              <strong>Concept</strong>
+              <pre>contentHash = H(record bytes)</pre>
+            </div>
+            <div class="formula">
+              <strong>IPFS idea</strong>
+              <pre>CID ≈ content-derived identifier</pre>
+            </div>
+            <div class="formula">
+              <strong>Interpretation</strong>
+              <pre>If content changes, CID changes.</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>2. Peer-to-Peer Pinning</h2>
+          <p>
+            In a content-addressed network, peers pin objects by CID. They are not
+            storing “the latest version” under the same identifier. A changed record
+            becomes a different object that needs its own CID.
+          </p>
+          <div class="controls">
+            <button id="pinOriginalBtn">Pin Original CID</button>
+            <button id="pinCurrentBtn" class="tertiary">Pin Current CID</button>
+            <button id="resetPeersBtn" class="quiet">Reset Peers</button>
+          </div>
+          <div class="peer-grid" id="peerGrid"></div>
+          <div id="peerNotice" class="notice"></div>
+        </div>
+      </section>
+
+      <section class="grid bottom">
+        <div class="panel">
+          <h2>3. Blockchain Anchor and Failure Modes</h2>
+          <p>
+            The chain below anchors the original CID and payload hash. There are two
+            fundamentally different actions:
+          </p>
+          <p>
+            1. the valid action: append a new block for a new CID
+          </p>
+          <p>
+            2. the invalid action: rewrite historical block data
+          </p>
+          <div class="controls">
+            <button id="buildChainBtn">Build Valid Chain</button>
+            <button id="tamperBlockBtn" class="secondary">Tamper Historical Block 2</button>
+            <button id="rehashBlockBtn" class="tertiary">Recompute Only Block 2</button>
+            <button id="appendBlockBtn" class="quiet">Append Updated Record as New Block</button>
+            <button id="resetChainBtn" class="quiet">Reset Chain</button>
+          </div>
+          <div id="chainNotice" class="notice"></div>
+          <div class="chain" id="chain"></div>
+          <div class="footer-notes">
+            <div class="notice">
+              If the current CID differs from the anchored CID of block 2, that means
+              the off-chain content changed after the blockchain reference was created.
+            </div>
+            <div class="notice warn">
+              The correct blockchain behavior is to append a new block with the new CID,
+              not to rewrite an older block. Rewriting history breaks trust.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const recordEditor = document.getElementById("recordEditor");
+      const originalHashEl = document.getElementById("originalHash");
+      const currentHashEl = document.getElementById("currentHash");
+      const originalCidEl = document.getElementById("originalCid");
+      const currentCidEl = document.getElementById("currentCid");
+      const recordNoticeEl = document.getElementById("recordNotice");
+      const peerGridEl = document.getElementById("peerGrid");
+      const peerNoticeEl = document.getElementById("peerNotice");
+      const chainEl = document.getElementById("chain");
+      const chainNoticeEl = document.getElementById("chainNotice");
+
+      const originalRecord = {
+        prescriptionId: "RX-0002",
+        patientId: "PT-002",
+        doctorId: "DR-001",
+        diagnosis: "Hypertension review",
+        medicine: "Amlodipine",
+        dosage: "5 mg",
+        notes: "Take once daily after breakfast",
+      };
+
+      const peerTemplate = [
+        { name: "Peer A", cids: [] },
+        { name: "Peer B", cids: [] },
+        { name: "Peer C", cids: [] },
+        { name: "Peer D", cids: [] },
+      ];
+
+      const chainBaseRecords = [
+        {
+          prescriptionId: "RX-0001",
+          patientId: "PT-001",
+          doctorId: "DR-001",
+          diagnosis: "Seasonal flu",
+          medicine: "Paracetamol",
+          dosage: "650 mg",
+        },
+        originalRecord,
+        {
+          prescriptionId: "RX-0003",
+          patientId: "PT-003",
+          doctorId: "DR-002",
+          diagnosis: "Migraine follow-up",
+          medicine: "Ibuprofen",
+          dosage: "400 mg",
+        },
+        {
+          prescriptionId: "RX-0004",
+          patientId: "PT-004",
+          doctorId: "DR-001",
+          diagnosis: "Asthma maintenance",
+          medicine: "Salbutamol",
+          dosage: "2 puffs",
+        },
+      ];
+
+      let peers = structuredClone(peerTemplate);
+      let originalRecordState = null;
+      let currentRecordState = null;
+      let chainState = [];
+      let chainMode = "clean";
+
+      async function digest(value) {
+        const bytes = new TextEncoder().encode(value);
+        const hashBuffer = await crypto.subtle.digest("SHA-256", bytes);
+        return Array.from(new Uint8Array(hashBuffer))
+          .map((byte) => byte.toString(16).padStart(2, "0"))
+          .join("");
+      }
+
+      function pseudoCid(hash) {
+        return `bafy${hash.slice(0, 28)}`;
+      }
+
+      function prettyJson(value) {
+        return `${JSON.stringify(value, null, 2)}\n`;
+      }
+
+      function short(value) {
+        if (!value) return "n/a";
+        return `${value.slice(0, 12)}...${value.slice(-8)}`;
+      }
+
+      async function buildRecordState(record) {
+        const serialized = JSON.stringify(record);
+        const contentHash = await digest(serialized);
+        const cid = pseudoCid(contentHash);
+        return { record, serialized, contentHash, cid };
+      }
+
+      async function syncRecordState() {
+        try {
+          currentRecordState = await buildRecordState(JSON.parse(recordEditor.value));
+        } catch (error) {
+          recordNoticeEl.className = "notice warn";
+          recordNoticeEl.textContent = "Current JSON is invalid. Fix the structure before hashing.";
+          return false;
+        }
+
+        originalHashEl.textContent = originalRecordState.contentHash;
+        currentHashEl.textContent = currentRecordState.contentHash;
+        originalCidEl.textContent = originalRecordState.cid;
+        currentCidEl.textContent = currentRecordState.cid;
+
+        const changed = currentRecordState.contentHash !== originalRecordState.contentHash;
+        recordNoticeEl.className = `notice${changed ? " warn" : ""}`;
+        recordNoticeEl.textContent = changed
+          ? "The record changed. The content hash and CID changed too. The blockchain anchor for the old CID is now outdated."
+          : "The record matches the original payload. The current CID is the same as the anchored CID.";
+
+        renderPeers();
+        await renderChain();
+        return true;
+      }
+
+      function renderPeers() {
+        peerGridEl.innerHTML = peers
+          .map((peer) => {
+            const cids = peer.cids.length
+              ? peer.cids.map((cid) => `<li><code>${cid}</code></li>`).join("")
+              : "<li>No pinned object yet</li>";
+            return `
+              <article class="peer">
+                <h3>${peer.name}</h3>
+                <ul>${cids}</ul>
+              </article>
+            `;
+          })
+          .join("");
+
+        const currentCidPinned = peers.some((peer) => peer.cids.includes(currentRecordState?.cid));
+        peerNoticeEl.className = `notice${currentCidPinned ? "" : " warn"}`;
+        peerNoticeEl.textContent = currentCidPinned
+          ? "At least one peer now pins the current CID. This represents the new content-addressed object being replicated in the network."
+          : "Peers currently pin the original object only. If the content changes, the network must pin the new CID separately.";
+      }
+
+      async function buildBlock(index, previousHash, recordState, timestampOffset = 0) {
+        const timestamp = new Date(Date.UTC(2026, 3, 1, 10, index + timestampOffset, 0)).toISOString();
+        const blockHash = await digest(
+          `${index}|${timestamp}|${previousHash}|${recordState.contentHash}|${recordState.cid}`
+        );
+        return {
+          index,
+          timestamp,
+          previousHash,
+          dataHash: recordState.contentHash,
+          blockHash,
+          cid: recordState.cid,
+          payload: recordState.record,
+        };
+      }
+
+      async function buildCleanChain() {
+        const states = [];
+        for (const record of chainBaseRecords) {
+          states.push(await buildRecordState(record));
+        }
+
+        const blocks = [];
+        let previousHash = "GENESIS";
+        for (let index = 0; index < states.length; index += 1) {
+          const block = await buildBlock(index + 1, previousHash, states[index]);
+          blocks.push(block);
+          previousHash = block.blockHash;
+        }
+        return blocks;
+      }
+
+      async function validateChain(blocks) {
+        let previousBlockValid = true;
+        const validations = [];
+
+        for (let index = 0; index < blocks.length; index += 1) {
+          const block = blocks[index];
+          const expectedPreviousHash = index === 0 ? "GENESIS" : blocks[index - 1].blockHash;
+          const payloadHash = await digest(JSON.stringify(block.payload));
+          const expectedBlockHash = await digest(
+            `${block.index}|${block.timestamp}|${block.previousHash}|${payloadHash}|${block.cid}`
+          );
+          const localValid =
+            block.previousHash === expectedPreviousHash &&
+            block.dataHash === payloadHash &&
+            block.blockHash === expectedBlockHash;
+          const valid = previousBlockValid && localValid;
+          previousBlockValid = valid;
+          validations.push({
+            valid,
+            previousHashOk: block.previousHash === expectedPreviousHash,
+            dataHashOk: block.dataHash === payloadHash,
+            blockHashOk: block.blockHash === expectedBlockHash,
+          });
+        }
+
+        return validations;
+      }
+
+      async function renderChain() {
+        if (!chainState.length) return;
+
+        const validations = await validateChain(chainState);
+        const anchoredCid = chainState[1]?.cid;
+        const currentCid = currentRecordState?.cid;
+        const cidMismatch = anchoredCid && currentCid && anchoredCid !== currentCid;
+        const valid = validations.every((entry) => entry.valid);
+
+        if (chainMode === "clean" && cidMismatch) {
+          chainNoticeEl.className = "notice warn";
+          chainNoticeEl.textContent =
+            "The chain is still valid for the old block history, but block 2 anchors an older CID. The edited record now has a new CID that is not yet anchored.";
+        } else if (valid) {
+          chainNoticeEl.className = "notice";
+          chainNoticeEl.textContent =
+            chainMode === "appended"
+              ? "The updated record was appended as a new block. History remains valid because nothing old was rewritten."
+              : "The chain is valid. Historical anchors and current hashes match.";
+        } else {
+          chainNoticeEl.className = "notice warn";
+          chainNoticeEl.textContent =
+            chainMode === "rehashed"
+              ? "Only block 2 was rehashed. Downstream blocks still reference the old historical hash chain, so trust is broken."
+              : "Historical data was changed. The chain is now invalid because the anchored history no longer matches.";
+        }
+
+        chainEl.innerHTML = chainState
+          .map((block, index) => {
+            const state = validations[index];
+            return `
+              <article class="block${state.valid ? "" : " invalid"}">
+                <div class="block-head">
+                  <strong>Block ${block.index}</strong>
+                  <span>${state.valid ? "Valid anchor" : "Mismatch detected"}</span>
+                </div>
+                <div class="block-meta">
+                  <div>
+                    Prescription
+                    <code>${block.payload.prescriptionId}</code>
+                  </div>
+                  <div>
+                    Diagnosis
+                    <code>${block.payload.diagnosis}</code>
+                  </div>
+                  <div>
+                    Anchored CID
+                    <code>${block.cid}</code>
+                  </div>
+                  <div>
+                    Previous hash
+                    <code>${short(block.previousHash)}</code>
+                  </div>
+                  <div>
+                    Data hash
+                    <code>${short(block.dataHash)}</code>
+                  </div>
+                  <div>
+                    Block hash
+                    <code>${short(block.blockHash)}</code>
+                  </div>
+                </div>
+              </article>
+            `;
+          })
+          .join("");
+      }
+
+      async function resetRecord() {
+        recordEditor.value = prettyJson(originalRecord);
+        await syncRecordState();
+      }
+
+      async function tamperRecord() {
+        const updated = JSON.parse(recordEditor.value);
+        updated.dosage = updated.dosage === "5 mg" ? "10 mg" : "5 mg";
+        updated.notes = "Modified dosage after original publication";
+        recordEditor.value = prettyJson(updated);
+        await syncRecordState();
+      }
+
+      async function pinOriginal() {
+        peers = structuredClone(peerTemplate).map((peer) => ({
+          ...peer,
+          cids: [originalRecordState.cid],
+        }));
+        renderPeers();
+      }
+
+      async function pinCurrent() {
+        peers = structuredClone(peerTemplate);
+        peers[0].cids = [originalRecordState.cid, currentRecordState.cid];
+        peers[1].cids = [currentRecordState.cid];
+        peers[2].cids = [originalRecordState.cid];
+        peers[3].cids = [currentRecordState.cid];
+        renderPeers();
+      }
+
+      function resetPeers() {
+        peers = structuredClone(peerTemplate);
+        renderPeers();
+      }
+
+      async function buildChain() {
+        chainState = await buildCleanChain();
+        chainMode = "clean";
+        await renderChain();
+      }
+
+      async function tamperHistoricalBlock() {
+        if (!chainState.length) {
+          await buildChain();
+        }
+        chainState[1].payload.dosage = "10 mg";
+        chainState[1].payload.notes = "Historical block edited after publication";
+        chainMode = "tampered";
+        await renderChain();
+      }
+
+      async function rehashOnlyBlockTwo() {
+        if (!chainState.length) {
+          await buildChain();
+        }
+        const block = chainState[1];
+        block.dataHash = await digest(JSON.stringify(block.payload));
+        block.cid = pseudoCid(block.dataHash);
+        block.blockHash = await digest(
+          `${block.index}|${block.timestamp}|${block.previousHash}|${block.dataHash}|${block.cid}`
+        );
+        chainMode = "rehashed";
+        await renderChain();
+      }
+
+      async function appendUpdatedRecordBlock() {
+        if (!chainState.length) {
+          await buildChain();
+        }
+        const previousHash = chainState[chainState.length - 1].blockHash;
+        const newBlock = await buildBlock(
+          chainState.length + 1,
+          previousHash,
+          currentRecordState,
+          3
+        );
+        chainState = [...chainState, newBlock];
+        chainMode = "appended";
+        await renderChain();
+      }
+
+      async function initialize() {
+        originalRecordState = await buildRecordState(originalRecord);
+        await resetRecord();
+        resetPeers();
+        await buildChain();
+      }
+
+      document.getElementById("resetRecordBtn").addEventListener("click", resetRecord);
+      document.getElementById("tamperRecordBtn").addEventListener("click", tamperRecord);
+      document.getElementById("recalcBtn").addEventListener("click", syncRecordState);
+      document.getElementById("pinOriginalBtn").addEventListener("click", pinOriginal);
+      document.getElementById("pinCurrentBtn").addEventListener("click", pinCurrent);
+      document.getElementById("resetPeersBtn").addEventListener("click", resetPeers);
+      document.getElementById("buildChainBtn").addEventListener("click", buildChain);
+      document.getElementById("tamperBlockBtn").addEventListener("click", tamperHistoricalBlock);
+      document.getElementById("rehashBlockBtn").addEventListener("click", rehashOnlyBlockTwo);
+      document.getElementById("appendBlockBtn").addEventListener("click", appendUpdatedRecordBlock);
+      document.getElementById("resetChainBtn").addEventListener("click", buildChain);
+
+      initialize();
+    </script>
+  </body>
+</html>

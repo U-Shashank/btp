@@ -1,0 +1,625 @@
+\documentclass[10pt]{beamer}
+
+% Theme and color scheme
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% Custom footer
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1ex]{author in head/foot}
+    \usebeamercolor[fg]{author in head/foot}
+    \hspace{0.3cm}
+    \insertframenumber{} / \inserttotalframenumber
+    \hfill
+    IIIT Kottayam
+    \hfill
+    \hspace{0.3cm}
+  \end{beamercolorbox}
+}
+
+% Custom title with smaller logo
+\setbeamertemplate{frametitle}{
+  \vspace{-1pt}
+  \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=0.8ex, sep=0.2ex]{frametitle}
+    \hspace{0.3cm}\insertframetitle
+    \hfill
+    \raisebox{-0.2ex}{\includegraphics[height=2.2ex]{logo.jpg}}
+    \hspace{0.2cm}
+  \end{beamercolorbox}
+  \vskip3pt%
+}
+
+\title{MedLedger}
+\author{}
+\institute{}
+\date{}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+\vfill
+\begin{center}
+\hspace{2cm}
+\begin{beamercolorbox}[rounded=true,shadow=true,wd=0.9\textwidth,center,dp=0.5ex,ht=3ex]{title}
+{\Large \textbf{Review 3}}
+\end{beamercolorbox}
+
+\vspace{0.5cm}
+{\large \textbf{MedLedger: A Blockchain-Based Decentralized Health Record System}}
+
+\vspace{0.8cm}
+
+\textbf{BY}\\[0.5cm]
+\begin{tabular}{cc}
+\textbf{SHASHANK UPADHYAY} & \textbf{ANUSHILA BISWAS} \\
+2022BCS0088 & 2022BCS0069 \\[0.3cm]
+\textbf{VYSHNAVI REDDY} & \textbf{SURAJ RATHORE} \\
+2022BCS0133 & 2022BCS0051
+\end{tabular}
+
+\vspace{0.8cm}
+
+{\large \textbf{Guided By}}\\[0.2cm]
+{\Large \textbf{Dr. Anu Maria Sebastian}}
+\end{center}
+\vfill
+\end{frame}
+
+% Project Overview
+\begin{frame}{Project Overview}
+\textbf{Problem Statement:}
+\begin{itemize}
+\item Centralized EHR systems are vulnerable to breaches
+\item Patients lack control over their medical records
+\item Poor interoperability between healthcare providers
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{MedLedger Solution:}
+\begin{itemize}
+\item Blockchain-based decentralized prescription management
+\item End-to-end encrypted patient data
+\item Dual-signature workflow (doctor + patient approval)
+\item Patient-controlled access delegation
+\end{itemize}
+\end{frame}
+
+% Review 3 Focus
+\begin{frame}{Review 3: New Features}
+\textbf{Three Major Additions Since Review 2:}
+
+\begin{enumerate}
+\item \textbf{End-to-End Encryption System}
+    \begin{itemize}
+    \item AES-256-GCM authenticated encryption
+    \item Hybrid key derivation
+    \item Multi-recipient support
+    \end{itemize}
+
+\item \textbf{DoctorStatusOracle Contract}
+    \begin{itemize}
+    \item Decentralized doctor authorization
+    \item Admin panel for management
+    \end{itemize}
+
+\item \textbf{Enhanced EIP-712 Implementation}
+    \begin{itemize}
+    \item Dual-signature verification
+    \item Replay protection
+    \item Automatic re-encryption
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+% Literature Survey
+\begin{frame}{Literature Survey}
+\small
+\textbf{Comparison with Existing Solutions:}
+
+\vspace{0.2cm}
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Feature} & \textbf{MedRec} & \textbf{HealthChain} & \textbf{MedLedger} \\
+ & (2016) & (2024) & (Ours) \\
+\midrule
+End-to-End Encryption & $\times$ & Partial & \checkmark \\
+Dual-Signature & $\times$ & $\times$ & \checkmark \\
+Oracle Authorization & $\times$ & $\times$ & \checkmark \\
+Auto Re-encryption & $\times$ & $\times$ & \checkmark \\
+Layer-2 Scaling & $\times$ & Partial & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.2cm}
+\textbf{Research Gap Addressed:}
+\begin{itemize}
+\item Most systems lack end-to-end encryption
+\item No hybrid key management in existing work
+\item Limited automation for access control
+\end{itemize}
+\end{frame}
+
+% System Architecture
+\begin{frame}{System Architecture}
+\textbf{Four-Layer Design:}
+
+\vspace{0.2cm}
+\begin{center}
+\textit{[Architecture diagram: 4 layers - Blockchain, Storage, Backend, Frontend]}
+\end{center}
+
+\vspace{0.2cm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Layer 1: Blockchain}
+\begin{itemize}
+\item PrescriptionRegistry.sol
+\item DoctorStatusOracle.sol
+\item Access control
+\end{itemize}
+
+\textbf{Layer 2: Storage}
+\begin{itemize}
+\item IPFS encrypted bundles
+\item Content addressing
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Layer 3: Backend}
+\begin{itemize}
+\item Express API
+\item IPFS integration
+\item Request management
+\end{itemize}
+
+\textbf{Layer 4: Frontend}
+\begin{itemize}
+\item React interface
+\item Wallet integration
+\item Encryption/decryption
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Workflow
+\begin{frame}{Complete Workflow}
+\textbf{Prescription Creation \& Access:}
+
+\vspace{0.2cm}
+\begin{center}
+\textit{[Sequence diagram: Doctor → Backend → Patient → Blockchain]}
+\end{center}
+
+\vspace{0.2cm}
+\textbf{Key Steps:}
+\begin{enumerate}
+\item Doctor encrypts prescription and signs (EIP-712)
+\item Backend stores encrypted bundle on IPFS
+\item Patient decrypts, reviews, and co-signs
+\item Both signatures verified on-chain
+\item Immutable record created
+\item Patient can delegate access (automatic re-encryption)
+\end{enumerate}
+\end{frame}
+
+% Feature 1: Encryption
+\begin{frame}{Feature 1: End-to-End Encryption}
+\textbf{AES-256-GCM Authenticated Encryption}
+
+\vspace{0.2cm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Technical Details:}
+\begin{itemize}
+\item Algorithm: AES-256-GCM
+\item Authenticated encryption
+\item 256-bit key size
+\item Prevents tampering
+\end{itemize}
+
+\textbf{Multi-Recipient Encryption:}
+\begin{itemize}
+\item One Data Encryption Key (DEK)
+\item Per-recipient Key Encryption Keys
+\item Efficient storage
+\item Easy to add recipients
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Hybrid Key Derivation:}
+\begin{itemize}
+\item \textbf{Method 1:} EIP-712 signature
+    \begin{itemize}
+    \item For doctor/patient
+    \item High security
+    \end{itemize}
+\item \textbf{Method 2:} Address-based
+    \begin{itemize}
+    \item For delegates
+    \item Enables automation
+    \end{itemize}
+\end{itemize}
+
+\vspace{0.1cm}
+\textbf{Benefits:}
+\begin{itemize}
+\item No key storage needed
+\item Automatic re-encryption
+\item Secure delegation
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Encryption Flow
+\begin{frame}{Encryption Architecture}
+\textbf{How Encryption Works:}
+
+\vspace{0.2cm}
+\begin{center}
+\textit{[Diagram: Encryption flow with DEK and KEKs]}
+\end{center}
+
+\vspace{0.2cm}
+\textbf{Encryption Process:}
+\begin{enumerate}
+\item Generate random DEK
+\item Encrypt prescription data with DEK
+\item For each recipient: derive KEK and encrypt DEK
+\item Store encrypted bundle on IPFS
+\end{enumerate}
+
+\vspace{0.2cm}
+\textbf{Decryption Process:}
+\begin{enumerate}
+\item User derives their KEK (signature or address-based)
+\item Decrypt DEK using KEK
+\item Decrypt prescription using DEK
+\end{enumerate}
+\end{frame}
+
+% Feature 2: Oracle
+\begin{frame}{Feature 2: DoctorStatusOracle}
+\textbf{Decentralized Doctor Authorization}
+
+\vspace{0.2cm}
+\begin{center}
+\textit{[Diagram: Oracle contract interaction with Registry]}
+\end{center}
+
+\vspace{0.2cm}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Smart Contract Functions:}
+\begin{itemize}
+\item \texttt{addDoctor(address)} - Admin only
+\item \texttt{toggleDoctorStatus(address)}
+\item \texttt{isDoctorActive(address)} - Public
+\item \texttt{getAllDoctors()} - View all
+\end{itemize}
+
+\textbf{Integration:}
+\begin{itemize}
+\item Registry checks oracle before registration
+\item Rejects inactive doctors
+\item Transparent on-chain events
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Admin Panel:}
+\begin{itemize}
+\item Web interface for management
+\item Add new doctors
+\item Suspend malicious doctors
+\item View all registered doctors
+\end{itemize}
+
+\textbf{Benefits:}
+\begin{itemize}
+\item Centralized governance
+\item Easy doctor management
+\item Auditable history
+\item Revocable access
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Feature 3: EIP-712
+\begin{frame}{Feature 3: EIP-712 Dual-Signature}
+\textbf{Secure Off-Chain Signing}
+
+\vspace{0.2cm}
+\textbf{What is EIP-712?}
+\begin{itemize}
+\item Standard for typed structured data signing
+\item Human-readable signatures
+\item Prevents phishing attacks
+\end{itemize}
+
+\vspace{0.2cm}
+\textbf{Our Implementation:}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Dual-Signature Flow:}
+\begin{enumerate}
+\item Doctor signs prescription data
+\item Patient reviews and co-signs
+\item Both signatures submitted on-chain
+\item Contract verifies both signatures
+\item Prescription registered if valid
+\end{enumerate}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Security Features:}
+\begin{itemize}
+\item \textbf{Replay Protection:} Nonce tracking
+\item \textbf{Expiration:} Time-limited signatures
+\item \textbf{Domain Separation:} App-specific
+\item \textbf{Signature Recovery:} ECDSA verification
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Automatic Re-encryption
+\begin{frame}{Automatic Re-encryption}
+\textbf{Seamless Delegate Access}
+
+\vspace{0.2cm}
+\textbf{Scenario:} Patient approves a new delegate (e.g., specialist doctor)
+
+\vspace{0.2cm}
+\textbf{Workflow:}
+\begin{enumerate}
+\item Patient sets delegate on-chain: \texttt{setDelegate(doctorAddress, true)}
+\item System fetches all patient's prescriptions
+\item For each encrypted prescription:
+    \begin{itemize}
+    \item Fetch encrypted bundle from IPFS
+    \item Patient decrypts with their key
+    \item Add delegate to recipients list (address-based key)
+    \item Re-encrypt and upload to IPFS
+    \item Update on-chain metadata URI
+    \end{itemize}
+\item Progress UI shows: "Re-encrypting 3/10..."
+\end{enumerate}
+
+\vspace{0.2cm}
+\textbf{Benefits:}
+\begin{itemize}
+\item Fully automatic (no manual steps)
+\item Parallel processing (faster)
+\item Error handling (continues on failure)
+\end{itemize}
+\end{frame}
+
+% Multi-Layer Security
+\begin{frame}{Security Architecture}
+\textbf{Defense in Depth - Five Layers:}
+
+\vspace{0.2cm}
+\begin{center}
+\textit{[Diagram: 5 concentric security circles]}
+\end{center}
+
+\vspace{0.2cm}
+\begin{enumerate}
+\item \textbf{Blockchain Layer:} Immutability, decentralization, consensus
+\item \textbf{Smart Contract Layer:} Access control, oracle verification, dual-signature
+\item \textbf{Cryptography Layer:} AES-256-GCM, SHA-256, ECDSA
+\item \textbf{Storage Layer:} IPFS content addressing, pinning
+\item \textbf{Application Layer:} HTTPS, input validation, client-side encryption
+\end{enumerate}
+
+\vspace{0.2cm}
+\textbf{Key Security Properties:}
+\begin{itemize}
+\item Backend never sees plaintext data
+\item IPFS stores only encrypted ciphertext
+\item Blockchain enforces access control
+\end{itemize}
+\end{frame}
+
+% Threat Mitigation
+\begin{frame}{Threat Model \& Mitigations}
+\small
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}p{3.5cm}p{6cm}@{}}
+\toprule
+\textbf{Threat} & \textbf{Mitigation} \\
+\midrule
+Unauthorized access & Access control + encryption \\
+Replay attack & Nonce-based protection + expiration \\
+Man-in-the-middle & HTTPS + EIP-712 signatures \\
+Key compromise & Per-prescription keys + wallet derivation \\
+IPFS tampering & Content addressing (CID verification) \\
+Smart contract bugs & Comprehensive testing (361 test lines) \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{frame}
+
+% Progress Summary
+\begin{frame}{What We've Built}
+\textbf{Complete System Components:}
+
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Smart Contracts:}
+\begin{itemize}
+\item PrescriptionRegistry (180 lines)
+\item DoctorStatusOracle (96 lines)
+\item Comprehensive tests (361 lines)
+\end{itemize}
+
+\textbf{Frontend:}
+\begin{itemize}
+\item React application
+\item Encryption library (547 lines)
+\item Decryption hook (250 lines)
+\item Admin panel (287 lines)
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Backend:}
+\begin{itemize}
+\item Express API server
+\item IPFS integration (Pinata)
+\item Oracle service (183 lines)
+\item Request management
+\end{itemize}
+
+\textbf{Documentation:}
+\begin{itemize}
+\item Encryption guide (579 lines)
+\item Testing guide (475 lines)
+\item Architecture docs
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.3cm}
+\textbf{Technology Stack:} Solidity, React, Node.js, IPFS, Polygon, Wagmi
+\end{frame}
+
+% Review 2 vs Review 3
+\begin{frame}{Progress: Review 2 → Review 3}
+\small
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}p{4.5cm}cc@{}}
+\toprule
+\textbf{Feature} & \textbf{Review 2} & \textbf{Review 3} \\
+\midrule
+Dual-signature workflow & \checkmark & \checkmark \\
+IPFS storage & \checkmark & \checkmark \\
+Patient delegation & \checkmark & \checkmark \\
+\midrule
+End-to-end encryption & $\times$ & \textcolor{green!60!black}{\checkmark} \\
+DoctorStatusOracle & $\times$ & \textcolor{green!60!black}{\checkmark} \\
+Hybrid key management & $\times$ & \textcolor{green!60!black}{\checkmark} \\
+Auto re-encryption & $\times$ & \textcolor{green!60!black}{\checkmark} \\
+Admin panel & $\times$ & \textcolor{green!60!black}{\checkmark} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.2cm}
+\textbf{Key Achievement:} Transformed from functional prototype to production-grade security
+\end{frame}
+
+% Challenges & Lessons
+\begin{frame}{Key Challenges \& Lessons}
+\textbf{Implementation Challenges:}
+\begin{itemize}
+\item \textbf{Key Management UX:} Solved with wallet signature-based derivation
+\item \textbf{Re-encryption Performance:} Optimized with parallel processing
+\item \textbf{IPFS Mutability:} Added \texttt{updatePrescriptionMetadata()} function
+\item \textbf{Oracle Centralization:} Mitigated with transparent on-chain events
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Lessons Learned:}
+\begin{itemize}
+\item Encryption latency acceptable in healthcare context
+\item Hybrid key derivation balances security and UX
+\item Frontend caching essential for performance
+\item Comprehensive testing catches bugs early
+\end{itemize}
+\end{frame}
+
+% Demo Screenshots
+\begin{frame}{System Demonstration}
+\begin{center}
+\textbf{1. Doctor Creates Encrypted Prescription}\\
+\textit{[Screenshot: Doctor form with encryption]}
+
+\vspace{0.3cm}
+\textbf{2. Patient Decrypts \& Reviews}\\
+\textit{[Screenshot: Patient dashboard with decrypt button]}
+
+\vspace{0.3cm}
+\textbf{3. Admin Manages Doctors}\\
+\textit{[Screenshot: Admin panel]}
+
+\vspace{0.3cm}
+\textbf{4. Automatic Re-encryption Progress}\\
+\textit{[Screenshot: Progress bar]}
+\end{center}
+\end{frame}
+
+% Summary
+\begin{frame}{Summary}
+\textbf{Review 3 Contributions:}
+
+\begin{enumerate}
+\item \textbf{End-to-End Encryption}
+    \begin{itemize}
+    \item AES-256-GCM with hybrid key derivation
+    \item Multi-recipient support with efficient storage
+    \end{itemize}
+
+\item \textbf{DoctorStatusOracle}
+    \begin{itemize}
+    \item Decentralized authorization system
+    \item Admin panel for governance
+    \end{itemize}
+
+\item \textbf{Enhanced Security}
+    \begin{itemize}
+    \item EIP-712 dual-signature with replay protection
+    \item Automatic re-encryption workflow
+    \item Multi-layer security architecture
+    \end{itemize}
+\end{enumerate}
+
+\vspace{0.3cm}
+\textbf{Status:} Production-ready encryption and security features implemented
+\end{frame}
+
+% Thank You
+\begin{frame}
+\vfill
+\begin{center}
+{\Huge \textbf{Thank You}}
+
+\vspace{0.5cm}
+
+{\large \textbf{Questions?}}
+
+\vspace{1cm}
+
+\textbf{Team:}\\
+Shashank Upadhyay | Anushila Biswas\\
+Vyshnavi Reddy | Suraj Rathore
+
+\vspace{0.3cm}
+
+\textbf{Advisor:} Dr. Anu Maria Sebastian
+\end{center}
+\vfill
+\end{frame}
+
+\end{document}

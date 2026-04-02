@@ -1,0 +1,662 @@
+\documentclass[10pt]{beamer}
+
+% Theme and color scheme
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{ragged2e}
+\usepackage{etoolbox}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+
+% Apply justification globally
+\apptocmd{\frametitle}{}{\justifying}{}
+\addtobeamertemplate{frametitle}{}{\justifying}
+\let\olditemize\itemize
+\let\endolditemize\enditemize
+\renewenvironment{itemize}
+  {\olditemize\justifying}
+  {\endolditemize}
+
+% Code listing style
+\lstset{
+  basicstyle=\tiny\ttfamily,
+  breaklines=true,
+  frame=single,
+  backgroundcolor=\color{gray!10}
+}
+
+% Custom footer
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=3ex,dp=1ex]{author in head/foot}
+    \usebeamercolor[fg]{author in head/foot}
+    \hspace{0.3cm}
+    \insertframenumber{} / \inserttotalframenumber
+    \hfill
+    Indian Institute of Information Technology Kottayam
+    \hfill
+    \hspace{0.3cm}
+  \end{beamercolorbox}
+}
+
+% Custom title with logo
+\setbeamertemplate{frametitle}{
+  \vspace{-1pt}
+  \begin{beamercolorbox}[wd=\paperwidth,ht=4ex,dp=1ex, sep=0.25ex]{frametitle}
+    \hspace{0.3cm}\insertframetitle
+    \hfill
+    \raisebox{-0.5ex}{\includegraphics[height=3ex]{logo.jpg}}
+    \hspace{0.2cm}
+  \end{beamercolorbox}
+  \vskip0pt%
+}
+
+\title{A Blockchain based Decentralised Health Record System}
+\author{}
+\institute{}
+\date{}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+\vfill
+\begin{center}
+\hspace{2cm}
+\begin{beamercolorbox}[rounded=true,shadow=true,wd=0.9\textwidth,center,dp=0.5ex,ht=3ex]{title}
+{\Large \textbf{Review 2}}
+\end{beamercolorbox}
+
+\vspace{0.5cm}
+{\large \textbf{A Blockchain Based Decentralised Health Record System}}
+
+\vspace{0.8cm}
+
+\textbf{BY}\\[0.5cm]
+\begin{tabular}{cc}
+\textbf{SHASHANK UPADHYAY} & \textbf{ANUSHILA BISWAS} \\
+2022BCS0088 & 2022BCS0069 \\[0.3cm]
+\textbf{VYSHNAVI REDDY} & \textbf{SURAJ RATHORE} \\
+2022BCS0133 & 2022BCS0051
+\end{tabular}
+
+\vspace{0.8cm}
+
+{\large \textbf{Guided By}}\\[0.2cm]
+{\Large \textbf{Dr. Anu Maria Sebastian}}
+\end{center}
+\vfill
+\end{frame}
+
+% Introduction
+\begin{frame}{Introduction}
+\textbf{Healthcare Data Management Challenges:}
+\begin{itemize}
+\item Traditional Electronic Health Records (EHR) systems are centralized and vulnerable to single points of failure
+\item Patient data ownership and control are limited
+\item Interoperability between healthcare providers is lacking
+\item Data breaches and unauthorized access are major concerns
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Significance of Blockchain in Healthcare:}
+\begin{itemize}
+\item \textbf{Decentralization:} Eliminates single point of failure and central authority control
+\item \textbf{Immutability:} Creates tamper-proof audit trails for medical records
+\item \textbf{Patient Sovereignty:} Patients control who accesses their health data
+\item \textbf{Transparency:} All transactions are traceable and verifiable
+\item \textbf{Interoperability:} Standardized data sharing across healthcare providers
+\end{itemize}
+\end{frame}
+
+% Literature Review
+\begin{frame}{Literature Review}
+\textbf{Existing Blockchain-based Healthcare Solutions:}
+
+\begin{enumerate}
+\item \textbf{MedRec (Azaria et al., 2016)}
+    \begin{itemize}
+    \item Ethereum-based EHR management with smart contracts
+    \item Limited scalability due to Layer-1 constraints
+    \item No patient co-signature requirement
+    \end{itemize}
+
+\item \textbf{HealthChain (Husnain et al., 2024)}
+    \begin{itemize}
+    \item IPFS integration for off-chain storage
+    \item Partial Layer-2 scaling solution
+    \item Lacks draft-approval workflow
+    \end{itemize}
+
+\item \textbf{Block MedCare (Simonoski \& Bogatinoska, 2024)}
+    \begin{itemize}
+    \item Focus on interoperability standards
+    \item Centralized components for metadata management
+    \end{itemize}
+
+\item \textbf{Shuaib et al. (2022)}
+    \begin{itemize}
+    \item Role-based access control implementation
+    \item High gas costs on mainnet deployment
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+% Motivation
+\begin{frame}{Motivation}
+\textbf{Research Gap Identified:}
+\begin{itemize}
+\item Existing solutions lack \textbf{patient co-signature} mechanisms---doctors can create records without patient consent
+\item No \textbf{draft-approval workflow} for patients to review prescriptions before blockchain commitment
+\item Limited use of \textbf{Layer-2 scaling} solutions to reduce transaction costs
+\item Insufficient \textbf{flexible delegation} for granular access control
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Novelty of Our Approach:}
+\begin{itemize}
+\item \textbf{Dual-signature workflow:} Doctor drafts, patient finalizes---preventing unauthorized record creation
+\item \textbf{Draft system:} Patients review before on-chain commitment
+\item \textbf{Polygon Layer-2:} Scalable and cost-efficient transactions
+\item \textbf{Patient-controlled delegation:} Granular access management via smart contracts
+\item \textbf{IPFS integration:} Decentralized storage with on-chain metadata anchoring
+\end{itemize}
+\end{frame}
+
+% Problem Statement
+\begin{frame}{Problem Statement}
+\begin{center}
+\textbf{How can we design a decentralized health record system that ensures:}
+\end{center}
+
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Patient Sovereignty:} Patients have full control over their medical records and who can access them
+
+\item \textbf{Dual Authorization:} Both doctor and patient must approve prescriptions before they become immutable records
+
+\item \textbf{Secure \& Transparent Access:} All access is logged on blockchain with role-based permissions
+
+\item \textbf{Scalability:} System remains cost-effective and fast as the number of users grows
+
+\item \textbf{Decentralized Storage:} Medical documents stored off-chain (IPFS) with cryptographic verification on-chain
+\end{enumerate}
+
+\vspace{0.3cm}
+\begin{center}
+\textbf{Challenge:} Balance decentralization, security, scalability, and patient control without compromising performance or usability.
+\end{center}
+\end{frame}
+
+% Progress Overview
+\begin{frame}{Progress Since Review 1}
+\textbf{Major Milestones Achieved:}
+\begin{itemize}
+\item \textbf{Smart Contract Development:} Fully implemented and tested Prescription\-Registry.sol with dual-signature workflow
+\item \textbf{Backend API:} Complete Node.js/Express backend with 4 major API modules
+\item \textbf{IPFS Integration:} Pinata service integrated for decentralized storage
+\item \textbf{Frontend Development:} React-based user interface with MetaMask integration
+\item \textbf{Local Deployment:} Successfully deployed on Anvil testnet with comprehensive testing
+\item \textbf{Performance Metrics:} Automated metrics collection and reporting system
+\end{itemize}
+\vspace{0.3cm}
+\textbf{Current Status:} \textcolor{green!60!black}{Functional prototype with all core features implemented}
+
+\vspace{0.3cm}
+\textbf{Resources:}
+\begin{itemize}
+\item \textbf{GitHub Repository:} \href{https://github.com/U-Shashank/btp}{\textcolor{blue}{github.com/U-Shashank/btp}}
+\item \textbf{Demo Video:} \href{https://youtu.be/KZ4PxqNWKyU}{\textcolor{blue}{youtu.be/KZ4PxqNWKyU}}
+\end{itemize}
+\end{frame}
+
+% Use Cases
+\begin{frame}{System Use Cases}
+\begin{center}
+\includegraphics[width=0.95\textwidth]{usecase.png}
+\end{center}
+\end{frame}
+
+% Architecture Overview
+\begin{frame}{Architecture}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{arch-r2.png}
+\end{center}
+\end{frame}
+
+% System Architecture Implementation
+\begin{frame}{System Architecture - Three-Layer Design}
+\textbf{1. Blockchain Layer (Polygon Network)}
+\begin{itemize}
+\item Smart contract: PrescriptionRegistry.sol deployed and tested
+\item Dual-signature workflow: Doctor drafts, patient finalizes
+\item Role-based access control with delegation support
+\item Event emission for transparency
+\end{itemize}
+
+\textbf{2. Storage Layer (IPFS via Pinata)}
+\begin{itemize}
+\item Off-chain encrypted document storage
+\item Content-addressed with cryptographic hashes
+\item Metadata anchored on blockchain
+\end{itemize}
+
+\textbf{3. Application Layer}
+\begin{itemize}
+\item React.js frontend with Tailwind CSS
+\item MetaMask wallet integration via Wagmi
+\item Node.js/Express backend API
+\item Real-time metrics collection
+\end{itemize}
+\end{frame}
+
+% Smart Contract Details
+\begin{frame}[fragile]{Smart Contract Implementation}
+\textbf{PrescriptionRegistry.sol - Core Functions:}
+
+\begin{itemize}
+\item \texttt{submitDraft(address patient)} - Doctor creates prescription draft on-chain
+\item \texttt{finalizeDraft(uint256 draftId, string metadataURI)} - Patient co-signs and publishes
+\item \texttt{setDelegate(address viewer, bool allowed)} - Patient grants/revokes access
+\item \texttt{getPrescription(uint256 prescriptionId)} - Retrieve prescription metadata
+\item \texttt{canView(uint256 prescriptionId, address viewer)} - Check authorization
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Key Features:}
+\begin{itemize}
+\item Allow-listed doctor addresses for security
+\item Patient-controlled access via delegation
+\item Immutable audit trail with events
+\item Gas-efficient design
+\end{itemize}
+\end{frame}
+
+% Backend API
+\begin{frame}{Backend API Architecture}
+\footnotesize
+\textbf{Core API Endpoints:}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Endpoint} & \textbf{Function} \\
+\midrule
+POST /api/requests & Submit prescription/access request \\
+GET /api/requests & Fetch pending/completed requests \\
+POST /api/requests/:id/approve & Confirm prescription finalization \\
+GET /api/prescriptions/:id & Retrieve prescription metadata \\
+GET /api/patients/:addr/prescriptions & List patient's accessible records \\
+POST /api/metrics & Record performance metrics \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Service Layer Components:}
+\begin{itemize}
+\item \textbf{pinataService.js} - IPFS pinning via Pinata API
+\item \textbf{requestStore.js} - Local JSON-based request queue
+\item \textbf{prescriptionService.js} - Blockchain interaction via ethers.js
+\item \textbf{metrics.js} - Performance data collection
+\end{itemize}
+\end{frame}
+
+% Workflow Implementation
+\begin{frame}{Implemented Workflow}
+\textbf{Prescription Creation \& Approval Process:}
+
+\begin{enumerate}
+\item \textbf{Doctor Draft Submission}
+    \begin{itemize}
+    \item Doctor calls \texttt{submitDraft(patient)} on smart contract
+    \item Receives \texttt{draftId} from blockchain
+    \item Uploads metadata to Pinata (IPFS)
+    \item Backend stores draft in request queue
+    \end{itemize}
+
+\item \textbf{Patient Review \& Approval}
+    \begin{itemize}
+    \item Patient fetches pending drafts via API
+    \item Reviews prescription details
+    \item Calls \texttt{finalizeDraft(draftId, metadataURI)} from wallet
+    \item Smart contract mints immutable prescription record
+    \end{itemize}
+
+\item \textbf{Access Control}
+    \begin{itemize}
+    \item Patient grants delegation via \texttt{setDelegate(doctor, true)}
+    \item Authorized viewers retrieve prescriptions
+    \item All access logged on blockchain
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+% Technology Stack
+\begin{frame}{Technology Stack \& Tools}
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Blockchain \& Smart Contracts:}
+\begin{itemize}
+\item Solidity 0.8.23
+\item Foundry (Forge, Anvil)
+\item Polygon (Layer-2 scaling)
+\item ethers.js v6.15.0
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Backend:}
+\begin{itemize}
+\item Node.js v18+
+\item Express.js v5.1.0
+\item Zod (validation)
+\item CORS middleware
+\end{itemize}
+\end{column}
+
+\begin{column}{0.48\textwidth}
+\textbf{Frontend:}
+\begin{itemize}
+\item React.js with Vite
+\item Wagmi (wallet integration)
+\item Tailwind CSS
+\item MetaMask connector
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Storage \& DevOps:}
+\begin{itemize}
+\item IPFS via Pinata
+\item JSON file store
+\item Nodemon (hot reload)
+\item Git version control
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% Experimental Results
+\begin{frame}{Experimental Results}
+\textbf{Experimental Setup:}
+\begin{itemize}
+\item \textbf{Testnet:} Anvil (local Ethereum node) for controlled testing
+\item \textbf{Test Cases:} Draft creation, patient finalization, access control, unauthorized access
+\item \textbf{Performance Metrics:} Latency measurements for API and blockchain operations
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Results Summary:}
+
+\begin{table}[h]
+\centering
+\footnotesize
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Metric} & \textbf{Measured Result} \\
+\midrule
+Draft Creation Time (off-chain) & $\sim$1.1 seconds \\
+Finalization Latency (on-chain) & $<$2 seconds \\
+Patient History API Response & 7--20 ms \\
+Access Approval API Latency & $\sim$10 ms \\
+Pinata Upload Time & $\sim$2.2 seconds \\
+Gas Usage (finalizeDraft) & Minimal on testnet \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{frame}
+
+% Testing Results
+\begin{frame}{Testing \& Validation Results}
+\textbf{Smart Contract Tests (Forge):}
+\begin{itemize}
+\item \textcolor{green!60!black}{\checkmark} Doctor draft submission \& patient finalization
+\item \textcolor{green!60!black}{\checkmark} Draft lifecycle (active/inactive states)
+\item \textcolor{green!60!black}{\checkmark} Patient-only finalization enforcement
+\item \textcolor{green!60!black}{\checkmark} Delegation-based access control
+\item \textcolor{green!60!black}{\checkmark} Unauthorized viewer protection
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Security Validation:}
+\begin{itemize}
+\item Unauthorized access attempts returned 403 Forbidden
+\item Patient confirmation required for all records
+\item Only allow-listed doctors can create drafts
+\item Role-based access strictly enforced
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Integration Testing:}
+\begin{itemize}
+\item End-to-end workflow tested on local Anvil network
+\item Pinata uploads successful with proper CID generation
+\item API endpoints validated with various request types
+\end{itemize}
+\end{frame}
+
+% Implementation Challenges
+\begin{frame}{Implementation Challenges \& Solutions}
+\textbf{Technical Challenges Encountered:}
+
+\begin{enumerate}
+\item \textbf{Challenge:} Coordinating on-chain and off-chain state
+    \begin{itemize}
+    \item \textbf{Solution:} Implemented request queue with draft IDs linking blockchain events to IPFS metadata
+    \end{itemize}
+
+\item \textbf{Challenge:} Ensuring patient-controlled access without centralized authority
+    \begin{itemize}
+    \item \textbf{Solution:} Smart contract delegation system with on-chain verification
+    \end{itemize}
+
+\item \textbf{Challenge:} Managing wallet signatures and MetaMask integration
+    \begin{itemize}
+    \item \textbf{Solution:} Used Wagmi library for standardized wallet interactions
+    \end{itemize}
+
+\item \textbf{Challenge:} Pinata rate limits and upload reliability
+    \begin{itemize}
+    \item \textbf{Solution:} Implemented retry logic and metrics tracking for monitoring
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+% Demonstration
+\begin{frame}{Demonstration}
+\textbf{Key Features Implemented:}
+
+\begin{itemize}
+\item \textbf{Doctor Workspace:}
+    \begin{itemize}
+    \item Prescription draft creation form
+    \item Access request submission
+    \item Draft tracking dashboard
+    \end{itemize}
+
+\item \textbf{Patient Dashboard:}
+    \begin{itemize}
+    \item Pending draft approvals queue
+    \item Access request management
+    \item Prescription history viewer
+    \item Delegation control panel
+    \end{itemize}
+
+\item \textbf{Viewer Panel:}
+    \begin{itemize}
+    \item Patient prescription lookup
+    \item Authorization verification
+    \item Metadata retrieval from IPFS
+    \end{itemize}
+\end{itemize}
+
+\vspace{0.3cm}
+\textbf{Live Demo:} \href{https://youtu.be/KZ4PxqNWKyU}{\textcolor{blue}{Demo Video Link}}
+\end{frame}
+
+% Security Analysis
+\begin{frame}{Security Implementation}
+\textbf{Multi-Layer Security Approach:}
+
+\textbf{1. Smart Contract Level:}
+\begin{itemize}
+\item Allow-list for doctor addresses (prevents unauthorized drafts)
+\item Patient-only finalization (no unauthorized publishing)
+\item On-chain delegation verification (trustless access control)
+\item Custom error messages for security violations
+\end{itemize}
+
+\textbf{2. API Level:}
+\begin{itemize}
+\item Address validation with regex patterns
+\item Sender verification via \texttt{x-sender} header
+\item Transaction hash validation (64-character hex)
+\item Role-based endpoint access control
+\end{itemize}
+
+\textbf{3. Storage Level:}
+\begin{itemize}
+\item IPFS content addressing (tamper-proof)
+\item Metadata URI stored on-chain (immutable reference)
+\item Planned: AES encryption for sensitive data
+\end{itemize}
+\end{frame}
+
+% Comparison with Literature
+\begin{frame}{Comparison with Existing Solutions}
+\footnotesize
+\textbf{Our Project vs. Related Work:}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Feature} & \textbf{Our Project} & \textbf{MedRec} & \textbf{HealthChain} \\
+\midrule
+Dual Signature & \checkmark & $\times$ & $\times$ \\
+Patient Control & \checkmark & \checkmark & \checkmark \\
+IPFS Storage & \checkmark & $\times$ & \checkmark \\
+Layer-2 Scaling & \checkmark & $\times$ & Partial \\
+Draft System & \checkmark & $\times$ & $\times$ \\
+Delegation & \checkmark & Limited & \checkmark \\
+Gas Efficiency & High & Low & Medium \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Key Innovations:}
+\begin{itemize}
+\item \textbf{Dual-signature workflow} prevents unauthorized prescription publishing
+\item \textbf{Draft system} enables patient review before on-chain commitment
+\item \textbf{Polygon integration} provides scalability at lower cost
+\item \textbf{Flexible delegation} allows granular access control
+\end{itemize}
+\end{frame}
+
+% Limitations
+\begin{frame}{Current Limitations}
+\textbf{Identified Limitations:}
+
+\begin{enumerate}
+\item \textbf{Scalability:}
+    \begin{itemize}
+    \item JSON file-based storage not suitable for production
+    \item Need database migration (PostgreSQL/MongoDB)
+    \end{itemize}
+
+\item \textbf{Security:}
+    \begin{itemize}
+    \item x-sender header trust-based (requires EIP-712 signatures)
+    \item No encryption for IPFS-stored data yet
+    \end{itemize}
+
+\item \textbf{Functionality:}
+    \begin{itemize}
+    \item No emergency access override mechanism
+    \item Limited to prescriptions (lab reports planned)
+    \item Manual refresh required (no real-time notifications)
+    \end{itemize}
+
+\item \textbf{Compliance:}
+    \begin{itemize}
+    \item Need HIPAA/GDPR compliance audit
+    \item Regulatory framework integration pending
+    \end{itemize}
+\end{enumerate}
+\end{frame}
+
+% Conclusion
+\begin{frame}{Conclusion}
+\textbf{Key Achievements:}
+\begin{itemize}
+\item Successfully implemented functional blockchain-based EHR prototype
+\item Demonstrated dual-signature workflow with patient control
+\item Achieved efficient performance metrics on testnet
+\item Comprehensive testing validates security model
+\end{itemize}
+
+\vspace{0.5cm}
+\textbf{Planned Work for Next Phase:}
+\begin{enumerate}
+\item Migrate to persistent database (PostgreSQL)
+\item Implement EIP-712 signature verification for enhanced security
+\item Add AES-256 encryption for IPFS payloads
+\item Deploy on public testnet
+\item Extend system to support lab reports
+\item Integrate Push Protocol for real-time notifications
+\item Develop comprehensive user documentation
+\end{enumerate}
+\end{frame}
+
+% References
+\begin{frame}{References}
+\footnotesize
+\begin{enumerate}
+\item O. Simonoski and D. C. Bogatinoska, "Block MedCare: Advancing healthcare through blockchain integration," \textit{Int. J. Cybern. Informat.}, vol. 13, no. 5, pp. 63--84, Oct. 2024.
+
+\item K. Shuaib et al., "Secure decentralized electronic health records sharing system based on blockchains," \textit{J. King Saud Univ. - Comput. Inf. Sci.}, vol. 34, no. 7, pp. 5045--5058, Jul. 2022.
+
+\item G. Husnain et al., "HealthChain: A blockchain-based framework for secure and interoperable electronic health records," \textit{IET Commun.}, vol. 18, no. 19, pp. 1451--1473, Oct. 2024.
+
+
+\item A. Azaria et al., "MedRec: Using Blockchain for Medical Data Access and Permission Management," in \textit{Proc. 2nd Int. Conf. Open Big Data (OBD)}, 2016, pp. 25--30.
+
+\item Foundry Documentation: \url{https://book.getfoundry.sh/}
+
+\item IPFS Documentation: \url{https://docs.ipfs.tech/}
+
+\item Polygon Developer Docs: \url{https://docs.polygon.technology/}
+\end{enumerate}
+\end{frame}
+
+% Q&A
+\begin{frame}
+\begin{center}
+\Huge Questions \& Answers
+
+\vspace{1cm}
+
+\normalsize
+\textbf{Resources:}
+
+\vspace{0.3cm}
+
+\textbf{GitHub Repository:} \href{https://github.com/U-Shashank/btp}{\textcolor{blue}{github.com/U-Shashank/btp}}
+
+\textbf{Demo Video:} \href{https://youtu.be/KZ4PxqNWKyU}{\textcolor{blue}{youtu.be/KZ4PxqNWKyU}}
+
+\vspace{1cm}
+
+\Large Thank You
+\end{center}
+\end{frame}
+
+\end{document}

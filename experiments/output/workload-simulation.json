@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-04-01T20:38:02.337Z",
+  "baselinePath": "/home/shash/btp/experiments/output/prototype-baseline.json",
+  "dataset": {
+    "path": "/home/shash/btp/experiments/output/synthetic-dataset.json",
+    "prescriptions": 120,
+    "averagePayloadBytes": 273.8
+  },
+  "assumptions": {
+    "note": "This is a workload simulation based on prototype-measured averages, not a throughput benchmark.",
+    "apiCallsPerPrescription": 4,
+    "apiCallsPerDelegateApproval": 2,
+    "workloads": [
+      {
+        "label": "Pilot review demo",
+        "prescriptions": 25,
+        "delegates": 5
+      },
+      {
+        "label": "Department rollout",
+        "prescriptions": 100,
+        "delegates": 20
+      },
+      {
+        "label": "Hospital scale simulation",
+        "prescriptions": 500,
+        "delegates": 100
+      }
+    ]
+  },
+  "rows": [
+    {
+      "workload": "Pilot review demo",
+      "prescriptions": 25,
+      "delegate_approvals": 5,
+      "cumulative_draft_seconds": "334.50",
+      "cumulative_finalize_seconds": "319.75",
+      "cumulative_delegate_seconds": "39.94",
+      "cumulative_encryption_seconds": "122.40",
+      "cumulative_decryption_seconds": "0.35",
+      "cumulative_api_seconds": "2.19",
+      "estimated_gas_units": 6646080,
+      "estimated_offchain_volume_mb": "0.007"
+    },
+    {
+      "workload": "Department rollout",
+      "prescriptions": 100,
+      "delegate_approvals": 20,
+      "cumulative_draft_seconds": "1338.00",
+      "cumulative_finalize_seconds": "1279.00",
+      "cumulative_delegate_seconds": "159.74",
+      "cumulative_encryption_seconds": "489.61",
+      "cumulative_decryption_seconds": "1.40",
+      "cumulative_api_seconds": "8.78",
+      "estimated_gas_units": 26584320,
+      "estimated_offchain_volume_mb": "0.026"
+    },
+    {
+      "workload": "Hospital scale simulation",
+      "prescriptions": 500,
+      "delegate_approvals": 100,
+      "cumulative_draft_seconds": "6690.00",
+      "cumulative_finalize_seconds": "6395.00",
+      "cumulative_delegate_seconds": "798.70",
+      "cumulative_encryption_seconds": "2448.06",
+      "cumulative_decryption_seconds": "7.00",
+      "cumulative_api_seconds": "43.90",
+      "estimated_gas_units": 132921600,
+      "estimated_offchain_volume_mb": "0.131"
+    }
+  ]
+}
