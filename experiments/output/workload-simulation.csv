@@ -1,4 +1,4 @@
 workload,prescriptions,delegate_approvals,cumulative_draft_seconds,cumulative_finalize_seconds,cumulative_delegate_seconds,cumulative_encryption_seconds,cumulative_decryption_seconds,cumulative_api_seconds,estimated_gas_units,estimated_offchain_volume_mb
-Pilot review demo,25,5,334.50,319.75,39.94,122.40,0.35,2.19,6646080,0.007
-Department rollout,100,20,1338.00,1279.00,159.74,489.61,1.40,8.78,26584320,0.026
-Hospital scale simulation,500,100,6690.00,6395.00,798.70,2448.06,7.00,43.90,132921600,0.131
+Pilot review demo,25,5,0.00,0.00,0.00,148.56,0.00,1.83,0,0.007
+Department rollout,100,20,0.00,0.00,0.00,594.23,0.00,7.33,0,0.026
+Hospital scale simulation,500,100,0.00,0.00,0.00,2971.17,0.00,36.65,0,0.131

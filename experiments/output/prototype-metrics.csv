@@ -1,10 +1,10 @@
 key,label,unit,count,min,mean,median,p95,max
-encryption_ms,Encryption time,ms,16,3316.00,4896.13,4959.00,6491.00,6626.00
-decryption_ms,Decryption time,ms,3,9.00,14.00,16.00,16.90,17.00
-draft_creation_ms,Draft creation,ms,1,13380.00,13380.00,13380.00,13380.00,13380.00
-finalization_ms,Finalization,ms,1,12790.00,12790.00,12790.00,12790.00,12790.00
-delegate_ms,Delegate approval,ms,1,7987.00,7987.00,7987.00,7987.00,7987.00
-pinata_upload_ms,Pinata upload,ms,2,1159.00,1276.50,1276.50,1382.25,1394.00
-gas_finalize,Finalize gas,gas,1,256532.00,256532.00,256532.00,256532.00,256532.00
-gas_delegate,Delegate gas,gas,1,46556.00,46556.00,46556.00,46556.00,46556.00
-api_latency_overall,API latency overall,ms,229,0.54,19.95,5.30,37.41,1420.61
+encryption_ms,Encryption time,ms,6,4020.00,5942.33,6589.00,7224.25,7309.00
+decryption_ms,Decryption time,ms,0,,,,,
+draft_creation_ms,Draft creation,ms,0,,,,,
+finalization_ms,Finalization,ms,0,,,,,
+delegate_ms,Delegate approval,ms,0,,,,,
+pinata_upload_ms,Pinata upload,ms,0,,,,,
+gas_finalize,Finalize gas,gas,0,,,,,
+gas_delegate,Delegate gas,gas,0,,,,,
+api_latency_overall,API latency overall,ms,108,0.83,16.66,8.41,79.60,121.51

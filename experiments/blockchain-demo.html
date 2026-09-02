@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MedLedger Storage and Integrity Demo</title>
+    <title>Storage and Integrity Demo</title>
     <style>
       :root {
         --bg: #efe7db;
@@ -29,8 +29,16 @@
         color: var(--ink);
         font-family: Georgia, "Times New Roman", serif;
         background:
-          radial-gradient(circle at top left, rgba(184, 132, 61, 0.28), transparent 28%),
-          radial-gradient(circle at 85% 8%, rgba(178, 77, 71, 0.18), transparent 22%),
+          radial-gradient(
+            circle at top left,
+            rgba(184, 132, 61, 0.28),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at 85% 8%,
+            rgba(178, 77, 71, 0.18),
+            transparent 22%
+          ),
           linear-gradient(180deg, #f7f1e8, var(--bg));
       }
 
@@ -135,7 +143,9 @@
         color: #fffaf3;
         background: linear-gradient(135deg, #23454f, #2d6772);
         cursor: pointer;
-        transition: transform 160ms ease, opacity 160ms ease;
+        transition:
+          transform 160ms ease,
+          opacity 160ms ease;
       }
 
       button.secondary {
@@ -348,12 +358,13 @@
   <body>
     <main class="shell">
       <section class="hero">
-        <h1>MedLedger Storage and Integrity Demo</h1>
+        <h1>Storage and Integrity Demo</h1>
         <p>
           This page explains the complete reasoning chain for the project:
-          medical content changes alter the content hash, IPFS produces a new CID,
-          peer nodes pin content by CID, and the blockchain anchor becomes invalid
-          if someone rewrites old history instead of appending a new block.
+          medical content changes alter the content hash, IPFS produces a new
+          CID, peer nodes pin content by CID, and the blockchain anchor becomes
+          invalid if someone rewrites old history instead of appending a new
+          block.
         </p>
         <div class="badge-row">
           <div class="badge">Content Addressing</div>
@@ -367,13 +378,15 @@
         <div class="panel">
           <h2>1. Record, Hash, and CID</h2>
           <p>
-            Edit the off-chain prescription record below. Any byte change creates a
-            different content hash and therefore a different CID. That is the core
-            reason IPFS is content addressed.
+            Edit the off-chain prescription record below. Any byte change
+            creates a different content hash and therefore a different CID. That
+            is the core reason IPFS is content addressed.
           </p>
           <div class="controls">
             <button id="resetRecordBtn">Reset Original Record</button>
-            <button id="tamperRecordBtn" class="secondary">Change Dosage</button>
+            <button id="tamperRecordBtn" class="secondary">
+              Change Dosage
+            </button>
             <button id="recalcBtn" class="tertiary">Hash Current Record</button>
           </div>
           <textarea id="recordEditor"></textarea>
@@ -418,9 +431,9 @@
         <div class="panel">
           <h2>2. Peer-to-Peer Pinning</h2>
           <p>
-            In a content-addressed network, peers pin objects by CID. They are not
-            storing “the latest version” under the same identifier. A changed record
-            becomes a different object that needs its own CID.
+            In a content-addressed network, peers pin objects by CID. They are
+            not storing “the latest version” under the same identifier. A
+            changed record becomes a different object that needs its own CID.
           </p>
           <div class="controls">
             <button id="pinOriginalBtn">Pin Original CID</button>
@@ -436,32 +449,36 @@
         <div class="panel">
           <h2>3. Blockchain Anchor and Failure Modes</h2>
           <p>
-            The chain below anchors the original CID and payload hash. There are two
-            fundamentally different actions:
+            The chain below anchors the original CID and payload hash. There are
+            two fundamentally different actions:
           </p>
-          <p>
-            1. the valid action: append a new block for a new CID
-          </p>
-          <p>
-            2. the invalid action: rewrite historical block data
-          </p>
+          <p>1. the valid action: append a new block for a new CID</p>
+          <p>2. the invalid action: rewrite historical block data</p>
           <div class="controls">
             <button id="buildChainBtn">Build Valid Chain</button>
-            <button id="tamperBlockBtn" class="secondary">Tamper Historical Block 2</button>
-            <button id="rehashBlockBtn" class="tertiary">Recompute Only Block 2</button>
-            <button id="appendBlockBtn" class="quiet">Append Updated Record as New Block</button>
+            <button id="tamperBlockBtn" class="secondary">
+              Tamper Historical Block 2
+            </button>
+            <button id="rehashBlockBtn" class="tertiary">
+              Recompute Only Block 2
+            </button>
+            <button id="appendBlockBtn" class="quiet">
+              Append Updated Record as New Block
+            </button>
             <button id="resetChainBtn" class="quiet">Reset Chain</button>
           </div>
           <div id="chainNotice" class="notice"></div>
           <div class="chain" id="chain"></div>
           <div class="footer-notes">
             <div class="notice">
-              If the current CID differs from the anchored CID of block 2, that means
-              the off-chain content changed after the blockchain reference was created.
+              If the current CID differs from the anchored CID of block 2, that
+              means the off-chain content changed after the blockchain reference
+              was created.
             </div>
             <div class="notice warn">
-              The correct blockchain behavior is to append a new block with the new CID,
-              not to rewrite an older block. Rewriting history breaks trust.
+              The correct blockchain behavior is to append a new block with the
+              new CID, not to rewrite an older block. Rewriting history breaks
+              trust.
             </div>
           </div>
         </div>
@@ -561,10 +578,13 @@
 
       async function syncRecordState() {
         try {
-          currentRecordState = await buildRecordState(JSON.parse(recordEditor.value));
+          currentRecordState = await buildRecordState(
+            JSON.parse(recordEditor.value),
+          );
         } catch (error) {
           recordNoticeEl.className = "notice warn";
-          recordNoticeEl.textContent = "Current JSON is invalid. Fix the structure before hashing.";
+          recordNoticeEl.textContent =
+            "Current JSON is invalid. Fix the structure before hashing.";
           return false;
         }
 
@@ -573,7 +593,8 @@
         originalCidEl.textContent = originalRecordState.cid;
         currentCidEl.textContent = currentRecordState.cid;
 
-        const changed = currentRecordState.contentHash !== originalRecordState.contentHash;
+        const changed =
+          currentRecordState.contentHash !== originalRecordState.contentHash;
         recordNoticeEl.className = `notice${changed ? " warn" : ""}`;
         recordNoticeEl.textContent = changed
           ? "The record changed. The content hash and CID changed too. The blockchain anchor for the old CID is now outdated."
@@ -599,17 +620,26 @@
           })
           .join("");
 
-        const currentCidPinned = peers.some((peer) => peer.cids.includes(currentRecordState?.cid));
+        const currentCidPinned = peers.some((peer) =>
+          peer.cids.includes(currentRecordState?.cid),
+        );
         peerNoticeEl.className = `notice${currentCidPinned ? "" : " warn"}`;
         peerNoticeEl.textContent = currentCidPinned
           ? "At least one peer now pins the current CID. This represents the new content-addressed object being replicated in the network."
           : "Peers currently pin the original object only. If the content changes, the network must pin the new CID separately.";
       }
 
-      async function buildBlock(index, previousHash, recordState, timestampOffset = 0) {
-        const timestamp = new Date(Date.UTC(2026, 3, 1, 10, index + timestampOffset, 0)).toISOString();
+      async function buildBlock(
+        index,
+        previousHash,
+        recordState,
+        timestampOffset = 0,
+      ) {
+        const timestamp = new Date(
+          Date.UTC(2026, 3, 1, 10, index + timestampOffset, 0),
+        ).toISOString();
         const blockHash = await digest(
-          `${index}|${timestamp}|${previousHash}|${recordState.contentHash}|${recordState.cid}`
+          `${index}|${timestamp}|${previousHash}|${recordState.contentHash}|${recordState.cid}`,
         );
         return {
           index,
@@ -631,7 +661,11 @@
         const blocks = [];
         let previousHash = "GENESIS";
         for (let index = 0; index < states.length; index += 1) {
-          const block = await buildBlock(index + 1, previousHash, states[index]);
+          const block = await buildBlock(
+            index + 1,
+            previousHash,
+            states[index],
+          );
           blocks.push(block);
           previousHash = block.blockHash;
         }
@@ -644,10 +678,11 @@
 
         for (let index = 0; index < blocks.length; index += 1) {
           const block = blocks[index];
-          const expectedPreviousHash = index === 0 ? "GENESIS" : blocks[index - 1].blockHash;
+          const expectedPreviousHash =
+            index === 0 ? "GENESIS" : blocks[index - 1].blockHash;
           const payloadHash = await digest(JSON.stringify(block.payload));
           const expectedBlockHash = await digest(
-            `${block.index}|${block.timestamp}|${block.previousHash}|${payloadHash}|${block.cid}`
+            `${block.index}|${block.timestamp}|${block.previousHash}|${payloadHash}|${block.cid}`,
           );
           const localValid =
             block.previousHash === expectedPreviousHash &&
@@ -672,7 +707,8 @@
         const validations = await validateChain(chainState);
         const anchoredCid = chainState[1]?.cid;
         const currentCid = currentRecordState?.cid;
-        const cidMismatch = anchoredCid && currentCid && anchoredCid !== currentCid;
+        const cidMismatch =
+          anchoredCid && currentCid && anchoredCid !== currentCid;
         const valid = validations.every((entry) => entry.valid);
 
         if (chainMode === "clean" && cidMismatch) {
@@ -780,7 +816,8 @@
           await buildChain();
         }
         chainState[1].payload.dosage = "10 mg";
-        chainState[1].payload.notes = "Historical block edited after publication";
+        chainState[1].payload.notes =
+          "Historical block edited after publication";
         chainMode = "tampered";
         await renderChain();
       }
@@ -793,7 +830,7 @@
         block.dataHash = await digest(JSON.stringify(block.payload));
         block.cid = pseudoCid(block.dataHash);
         block.blockHash = await digest(
-          `${block.index}|${block.timestamp}|${block.previousHash}|${block.dataHash}|${block.cid}`
+          `${block.index}|${block.timestamp}|${block.previousHash}|${block.dataHash}|${block.cid}`,
         );
         chainMode = "rehashed";
         await renderChain();
@@ -808,7 +845,7 @@
           chainState.length + 1,
           previousHash,
           currentRecordState,
-          3
+          3,
         );
         chainState = [...chainState, newBlock];
         chainMode = "appended";
@@ -822,17 +859,39 @@
         await buildChain();
       }
 
-      document.getElementById("resetRecordBtn").addEventListener("click", resetRecord);
-      document.getElementById("tamperRecordBtn").addEventListener("click", tamperRecord);
-      document.getElementById("recalcBtn").addEventListener("click", syncRecordState);
-      document.getElementById("pinOriginalBtn").addEventListener("click", pinOriginal);
-      document.getElementById("pinCurrentBtn").addEventListener("click", pinCurrent);
-      document.getElementById("resetPeersBtn").addEventListener("click", resetPeers);
-      document.getElementById("buildChainBtn").addEventListener("click", buildChain);
-      document.getElementById("tamperBlockBtn").addEventListener("click", tamperHistoricalBlock);
-      document.getElementById("rehashBlockBtn").addEventListener("click", rehashOnlyBlockTwo);
-      document.getElementById("appendBlockBtn").addEventListener("click", appendUpdatedRecordBlock);
-      document.getElementById("resetChainBtn").addEventListener("click", buildChain);
+      document
+        .getElementById("resetRecordBtn")
+        .addEventListener("click", resetRecord);
+      document
+        .getElementById("tamperRecordBtn")
+        .addEventListener("click", tamperRecord);
+      document
+        .getElementById("recalcBtn")
+        .addEventListener("click", syncRecordState);
+      document
+        .getElementById("pinOriginalBtn")
+        .addEventListener("click", pinOriginal);
+      document
+        .getElementById("pinCurrentBtn")
+        .addEventListener("click", pinCurrent);
+      document
+        .getElementById("resetPeersBtn")
+        .addEventListener("click", resetPeers);
+      document
+        .getElementById("buildChainBtn")
+        .addEventListener("click", buildChain);
+      document
+        .getElementById("tamperBlockBtn")
+        .addEventListener("click", tamperHistoricalBlock);
+      document
+        .getElementById("rehashBlockBtn")
+        .addEventListener("click", rehashOnlyBlockTwo);
+      document
+        .getElementById("appendBlockBtn")
+        .addEventListener("click", appendUpdatedRecordBlock);
+      document
+        .getElementById("resetChainBtn")
+        .addEventListener("click", buildChain);
 
       initialize();
     </script>

@@ -20,7 +20,9 @@ function readStore() {
 }
 
 function writeStore(data) {
-  fs.writeFileSync(METRICS_FILE, JSON.stringify(data, null, 2));
+  const tempFile = `${METRICS_FILE}.tmp`;
+  fs.writeFileSync(tempFile, JSON.stringify(data, null, 2));
+  fs.renameSync(tempFile, METRICS_FILE);
 }
 
 function recordMetric(name, value) {
@@ -41,4 +43,3 @@ module.exports = {
   readStore,
   METRICS_FILE,
 };
-

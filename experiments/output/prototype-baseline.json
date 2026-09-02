@@ -1,189 +1,144 @@
 {
-  "generatedAt": "2026-04-01T20:38:02.282Z",
+  "generatedAt": "2026-04-07T16:46:47.219Z",
   "metricsPath": "/home/shash/btp/server/metrics/data.json",
   "contractsDir": "/home/shash/btp/contracts",
   "metricSummary": {
     "encryption_ms": {
       "label": "Encryption time",
       "unit": "ms",
-      "count": 16,
-      "min": 3316,
-      "mean": 4896.125,
-      "median": 4959,
-      "p95": 6491,
-      "max": 6626
+      "count": 6,
+      "min": 4020,
+      "mean": 5942.333333333333,
+      "median": 6589,
+      "p95": 7224.25,
+      "max": 7309
     },
     "decryption_ms": {
       "label": "Decryption time",
       "unit": "ms",
-      "count": 3,
-      "min": 9,
-      "mean": 14,
-      "median": 16,
-      "p95": 16.9,
-      "max": 17
+      "count": 0,
+      "min": null,
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "max": null
     },
     "draft_creation_ms": {
       "label": "Draft creation",
       "unit": "ms",
-      "count": 1,
-      "min": 13380,
-      "mean": 13380,
-      "median": 13380,
-      "p95": 13380,
-      "max": 13380
+      "count": 0,
+      "min": null,
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "max": null
     },
     "finalization_ms": {
       "label": "Finalization",
       "unit": "ms",
-      "count": 1,
-      "min": 12790,
-      "mean": 12790,
-      "median": 12790,
-      "p95": 12790,
-      "max": 12790
+      "count": 0,
+      "min": null,
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "max": null
     },
     "delegate_ms": {
       "label": "Delegate approval",
       "unit": "ms",
-      "count": 1,
-      "min": 7987,
-      "mean": 7987,
-      "median": 7987,
-      "p95": 7987,
-      "max": 7987
+      "count": 0,
+      "min": null,
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "max": null
     },
     "pinata_upload_ms": {
       "label": "Pinata upload",
       "unit": "ms",
-      "count": 2,
-      "min": 1159,
-      "mean": 1276.5,
-      "median": 1276.5,
-      "p95": 1382.25,
-      "max": 1394
+      "count": 0,
+      "min": null,
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "max": null
     },
     "gas_finalize": {
       "label": "Finalize gas",
       "unit": "gas",
-      "count": 1,
-      "min": 256532,
-      "mean": 256532,
-      "median": 256532,
-      "p95": 256532,
-      "max": 256532
+      "count": 0,
+      "min": null,
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "max": null
     },
     "gas_delegate": {
       "label": "Delegate gas",
       "unit": "gas",
-      "count": 1,
-      "min": 46556,
-      "mean": 46556,
-      "median": 46556,
-      "p95": 46556,
-      "max": 46556
+      "count": 0,
+      "min": null,
+      "mean": null,
+      "median": null,
+      "p95": null,
+      "max": null
     },
     "api_latency_overall": {
       "label": "API latency overall",
       "unit": "ms",
-      "count": 229,
-      "min": 0.541968,
-      "mean": 19.95431523580786,
-      "median": 5.297715,
-      "p95": 37.412618799999976,
-      "max": 1420.610339
+      "count": 108,
+      "min": 0.826415,
+      "mean": 16.65800134259259,
+      "median": 8.4106595,
+      "p95": 79.60411509999996,
+      "max": 121.51229
     }
   },
   "apiRoutes": [
     {
       "route": "GET /",
-      "count": 112,
-      "min": 0.541968,
-      "mean": 10.774441035714288,
-      "median": 6.1635480000000005,
-      "p95": 45.83367199999999,
-      "max": 64.382785
-    },
-    {
-      "route": "GET /0x70997970C51812dc3A010C7d01b50e0d17dc79C8/prescriptions",
-      "count": 2,
-      "min": 3.117574,
-      "mean": 3.6794624999999996,
-      "median": 3.6794624999999996,
-      "p95": 4.185162149999999,
-      "max": 4.241351
-    },
-    {
-      "route": "GET /0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
-      "count": 1,
-      "min": 45.401563,
-      "mean": 45.401563,
-      "median": 45.401563,
-      "p95": 45.401563,
-      "max": 45.401563
+      "count": 62,
+      "min": 1.372554,
+      "mean": 23.904373467741937,
+      "median": 11.247295000000001,
+      "p95": 90.64444579999996,
+      "max": 121.51229
     },
     {
       "route": "GET /0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc/prescriptions",
-      "count": 20,
-      "min": 1.552206,
-      "mean": 7.44956995,
-      "median": 6.214448,
-      "p95": 20.08538775,
-      "max": 20.164233
+      "count": 2,
+      "min": 3.353752,
+      "mean": 5.795577,
+      "median": 5.795577,
+      "p95": 7.993219499999999,
+      "max": 8.237402
+    },
+    {
+      "route": "GET /0xa0Ee7A142d267C1f36714E4a8F75612F20a79720/prescriptions",
+      "count": 15,
+      "min": 1.309866,
+      "mean": 7.146583133333333,
+      "median": 6.611479,
+      "p95": 11.4209688,
+      "max": 11.497532
     },
     {
       "route": "GET /0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266/prescriptions",
-      "count": 53,
-      "min": 0.778665,
-      "mean": 6.896089886792452,
-      "median": 4.28731,
-      "p95": 17.610715,
-      "max": 22.211545
-    },
-    {
-      "route": "GET /health",
-      "count": 5,
-      "min": 4.902533,
-      "mean": 9.1538784,
-      "median": 9.020537,
-      "p95": 13.133663199999999,
-      "max": 13.735665
+      "count": 23,
+      "min": 0.826415,
+      "mean": 7.101535086956523,
+      "median": 5.590695,
+      "p95": 13.1820064,
+      "max": 15.805687
     },
     {
       "route": "POST /",
-      "count": 27,
-      "min": 0.96972,
-      "mean": 98.74547244444445,
-      "median": 3.332618,
-      "p95": 820.4300460999992,
-      "max": 1420.610339
-    },
-    {
-      "route": "POST /26f19966-76fa-424d-9255-1c60b27836eb/approve",
-      "count": 1,
-      "min": 4.431353,
-      "mean": 4.431353,
-      "median": 4.431353,
-      "p95": 4.431353,
-      "max": 4.431353
-    },
-    {
-      "route": "POST /abba746e-e74d-4fe5-b91c-b5a4efe7c329/approve",
-      "count": 1,
-      "min": 3.463203,
-      "mean": 3.463203,
-      "median": 3.463203,
-      "p95": 3.463203,
-      "max": 3.463203
-    },
-    {
-      "route": "POST /api/requests",
-      "count": 7,
-      "min": 6.146183,
-      "mean": 10.823491142857145,
-      "median": 11.845353,
-      "p95": 15.8186095,
-      "max": 15.862963
+      "count": 6,
+      "min": 3.370565,
+      "mean": 5.811297,
+      "median": 6.15488,
+      "p95": 7.855257249999999,
+      "max": 7.990667
     }
   ],
   "gasReport": {
@@ -191,10 +146,10 @@
       "functions": {
         "addDoctor": {
           "min": 21721,
-          "avg": 100670,
+          "avg": 102693,
           "median": 112245,
           "max": 112473,
-          "calls": 29
+          "calls": 35
         },
         "admin": {
           "min": 439,
@@ -236,14 +191,14 @@
           "avg": 2896,
           "median": 2896,
           "max": 2896,
-          "calls": 23
+          "calls": 30
         },
         "toggleDoctorStatus": {
           "min": 21720,
-          "avg": 28729,
+          "avg": 28564,
           "median": 26858,
           "max": 48758,
-          "calls": 9
+          "calls": 10
         }
       },
       "deploymentCost": 677036,
@@ -251,19 +206,40 @@
     },
     "src/PrescriptionRegistry.sol:PrescriptionRegistry": {
       "functions": {
+        "canView": {
+          "min": 12714,
+          "avg": 12714,
+          "median": 12714,
+          "max": 12714,
+          "calls": 3
+        },
         "getPrescription": {
           "min": 12342,
-          "avg": 12342,
-          "median": 12342,
-          "max": 12342,
-          "calls": 2
+          "avg": 12942,
+          "median": 12688,
+          "max": 14652,
+          "calls": 5
+        },
+        "nonces": {
+          "min": 2824,
+          "avg": 2824,
+          "median": 2824,
+          "max": 2824,
+          "calls": 7
         },
         "registerPrescription": {
-          "min": 34225,
-          "avg": 126373,
-          "median": 165516,
-          "max": 165544,
-          "calls": 9
+          "min": 34190,
+          "avg": 133159,
+          "median": 165496,
+          "max": 165628,
+          "calls": 16
+        },
+        "setDelegate": {
+          "min": 24428,
+          "avg": 39036,
+          "median": 46340,
+          "max": 46340,
+          "calls": 3
         },
         "updatePrescriptionMetadata": {
           "min": 24895,

@@ -1,0 +1,137 @@
+\newcommand{\ArchitectureDiagram}[1]{%
+\resizebox{#1\textwidth}{!}{%
+\begin{tikzpicture}[
+    node distance=1.5cm and 1cm,
+    % FIXED: Changed #1 to ##1 to prevent macro argument clashing
+    layerBox/.style={rectangle, draw=##1!80, fill=##1!10, dashed, thick, rounded corners=15pt, inner sep=15pt},
+    appNode/.style={rectangle, draw=cyan!80!blue, fill=cyan!15, rounded corners=5pt, minimum width=3cm, minimum height=1.2cm, align=center, font=\small\bfseries, text=black!80},
+    apiNode/.style={rectangle, draw=orange!80!red, fill=orange!15, rounded corners=5pt, minimum width=4cm, minimum height=1.2cm, align=center, font=\small\bfseries, text=black!80},
+    scNode/.style={rectangle, draw=green!70!black, fill=green!15, rounded corners=5pt, minimum width=4cm, minimum height=1.2cm, align=center, font=\small\bfseries, text=black!80},
+    storeNode/.style={rectangle, draw=purple!70, fill=purple!15, rounded corners=5pt, minimum width=4cm, minimum height=1.2cm, align=center, font=\small\bfseries, text=black!80},
+    layerTitle/.style={font=\Large\bfseries, anchor=south west},
+    layerSub/.style={font=\footnotesize, text=gray!80!black, anchor=north west},
+    solidArrow/.style={-{Stealth[scale=1.2]}, thick, draw=gray!90!black},
+    dashedArrow/.style={-{Stealth[scale=1.2]}, thick, dashed, draw=gray!90!black}
+]
+
+% ================= APPLICATION LAYER =================
+\node[appNode] (doctor) {Doctor\\Dashboard};
+\node[appNode, right=0.6cm of doctor] (patient) {Patient\\Dashboard};
+\node[appNode, right=0.6cm of patient] (delegate) {Delegate\\View};
+\node[appNode, right=0.6cm of delegate] (admin) {Admin\\Panel};
+
+\node[layerTitle, text=cyan!80!blue] (appTitle) at ([yshift=1cm, xshift=-0.5cm]doctor.north west) {Application Layer};
+\node[layerSub] (appSub) at ([yshift=-0.1cm]appTitle.south west) {React, Vite, Tailwind CSS, MetaMask (Wallet)};
+
+\begin{scope}[on background layer]
+    \node[layerBox=cyan, fit=(doctor) (patient) (delegate) (admin) (appTitle) (appSub)] (appLayer) {};
+\end{scope}
+
+% ================= BACKEND LAYER =================
+\node[apiNode, below=3.5cm of doctor, xshift=1.5cm] (api) {REST API\\(Express.js)};
+\node[apiNode, right=1cm of api] (queue) {Request Queue\\\& Metadata};
+
+\node[layerTitle, text=orange!80!red] (apiTitle) at ([yshift=1cm, xshift=-0.5cm]api.north west) {Backend Services Layer};
+\node[layerSub] (apiSub) at ([yshift=-0.1cm]apiTitle.south west) {Node.js, Authentication, Payload Routing};
+
+\begin{scope}[on background layer]
+    \node[layerBox=orange, fit=(api) (queue) (apiTitle) (apiSub)] (apiLayer) {};
+\end{scope}
+
+% ================= SMART CONTRACT LAYER =================
+\node[scNode, below=3.5cm of api] (registry) {Prescription Registry};
+\node[scNode, below=3.5cm of queue] (oracle) {DoctorStatus Oracle};
+
+\node[layerTitle, text=green!70!black] (scTitle) at ([yshift=1cm, xshift=-0.5cm]registry.north west) {Smart Contract Layer};
+\node[layerSub] (scSub) at ([yshift=-0.1cm]scTitle.south west) {Polygon PoS, EVM, Solidity 0.8.23};
+
+\begin{scope}[on background layer]
+    \node[layerBox=green, fit=(registry) (oracle) (scTitle) (scSub)] (scLayer) {};
+\end{scope}
+
+% ================= STORAGE LAYER =================
+\node[storeNode, right=2.5cm of queue, yshift=-0.5cm] (ipfs) {IPFS Network\\(Encrypted Bundles)};
+\node[storeNode, below=1.5cm of ipfs] (pinata) {Pinata\\(Cloud Pinning)};
+
+\node[layerTitle, text=purple!80!black] (storeTitle) at ([yshift=1cm, xshift=-0.5cm]ipfs.north west) {Storage Layer};
+\node[layerSub] (storeSub) at ([yshift=-0.1cm]storeTitle.south west) {Content-Addressed Off-Chain};
+
+\begin{scope}[on background layer]
+    \node[layerBox=purple, fit=(ipfs) (pinata) (storeTitle) (storeSub)] (storeLayer) {};
+\end{scope}
+
+% ================= INTER-LAYER ARROWS =================
+\draw[solidArrow] (apiLayer.north |- appLayer.south) -- node[right, font=\footnotesize, text=gray] {API calls} (apiLayer.north);
+\draw[solidArrow] (scLayer.north |- apiLayer.south) -- node[right, font=\footnotesize, text=gray] {tx / view} (scLayer.north);
+\draw[solidArrow] (apiLayer.east) -- node[above, font=\footnotesize, text=gray] {pin / fetch} (apiLayer.east -| storeLayer.west);
+\draw[dashedArrow] (scLayer.east) -- node[above, font=\footnotesize, text=gray] {CID anchor} (scLayer.east -| storeLayer.west);
+\draw[dashedArrow] (appLayer.south -| admin.south) -- node[right, font=\footnotesize, text=gray] {CID fetch} (storeLayer.north -| admin.south);
+
+% ================= LEGEND =================
+\node[anchor=west, font=\footnotesize\color{gray}] (legend1text) at ([yshift=-1.5cm, xshift=1cm]scLayer.south west) {Direct call / transaction};
+\draw[solidArrow] ([xshift=-1.5cm]legend1text.west) -- ([xshift=-0.2cm]legend1text.west);
+
+\node[anchor=west, font=\footnotesize\color{gray}] (legend2text) at ([xshift=4cm]legend1text.east) {Content addressing / browser-side};
+\draw[dashedArrow] ([xshift=-1.5cm]legend2text.west) -- ([xshift=-0.2cm]legend2text.west);
+
+\end{tikzpicture}%
+}%
+}
+
+\newcommand{\WorkflowDiagram}[1]{%
+\begin{tikzpicture}[font=\sffamily\scriptsize, scale=#1, every node/.style={transform shape}]
+  \tikzset{
+    lane/.style={rectangle, rounded corners=4pt, minimum width=2.0cm, minimum height=0.6cm, align=center, thick, draw=gray!55, fill=white, drop shadow={opacity=0.12}},
+    msg/.style={-{Stealth[length=2.7mm]}, thick},
+    guide/.style={dashed, draw=gray!55}
+  }
+
+  \node[lane, fill=green!10, draw=green!50] (d) at (0,0) {\textbf{Doctor}};
+  \node[lane, fill=cyan!10, draw=cyan!55] (b) at (3.6,0) {\textbf{Backend/IPFS}};
+  \node[lane, fill=blue!10, draw=blue!55] (p) at (7.2,0) {\textbf{Patient}};
+  \node[lane, fill=purple!10, draw=purple!55] (r) at (10.8,0) {\textbf{Registry}};
+
+  \foreach \x in {0,3.6,7.2,10.8} {
+    \draw[guide] (\x,-0.35) -- (\x,-6.6);
+  }
+
+  \draw[msg, draw=green!60!black] (0,-0.9) -- node[above, align=center] {1. encrypt + sign\\ request} (3.6,-0.9);
+  \draw[msg, draw=cyan!65!black] (3.6,-1.8) -- node[above] {2. request available} (7.2,-1.8);
+  \draw[msg, draw=blue!65!black] (7.2,-2.7) -- node[above] {3. fetch encrypted bundle} (3.6,-2.7);
+  \draw[msg, draw=blue!65!black] (7.2,-3.6) -- node[above, align=center] {4. patient signs\\ approval} (10.8,-3.6);
+  \draw[msg, draw=purple!65!black] (7.2,-4.5) -- node[above, align=center] {5. \texttt{registerPrescription()}} (10.8,-4.5);
+  \draw[msg, draw=purple!65!black, dashed] (10.8,-5.3) -- node[above] {6. \texttt{PrescriptionIssued}} (7.2,-5.3);
+  \draw[msg, draw=blue!65!black] (7.2,-6.1) -- node[above, align=center] {7. store tx hash\\ + id} (3.6,-6.1);
+\end{tikzpicture}%
+}
+
+\newcommand{\IntegrityDiagram}[1]{%
+\begin{tikzpicture}[font=\sffamily, scale=#1, every node/.style={transform shape}]
+  \tikzset{
+    box/.style={rectangle, rounded corners=5pt, minimum width=2.6cm, minimum height=0.8cm, align=center, thick, draw=gray!55, fill=white, drop shadow={opacity=0.12}},
+    flow/.style={-{Stealth[length=3mm]}, thick, draw=gray!75},
+    warn/.style={rectangle, rounded corners=5pt, minimum width=2.8cm, minimum height=0.8cm, text width=2.45cm, align=center, thick, draw=red!60, fill=red!5}
+  }
+
+  \node[box, fill=green!8, draw=green!45] (record) at (0,1.8) {\textbf{Encrypted Record}};
+  \node[box, fill=blue!8, draw=blue!45] (hash) at (3.3,1.8) {\textbf{Content Hash}};
+  \node[box, fill=orange!8, draw=orange!50] (cid) at (6.6,1.8) {\textbf{CID}};
+  \node[box, fill=purple!8, draw=purple!55] (block) at (9.9,1.8) {\textbf{Block Anchor}};
+
+  \draw[flow] (record) -- (hash);
+  \draw[flow] (hash) -- (cid);
+  \draw[flow] (cid) -- (block);
+
+  \node[warn] (tamper) at (3.3,0.1) {\textbf{Record modified}};
+  \node[warn] (newhash) at (6.6,0.1) {\textbf{Hash/CID}\\\textbf{changes}};
+  \node[warn] (break) at (9.9,0.1) {\textbf{Old block no}\\\textbf{longer matches}};
+
+  \draw[flow, draw=red!70] (tamper) -- (newhash);
+  \draw[flow, draw=red!70] (newhash) -- (break);
+
+  \node[box, fill=purple!8, draw=purple!55, minimum width=3.4cm] (next) at (13.5,1.8) {\textbf{Next Block}\\ \tiny stores previousHash};
+  \draw[flow] (block) -- (next);
+  \node[warn, minimum width=3.4cm, text width=3.0cm] (chainbreak) at (13.5,0.1) {\textbf{Downstream}\\\textbf{validation fails}};
+  \draw[flow, draw=red!70] (break) -- (chainbreak);
+\end{tikzpicture}%
+}
